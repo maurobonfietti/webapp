@@ -24,7 +24,13 @@ class DefaultController extends Controller
      */
     public function pruebasAction()
     {
-        echo "Hellooooo!! Testing Routing...";
+        $em = $this->getDoctrine()->getManager();
+        $userRepo = $em->getRepository('BackendBundle:User');
+        $users = $userRepo->findAll();
+        echo "<pre>";
+        print_r($users[0]);
+        echo "</pre>";
+//        echo "Hellooooo!! Testing Routing...";
         exit;
     }
 }
