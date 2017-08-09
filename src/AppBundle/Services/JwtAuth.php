@@ -8,11 +8,14 @@ class JwtAuth
 {
     public $manager;
     
+    public $key;
+    
     public function __construct($manager) {
         $this->manager = $manager;
+        $this->key = 'SecretKey...123...';
     }
 
-    public function signUp($email, $password)
+    public function signUp($email, $password, $getHash = null)
     {
         $user = $this->manager->getRepository('BackendBundle:User')->findOneBy([
             'email' => $email,
@@ -25,10 +28,29 @@ class JwtAuth
         }
         
         if ($signUp == true) {
-            $data = [
-                'status' => 'success',
-                'user' => $user,
+            
+            $token = [
+                'sub' => $user->getId(),
+                'email' => $user->getEmail(),
+                'name' => $user->getName(),
+                'surname' => $user->getSurname(),
+                'iat' => time(),
+                'exp' => time() + (7 * 24 * 60 * 60),
             ];
+            
+            $jwt = JWT::encode($token, $this->key, 'HS256');
+            $decoded = JWT::decode($jwt, $this->key, ['HS256']);
+            
+            if ($getHash == null) {
+                $data = $jwt;
+            } else {
+                $data = $decoded;
+            }
+//            $data = [
+//                'status' => 'success',
+//                'user' => $user,
+//                'jwt' => $jwt,
+//            ];
         } else {
             $data = [
                 'status' => 'error',
