@@ -2,6 +2,8 @@
 
 namespace AppBundle\Services;
 
+use \Symfony\Component\Serializer;
+
 class Helpers
 {
     public $manager;
@@ -13,10 +15,10 @@ class Helpers
 
     public function json($data)
     {
-        $normalizers = [ new \Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer()];
-        $encoders = ['json' => new \Symfony\Component\Serializer\Encoder\JsonEncoder()];
+        $normalizers = [ new Serializer\Normalizer\GetSetMethodNormalizer()];
+        $encoders = ['json' => new Serializer\Encoder\JsonEncoder()];
 
-        $serializer = new \Symfony\Component\Serializer\Serializer($normalizers, $encoders);
+        $serializer = new Serializer\Serializer($normalizers, $encoders);
         $json = $serializer->serialize($data, 'json');
 
         $response = new \Symfony\Component\HttpFoundation\Response();
