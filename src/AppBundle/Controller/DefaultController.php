@@ -5,7 +5,6 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use AppBundle\Services\Helpers;
 
 class DefaultController extends Controller
@@ -33,13 +32,9 @@ class DefaultController extends Controller
             'status' => 'success',
             'users' => $users,
         ];
-        
+
         $helpers = $this->get(Helpers::class);
+
         return $helpers->json($response);
-        exit;
-
-        return $this->json($response);
-
-        return new JsonResponse($response);
     }
 }
