@@ -5,7 +5,9 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Constraints as Assert;
 use AppBundle\Services\Helpers;
+use AppBundle\Services\JwtAuth;
 
 class DefaultController extends Controller
 {
@@ -18,6 +20,48 @@ class DefaultController extends Controller
         return $this->render('default/index.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
         ]);
+    }
+
+    public function loginAction(Request $request)
+    {
+        $helpers = $this->get(Helpers::class);
+        $json = $request->get('json', null);
+
+        $data = [
+            'status' => 'error',
+            'data' => 'Sending data...',
+        ];
+
+        if ($json != null) {
+            $params = json_decode($json);
+            $email = $params->email ? : null;
+            $password = $params->password ? : null;
+//            var_dump($email);
+//            exit;
+            $emailConstraint = new Assert\Email();
+            $emailConstraint->message = "Email invalid...";
+            $validateEmail = $this->get('validator')->validate($email, $emailConstraint);
+//            var_dump($validateEmail);
+//            exit;
+            if ($email != null && count($validateEmail) == 0 && $password != null) {
+                
+                $jwtAuth = $this->get(JwtAuth::class);
+                $signUp = $jwtAuth->signUp($email, $password);
+                $data = [
+                    'status' => 'success',
+                    'data' => 'Email ok...',
+                    'signUp' => $signUp,
+                ]; 
+            } else {
+                $data = [
+                    'status' => 'success',
+                    'data' => 'Email or password incorrecto...',
+                ]; 
+            }
+
+        }
+
+        return $helpers->json($data);
     }
 
     /**
