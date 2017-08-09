@@ -5,6 +5,8 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use AppBundle\Services\Helpers;
 
 class DefaultController extends Controller
 {
@@ -27,10 +29,17 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $userRepo = $em->getRepository('BackendBundle:User');
         $users = $userRepo->findAll();
-        echo "<pre>";
-        print_r($users[0]);
-        echo "</pre>";
-//        echo "Hellooooo!! Testing Routing...";
+        $response = [
+            'status' => 'success',
+            'users' => $users,
+        ];
+        
+        $helpers = $this->get(Helpers::class);
+        return $helpers->json($response);
         exit;
+
+        return $this->json($response);
+
+        return new JsonResponse($response);
     }
 }
