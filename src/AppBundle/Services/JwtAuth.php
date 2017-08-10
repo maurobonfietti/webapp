@@ -46,11 +46,7 @@ class JwtAuth
             } else {
                 $data = $decoded;
             }
-//            $data = [
-//                'status' => 'success',
-//                'user' => $user,
-//                'jwt' => $jwt,
-//            ];
+
         } else {
             $data = [
                 'status' => 'error',
