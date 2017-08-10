@@ -76,9 +76,7 @@ class DefaultController extends Controller
     public function pruebasAction(Request $request)
     {
         $token = $request->get('authorization', null);
-//        var_dump($token);
-//        exit;
-        
+
         if ($token) {
             $em = $this->getDoctrine()->getManager();
             $userRepo = $em->getRepository('BackendBundle:User');
@@ -94,7 +92,6 @@ class DefaultController extends Controller
                 'code' =>400,
             ];
         }
-
 
         $helpers = $this->get(Helpers::class);
 
