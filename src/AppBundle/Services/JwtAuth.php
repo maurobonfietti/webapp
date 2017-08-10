@@ -10,7 +10,8 @@ class JwtAuth
     
     public $key;
     
-    public function __construct($manager) {
+    public function __construct($manager)
+    {
         $this->manager = $manager;
         $this->key = 'SecretKey...123...';
     }
@@ -28,7 +29,6 @@ class JwtAuth
         }
         
         if ($signUp == true) {
-            
             $token = [
                 'sub' => $user->getId(),
                 'email' => $user->getEmail(),
@@ -46,7 +46,6 @@ class JwtAuth
             } else {
                 $data = $decoded;
             }
-
         } else {
             $data = [
                 'status' => 'error',

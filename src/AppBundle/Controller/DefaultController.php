@@ -43,7 +43,6 @@ class DefaultController extends Controller
             $validateEmail = $this->get('validator')->validate($email, $emailConstraint);
 
             if ($email != null && count($validateEmail) == 0 && $password != null) {
-                
                 $jwtAuth = $this->get(JwtAuth::class);
                 
                 if ($getHash == null || $getHash ==false) {
@@ -53,14 +52,12 @@ class DefaultController extends Controller
                 }
                 
                 return $this->json($signUp);
-
             } else {
                 $data = [
                     'status' => 'success',
                     'data' => 'Email or password incorrecto...',
-                ]; 
+                ];
             }
-
         }
 
         return $helpers->json($data);
