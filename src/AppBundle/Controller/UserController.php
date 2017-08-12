@@ -14,9 +14,9 @@ class UserController extends Controller
     public function newAction(Request $request)
     {
         $helpers = $this->get(Helpers::class);
-        
+
         $json = $request->get('json', null);
-        
+
         $params = json_decode($json);
 
         $data = [
@@ -24,7 +24,7 @@ class UserController extends Controller
             'code' => 400,
             'msg' => 'User Not Created.',
         ];
-        
+
         if ($json != null) {
             $createdAt = new \DateTime("now");
             $role = 'user';
@@ -35,9 +35,8 @@ class UserController extends Controller
 
             $emailConstraint = new Assert\Email();
             $validateEmail = $this->get('validator')->validate($email, $emailConstraint);
-            
+
             if ($email != null && count($validateEmail) == 0 && $name != null && $password != null && $surname != null) {
-                
                 $user = new User();
                 $user->setCreatedAt($createdAt);
                 $user->setRole($role);
@@ -46,7 +45,7 @@ class UserController extends Controller
                 $user->setSurname($surname);
                 $pwd = hash('sha256', $password);
                 $user->setPassword($pwd);
-                
+
                 $em = $this->getDoctrine()->getManager();
                 $issetUser = $em->getRepository('BackendBundle:User')
                     ->findBy(["email" => $email]);
@@ -54,7 +53,7 @@ class UserController extends Controller
                 if (count($issetUser) == 0) {
                     $em->persist($user);
                     $em->flush();
-                    
+
                     $data = [
                         'status' => 'success',
                         'code' => 200,
@@ -70,30 +69,26 @@ class UserController extends Controller
                 }
             }
         }
-        
+
         return $helpers->json($data);
     }
-    
+
     public function editAction(Request $request)
     {
         $helpers = $this->get(Helpers::class);
         $jwtAuth = $this->get(JwtAuth::class);
-        
+
         $token = $request->get('authorization', null);
         $authCheck = $jwtAuth->checkToken($token);
-        
+
         if ($authCheck == true) {
             $em = $this->getDoctrine()->getManager();
-            
+
             $identity = $jwtAuth->checkToken($token, true);
-            
+
             $user = $em->getRepository('BackendBundle:User')
-                        ->findOneBy(["id" => $identity->sub]);
-            
-//            var_dump($identity);
-//            var_dump($user);
-//            exit;
-                
+                ->findOneBy(["id" => $identity->sub]);
+
             $json = $request->get('json', null);
 
             $params = json_decode($json);
@@ -105,7 +100,6 @@ class UserController extends Controller
             ];
 
             if ($json != null) {
-//                $createdAt = new \DateTime("now");
                 $role = 'user';
                 $email = isset($params->email) ? $params->email : null;
                 $name = isset($params->name) ? $params->name : null;
@@ -116,13 +110,11 @@ class UserController extends Controller
                 $validateEmail = $this->get('validator')->validate($email, $emailConstraint);
 
                 if ($email != null && count($validateEmail) == 0 && $name != null && $surname != null) {
-
-//                    $user->setCreatedAt($createdAt);
                     $user->setRole($role);
                     $user->setEmail($email);
                     $user->setName($name);
                     $user->setSurname($surname);
-                    
+
                     if ($password != null) {
                         $pwd = hash('sha256', $password);
                         $user->setPassword($pwd);
@@ -158,7 +150,6 @@ class UserController extends Controller
             ];
         }
 
-        
         return $helpers->json($data);
     }
 }
