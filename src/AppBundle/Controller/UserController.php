@@ -44,7 +44,8 @@ class UserController extends Controller
                 $user->setEmail($email);
                 $user->setName($name);
                 $user->setSurname($surname);
-                $user->setPassword($password);
+                $pwd = hash('sha256', $password);
+                $user->setPassword($pwd);
                 
                 $em = $this->getDoctrine()->getManager();
                 $issetUser = $em->getRepository('BackendBundle:User')
@@ -114,14 +115,18 @@ class UserController extends Controller
                 $emailConstraint = new Assert\Email();
                 $validateEmail = $this->get('validator')->validate($email, $emailConstraint);
 
-                if ($email != null && count($validateEmail) == 0 && $name != null && $password != null && $surname != null) {
+                if ($email != null && count($validateEmail) == 0 && $name != null && $surname != null) {
 
 //                    $user->setCreatedAt($createdAt);
                     $user->setRole($role);
                     $user->setEmail($email);
                     $user->setName($name);
                     $user->setSurname($surname);
-                    $user->setPassword($password);
+                    
+                    if ($password != null) {
+                        $pwd = hash('sha256', $password);
+                        $user->setPassword($pwd);
+                    }
 
                     $issetUser = $em->getRepository('BackendBundle:User')
                         ->findBy(["email" => $email]);
