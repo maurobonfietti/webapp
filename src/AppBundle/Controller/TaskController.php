@@ -161,4 +161,45 @@ class TaskController extends Controller
         
         return $helpers->json($data);
     }
+
+    public function taskAction(Request $request, $id = null)
+    {
+        $helpers = $this->get(Helpers::class);
+        $jwtAuth = $this->get(JwtAuth::class);
+
+        $token = $request->get('authorization', null);
+        $authCheck = $jwtAuth->checkToken($token);
+
+        if ($authCheck == true) {
+            $identity = $jwtAuth->checkToken($token, true);
+            
+            $em = $this->getDoctrine()->getManager();
+            
+            $task = $em->getRepository('BackendBundle:Task')
+                ->findOneBy(['id' => $id]);
+            
+            if ($task && is_object($task) && $identity->sub == $task->getUser()->getId()) {
+                $data = [
+                    'status' => 'success',
+                    'code' => 200,
+                    'task' => $task,
+                ];
+            } else {
+                $data = [
+                    'status' => 'error',
+                    'code' => 404,
+                    'msg' => 'Task not found.',
+                ];
+            }
+
+        } else {
+            $data = [
+                'status' => 'error',
+                'code' => 400,
+                'msg' => 'Authorization Invalid.',
+            ];
+        }
+        
+        return $helpers->json($data);
+    }
 }
