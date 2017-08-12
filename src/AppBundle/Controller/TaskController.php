@@ -10,7 +10,7 @@ use AppBundle\Services\JwtAuth;
 
 class TaskController extends Controller
 {
-    public function newAction(Request $request)
+    public function newAction(Request $request, $id = null)
     {
         $helpers = $this->get(Helpers::class);
         $jwtAuth = $this->get(JwtAuth::class);
@@ -36,31 +36,65 @@ class TaskController extends Controller
 
                 if ($userId != null && $title != null) {
                     $em = $this->getDoctrine()->getManager();
+
                     $user = $em->getRepository('BackendBundle:User')
                         ->findOneBy(['id' => $userId]);
 
-                    $task = new Task();
-                    $task->setUser($user);
-                    $task->setTitle($title);
-                    $task->setDescription($description);
-                    $task->setStatus($status);
-                    $task->setCreatedAt($createdAt);
-                    $task->setUpdatedAt($updateAt);
+                    if ($id == null) {
+                        $task = new Task();
+                        $task->setUser($user);
+                        $task->setTitle($title);
+                        $task->setDescription($description);
+                        $task->setStatus($status);
+                        $task->setCreatedAt($createdAt);
+                        $task->setUpdatedAt($updateAt);
+                        
+                        $em->persist($task);
+                        $em->flush();
 
-                    $em->persist($task);
-                    $em->flush();
+                        $data = [
+                            'status' => 'success',
+                            'code' => 200,
+                            'msg' => 'Task Created.',
+                            'task' => $task,
+                        ];
+                        
+                    } else {
+                        $task = $em->getRepository('BackendBundle:Task')
+                            ->findOneBy(['id' => $id]);
+                        
+                        if (isset($identity->sub) && $identity->sub == $task->getUser()->getId()) {
+                            $task->setTitle($title);
+                            $task->setDescription($description);
+                            $task->setStatus($status);
+                            $task->setUpdatedAt($updateAt);
 
-                    $data = [
-                        'status' => 'success',
-                        'code' => 200,
-                        'msg' => 'Task Created.',
-                        'task' => $task,
-                    ];
+                            $em->persist($task);
+                            $em->flush();
+                        
+                            $data = [
+                                'status' => 'success',
+                                'code' => 200,
+                                'msg' => 'Task Updated.',
+                                'task' => $task,
+                            ];
+                        } else {
+                            $data = [
+                                'status' => 'error',
+                                'code' => 400,
+                                'msg' => 'Task validation failed. Owner task error.',
+                           ];
+                        }
+                    }
+                    
+
+
+
                 } else {
                     $data = [
                         'status' => 'error',
                         'code' => 400,
-                        'msg' => 'Task  validation failed.',
+                        'msg' => 'Task validation failed.',
                    ];
                 }
             } else {
