@@ -114,4 +114,51 @@ class TaskController extends Controller
 
         return $helpers->json($data);
     }
+    
+    public function tasksAction(Request $request)
+    {
+        $helpers = $this->get(Helpers::class);
+        $jwtAuth = $this->get(JwtAuth::class);
+
+        $token = $request->get('authorization', null);
+        $authCheck = $jwtAuth->checkToken($token);
+
+        if ($authCheck == true) {
+            $identity = $jwtAuth->checkToken($token, true);
+            
+            $em = $this->getDoctrine()->getManager();
+            
+            $dql = 'SELECT t FROM BackendBundle:Task t ORDER BY t.id ASC';
+            
+            $query = $em->createQuery($dql);
+            
+            $page = $request->query->getInt('page', 1);
+            
+            $paginator = $this->get('knp_paginator');
+            
+            $itemsPerPage = 10;
+            
+            $pagination = $paginator->paginate($query, $page, $itemsPerPage);
+            
+            $totalItemsCount = $pagination->getTotalItemCount();
+            
+            $data = [
+                'status' => 'success',
+                'code' => 200,
+                'totalItemsCount' => $totalItemsCount,
+                'actual_page' => $page,
+                'itemsPerPage' => $itemsPerPage,
+                'totalPages' => ceil($totalItemsCount / $itemsPerPage),
+                'tasks' => $pagination,
+            ];
+        } else {
+            $data = [
+                'status' => 'error',
+                'code' => 400,
+                'msg' => 'Authorization Invalid.',
+            ];
+        }
+        
+        return $helpers->json($data);
+    }
 }
