@@ -48,7 +48,7 @@ class TaskController extends Controller
                         $task->setStatus($status);
                         $task->setCreatedAt($createdAt);
                         $task->setUpdatedAt($updateAt);
-                        
+
                         $em->persist($task);
                         $em->flush();
 
@@ -58,11 +58,10 @@ class TaskController extends Controller
                             'msg' => 'Task Created.',
                             'task' => $task,
                         ];
-                        
                     } else {
                         $task = $em->getRepository('BackendBundle:Task')
                             ->findOneBy(['id' => $id]);
-                        
+
                         if (isset($identity->sub) && $identity->sub == $task->getUser()->getId()) {
                             $task->setTitle($title);
                             $task->setDescription($description);
@@ -71,7 +70,7 @@ class TaskController extends Controller
 
                             $em->persist($task);
                             $em->flush();
-                        
+
                             $data = [
                                 'status' => 'success',
                                 'code' => 200,
@@ -86,10 +85,6 @@ class TaskController extends Controller
                            ];
                         }
                     }
-                    
-
-
-
                 } else {
                     $data = [
                         'status' => 'error',
@@ -114,7 +109,7 @@ class TaskController extends Controller
 
         return $helpers->json($data);
     }
-    
+
     public function tasksAction(Request $request)
     {
         $helpers = $this->get(Helpers::class);
@@ -125,23 +120,19 @@ class TaskController extends Controller
 
         if ($authCheck == true) {
             $identity = $jwtAuth->checkToken($token, true);
-            
+
             $em = $this->getDoctrine()->getManager();
-            
-            $dql = 'SELECT t FROM BackendBundle:Task t ORDER BY t.id ASC';
-            
+
+            $dql = "SELECT t FROM BackendBundle:Task t WHERE t.user = $identity->sub ORDER BY t.id ASC";
+
             $query = $em->createQuery($dql);
-            
+
             $page = $request->query->getInt('page', 1);
-            
             $paginator = $this->get('knp_paginator');
-            
             $itemsPerPage = 10;
-            
             $pagination = $paginator->paginate($query, $page, $itemsPerPage);
-            
             $totalItemsCount = $pagination->getTotalItemCount();
-            
+
             $data = [
                 'status' => 'success',
                 'code' => 200,
@@ -158,7 +149,7 @@ class TaskController extends Controller
                 'msg' => 'Authorization Invalid.',
             ];
         }
-        
+
         return $helpers->json($data);
     }
 
@@ -172,12 +163,12 @@ class TaskController extends Controller
 
         if ($authCheck == true) {
             $identity = $jwtAuth->checkToken($token, true);
-            
+
             $em = $this->getDoctrine()->getManager();
-            
+
             $task = $em->getRepository('BackendBundle:Task')
                 ->findOneBy(['id' => $id]);
-            
+
             if ($task && is_object($task) && $identity->sub == $task->getUser()->getId()) {
                 $data = [
                     'status' => 'success',
@@ -191,7 +182,6 @@ class TaskController extends Controller
                     'msg' => 'Task not found.',
                 ];
             }
-
         } else {
             $data = [
                 'status' => 'error',
@@ -199,10 +189,10 @@ class TaskController extends Controller
                 'msg' => 'Authorization Invalid.',
             ];
         }
-        
+
         return $helpers->json($data);
     }
-    
+
     public function searchAction(Request $request, $search = null)
     {
         $helpers = $this->get(Helpers::class);
@@ -213,7 +203,7 @@ class TaskController extends Controller
 
         if ($authCheck == true) {
             $identity = $jwtAuth->checkToken($token, true);
-            
+
             $em = $this->getDoctrine()->getManager();
 
             $filter = $request->get('filter', null);
@@ -226,7 +216,7 @@ class TaskController extends Controller
             } else {
                 $filter = 'finished';
             }
-            
+
             $order = $request->get('order', null);
             if (empty($order) || $order == 2) {
                 $order = 'DESC';
@@ -242,24 +232,24 @@ class TaskController extends Controller
             } else {
                 $dql = "SELECT t FROM BackendBundle:Task t WHERE t.user = $identity->sub ";
             }
-            
+
             if ($filter != null) {
                 $dql.= " AND t.status = :filter ";
             }
-            
+
             $dql.= " ORDER BY t.id $order ";
-            
+
             $query = $em->createQuery($dql);
-            
+
             if (!empty($search)) {
                 $query->setParameter('search', "%$search%");
             }
             if ($filter != null) {
                 $query->setParameter('filter', "$filter");
             }
-            
+
             $task = $query->getResult();
-            
+
             $data = [
                 'status' => 'success',
                 'code' => 200,
@@ -272,7 +262,7 @@ class TaskController extends Controller
                 'msg' => 'Authorization Invalid.',
             ];
         }
-        
+
         return $helpers->json($data);
     }
 
@@ -286,14 +276,13 @@ class TaskController extends Controller
 
         if ($authCheck == true) {
             $identity = $jwtAuth->checkToken($token, true);
-            
+
             $em = $this->getDoctrine()->getManager();
-            
+
             $task = $em->getRepository('BackendBundle:Task')
                 ->findOneBy(['id' => $id]);
-            
-            if ($task && is_object($task) && $identity->sub == $task->getUser()->getId()) {
 
+            if ($task && is_object($task) && $identity->sub == $task->getUser()->getId()) {
                 $em->remove($task);
                 $em->flush();
 
@@ -309,7 +298,6 @@ class TaskController extends Controller
                     'msg' => 'Task not found.',
                 ];
             }
-
         } else {
             $data = [
                 'status' => 'error',
@@ -317,7 +305,7 @@ class TaskController extends Controller
                 'msg' => 'Authorization Invalid.',
             ];
         }
-        
+
         return $helpers->json($data);
     }
 }
