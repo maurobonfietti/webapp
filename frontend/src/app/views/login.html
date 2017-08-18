@@ -1,1 +1,16 @@
-<h1>{{title}}</h1>
+<div class='col-md-12'>
+    <h3>{{title}}</h3>
+    
+    <!--<form #loginForm="ngForm" (ngSubmit)="onSubmit()" class="col-md-4">-->
+    <form class="col-md-7 no-padding">
+        <p>
+            <label>Email:</label>
+            <input type="email" class="form-control" name="email">
+        </p>
+        <p>
+            <label>Contraseña:</label>
+            <input type="password" class="form-control" name="password">
+        </p>
+        <input type="submit" value="Entrar" class="btn btn-primary" name="password" />
+    </form>
+</div>

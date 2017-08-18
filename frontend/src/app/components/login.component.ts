@@ -10,7 +10,7 @@ export class LoginComponent implements OnInit {
     public title: string;
 
     constructor() {
-        this.title = 'Componente de Login';
+        this.title = 'Ingresar:';
     }
 
     ngOnInit() {
