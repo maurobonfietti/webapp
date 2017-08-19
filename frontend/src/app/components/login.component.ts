@@ -29,6 +29,23 @@ export class LoginComponent implements OnInit {
 
     ngOnInit() {
         console.log('El componente login.component ha sido cargado.');
+        this.logout();
+    }
+
+    logout() {
+        this._route.params.forEach((params: Params) => {
+            let logout = +params['id'];
+
+            if (logout == 1) {
+                localStorage.removeItem('identity');
+                localStorage.removeItem('token');
+
+                this.identity = null;
+                this.token = null;
+
+                window.location.href = '/login';
+            }
+        });
     }
 
     onSubmit() {
