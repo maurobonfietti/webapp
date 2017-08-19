@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
     ngOnInit() {
         console.log('El componente login.component ha sido cargado.');
         this.logout();
+        this.redirectIfIdentity();
     }
 
     logout() {
@@ -46,6 +47,13 @@ export class LoginComponent implements OnInit {
                 window.location.href = '/login';
             }
         });
+    }
+
+    redirectIfIdentity() {
+        let identity = this._userService.getIdentity();
+        if (identity != null && identity.sub) {
+            this._router.navigate(["/"]);
+        }
     }
 
     onSubmit() {
