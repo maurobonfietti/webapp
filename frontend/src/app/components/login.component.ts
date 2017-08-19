@@ -11,6 +11,8 @@ import { UserService } from '../services/user.service';
 export class LoginComponent implements OnInit {
     public title: string;
     public user;
+    public identity;
+    public token;
 
     constructor(
         private _route: ActivatedRoute,
@@ -21,16 +23,51 @@ export class LoginComponent implements OnInit {
         this.user = {
             "email": "",
             "password": "",
-            "gethash": "false"
+            "getHash": "true"
         };
     }
 
     ngOnInit() {
         console.log('El componente login.component ha sido cargado.');
+        console.log(JSON.parse(localStorage.getItem('identity')));
+        console.log(JSON.parse(localStorage.getItem('token')));
     }
 
     onSubmit() {
         console.log(this.user);
-        alert(this._userService.signUp());
+
+        this._userService.signUp(this.user).subscribe(
+            response => {
+                this.identity = response;
+                if (this.identity.lenght <= 1) {
+                    console.log('Error en el servidor.');
+                } {
+                    if (!this.identity.status) {
+                        localStorage.setItem('identity', JSON.stringify(this.identity));
+
+                        // Get Token.
+                        this.user.getHash = null;
+                        this._userService.signUp(this.user).subscribe(
+                            response => {
+                                this.token = response;
+                                if (this.identity.lenght <= 1) {
+                                    console.log('Error en el servidor.');
+                                } {
+                                    if (!this.identity.status) {
+                                        localStorage.setItem('token', JSON.stringify(this.token));
+                                    }
+                                }
+                            },
+                            error => {
+                                console.log(<any>error);
+                            }
+                        );
+                    }
+                }
+            },
+            error => {
+                console.log(<any>error);
+            }
+        );
     }
 }

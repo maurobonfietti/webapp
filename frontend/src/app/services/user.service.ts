@@ -11,11 +11,16 @@ export class UserService{
     public identity;
     public token;
 
-    constructor(/*private _http: Http*/) {
+    constructor(private _http: Http) {
         //this.url = GLOBAL.url;
+        this.url = "http://localhost/webapp/web/app_dev.php";
     }
 
-    signUp() {
-        return 'hola desde el servicio';
+    signUp(user_to_login) {
+        let json = JSON.stringify(user_to_login);
+        let params = "json="+json;
+        let headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
+
+        return this._http.post(this.url + '/login', params, {headers: headers}).map(res => res.json());
     }
 }
