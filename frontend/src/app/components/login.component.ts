@@ -29,8 +29,6 @@ export class LoginComponent implements OnInit {
 
     ngOnInit() {
         console.log('El componente login.component ha sido cargado.');
-        console.log(JSON.parse(localStorage.getItem('identity')));
-        console.log(JSON.parse(localStorage.getItem('token')));
     }
 
     onSubmit() {
@@ -50,10 +48,10 @@ export class LoginComponent implements OnInit {
                         this._userService.signUp(this.user).subscribe(
                             response => {
                                 this.token = response;
-                                if (this.identity.lenght <= 1) {
+                                if (this.token.lenght <= 1) {
                                     console.log('Error en el servidor.');
                                 } {
-                                    if (!this.identity.status) {
+                                    if (!this.token.status) {
                                         localStorage.setItem('token', JSON.stringify(this.token));
                                     }
                                 }
