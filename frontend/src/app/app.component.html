@@ -21,10 +21,22 @@
                     </a>
                 </li>
                 <li>
-                    <a [routerLink]="'/'">
+                    <a [routerLink]="'/'" *ngIf="identity && identity.sub">
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Crear Tarea
                     </a>
                 </li>
+            </ul>
+            
+            <ul class="nav navbar-nav navbar-right" *ngIf="!identity">
+                <li>
+                    <a [routerLink]="['/login']">Acceder</a>
+                </li>
+                <li>
+                    <a [routerLink]="['/register']">Registrar</a>
+                </li>
+            </ul>
+            
+            <ul class="nav navbar-nav navbar-right" *ngIf="identity && identity.sub">
                 <li>
                     <a [routerLink]="'/'">
                         <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Ajustes
@@ -34,15 +46,6 @@
                     <a [routerLink]="'/'">
                         <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Salir
                     </a>
-                </li>
-            </ul>
-            
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a [routerLink]="['/login']">Acceder</a>
-                </li>
-                <li>
-                    <a [routerLink]="['/register']">Registrar</a>
                 </li>
             </ul>
         </div>

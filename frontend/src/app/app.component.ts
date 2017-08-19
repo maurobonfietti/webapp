@@ -8,16 +8,18 @@ import { UserService } from './services/user.service';
   providers: [UserService]
 })
 export class AppComponent {
-  title = 'app';
+  public title = 'app';
+  public identity;
+  public token;
 
   constructor(
     private _userService: UserService
   ) {
-
+    this.identity = this._userService.getIdentity();
+    this.token = this._userService.getToken();
   }
 
   ngOnInit() {
-    console.log(this._userService.getIdentity());
-    console.log(this._userService.getToken());
+    console.log("Componente: app.component cargado.");
   }
 }
