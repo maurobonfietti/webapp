@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { UserService } from '../services/user.service';
 
 @Component({
     selector: 'login',
-    templateUrl: '../views/login.html'
+    templateUrl: '../views/login.html',
+    providers: [UserService]
 })
 
 export class LoginComponent implements OnInit {
@@ -12,7 +14,8 @@ export class LoginComponent implements OnInit {
 
     constructor(
         private _route: ActivatedRoute,
-        private _router: Router
+        private _router: Router,
+        private _userService: UserService
     ) {
         this.title = 'Ingresar:';
         this.user = {
@@ -28,5 +31,6 @@ export class LoginComponent implements OnInit {
 
     onSubmit() {
         console.log(this.user);
+        alert(this._userService.signUp());
     }
 }
