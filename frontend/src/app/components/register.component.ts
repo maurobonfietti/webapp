@@ -1,19 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { User } from '../models/user';
+import { UserService } from '../services/user.service';
 
 @Component({
     selector: 'register',
-    templateUrl: '../views/register.html'
+    templateUrl: '../views/register.html',
+    providers: [UserService]
 })
 
 export class RegisterComponent implements OnInit {
     public title: string;
     public user: User;
+    public status;
 
     constructor (
         private _route: ActivatedRoute,
-        private _router: Router
+        private _router: Router,
+        private _userService: UserService
     ) {
         this.title = 'Registrate';
         this.user = new User(1, "user", "", "", "", "");
@@ -25,5 +29,18 @@ export class RegisterComponent implements OnInit {
 
     onSubmit() {
         console.log(this.user);
+        this._userService.register(this.user).subscribe(
+            response => {
+                this.status = response.status;
+                if (response.status != 'success') {
+                    this.status = 'error';
+                } else {
+                    this.user = new User(1, "user", "", "", "", "");
+                }
+            },
+            error => {
+                console.log(<any>error);
+            }
+        );
     }
 }

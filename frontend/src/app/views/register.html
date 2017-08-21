@@ -1,7 +1,15 @@
 <div class="col-md-12">
     <h3>{{title}}</h3>
     
-    <form #registerForm="ngForm" (ngSubmit)="onSubmit()" class="col-md-7 no-padding">
+    <div class="alert alert-success" *ngIf="status == 'success'">
+        Te has registrado correctamente. Inicia sesion <a [routerLink]="['/login']">aqui</a>
+    </div>
+  
+    <div class="alert alert-danger" *ngIf="status == 'error'">
+        Error al registrarte. No Te has registrado correctamente.
+    </div>
+    
+    <form #registerForm="ngForm" (ngSubmit)="onSubmit(); registerForm.reset();" class="col-md-7 no-padding">
         <p>
             <label>Nombre</label>
             <input type="text" class="form-control" name="name" #name="ngModel" [(ngModel)]="user.name" required />
