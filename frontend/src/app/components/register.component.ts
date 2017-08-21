@@ -10,10 +10,10 @@ export class RegisterComponent implements OnInit {
     public title: string;
 
     constructor (
-        //private _route: ActivatedRoute,
-        //private _route: Router
+        private _route: ActivatedRoute,
+        private _router: Router
     ) {
-        this.title = 'Componente de Register';
+        this.title = 'Registrate';
     }
 
     ngOnInit() {
