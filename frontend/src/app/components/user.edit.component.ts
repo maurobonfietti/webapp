@@ -40,4 +40,8 @@ export class UserEditComponent implements OnInit {
             );
         }
     }
+
+    onSubmit() {
+        console.log(this.user);
+    }
 }
