@@ -13,7 +13,9 @@ import { Task } from '../models/task';
 export class TaskNewComponent implements OnInit {
     public page_title: string;
     public identity;
+    public token;
     public task: Task;
+    public status_task;
 
     constructor (
         private _route: ActivatedRoute,
@@ -23,6 +25,7 @@ export class TaskNewComponent implements OnInit {
     ) {
         this.page_title = 'Crear nueva tarea';
         this.identity = this._userService.getIdentity();
+        this.token = this._userService.getToken();
     }
 
     ngOnInit() {
@@ -31,12 +34,24 @@ export class TaskNewComponent implements OnInit {
         } else {
             this.task = new Task(1, '', '', 'new', 'null', 'null');
         }
-
-        console.log(this._taskService.create());
     }
 
     onSubmit() {
-        console.log('asd');
         console.log(this.task);
+        this._taskService.create(this.token, this.task).subscribe(
+            response => {
+                this.status_task = response.status;
+                if (this.status_task != "success") {
+                    this.status_task = 'error';
+                } else {
+                    this.task = response.data;
+                    //this._router.navigate(['/task', this.task.id]);
+                    this._router.navigate(['/']);
+                }
+            },
+            error => {
+                console.log(<any>error);
+            }
+        );
     }
 }

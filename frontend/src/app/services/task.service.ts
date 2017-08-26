@@ -15,8 +15,12 @@ export class TaskService{
         this.url = "http://localhost/webapp/web/app_dev.php";
     }
 
-    create() {
-        return "Hello desde Task Service...";
+    create(token, task) {
+        let json = JSON.stringify(task);
+        let params = "json="+json+'&authorization='+token;
+        let headers = new Headers({'Content-Type':"application/x-www-form-urlencoded"});
+
+        return this._http.post(this.url+'/task/new', params, {headers: headers}).map(res => res.json());
     }
 
 }
