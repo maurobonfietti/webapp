@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { UserService } from '../services/user.service';
+import { TaskService } from '../services/task.service';
 import { Task } from '../models/task';
 
 @Component({
     selector: 'task-new',
     templateUrl: '../views/task.new.html',
-    providers: [UserService]
+    providers: [UserService, TaskService]
 })
 
 export class TaskNewComponent implements OnInit {
@@ -17,7 +18,8 @@ export class TaskNewComponent implements OnInit {
     constructor (
         private _route: ActivatedRoute,
         private _router: Router,
-        private _userService: UserService
+        private _userService: UserService,
+        private _taskService: TaskService
     ) {
         this.page_title = 'Crear nueva tarea';
         this.identity = this._userService.getIdentity();
@@ -29,6 +31,8 @@ export class TaskNewComponent implements OnInit {
         } else {
             this.task = new Task(1, '', '', 'new', 'null', 'null');
         }
+
+        console.log(this._taskService.create());
     }
 
     onSubmit() {
