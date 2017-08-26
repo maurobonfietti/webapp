@@ -1,1 +1,30 @@
-<h1>{{title}}</h1>
+<div class="col-md-12">
+    <!--<h3>{{title}}</h3>-->
+    
+    <div *ngIf="!identity || identity == null">
+        Iniciar Sesion para acceder a mas opciones.
+    </div>
+    
+    <div class="col-md-12" *ngIf="identity && identity.sub">
+        <!--MOSTRAR BUSCADOR-->
+        
+        <div class="all-tasks">
+            
+            <table class="table table-hover table-stripped" id="tasks-list" *ngIf="tasks && tasks.length > 1">
+                <tr>
+                    <th>Estado</th>
+                    <th>Titulo</th>
+                    <th>Acciones</th>
+                </tr>
+                <tr *ngFor="let task of tasks" class="task-item" >
+                    <td>{{task.status}}</td>
+                    <td>{{task.title}}</td>
+                    <td>
+                        <a href="#" class="btn btn-warning">Editar</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    
+</div>
