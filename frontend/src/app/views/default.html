@@ -24,6 +24,25 @@
                     </td>
                 </tr>
             </table>
+            
+            <ul class="pagination" *ngIf="tasks && tasks.length >= 1" >
+                <li>
+                    <a [routerLink]="['/index', pagesPrev]" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li *ngFor="let page of pages">
+                    <a [routerLink]="['/index', page+1]">
+                        {{page+1}}
+                    </a>
+                </li>
+                <li>
+                    <a [routerLink]="['/index', pagesNext]" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>    
+            
         </div>
     </div>
     

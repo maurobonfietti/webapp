@@ -16,6 +16,9 @@ export class DefaultComponent implements OnInit {
     public token;
     public tasks: Array<Task>;
     public status_task;
+    public pages;
+    public pagesPrev;
+    public pagesNext;
 
     constructor (
         private _route: ActivatedRoute,
@@ -44,13 +47,28 @@ export class DefaultComponent implements OnInit {
             this._taskService.getTasks(this.token, page).subscribe(
                 response => {
                     this.status_task = response.status;
-                    //console.log(response);
+                    console.log(response);
                     if (this.status_task == 'success') {
                         this.tasks = response.tasks;
                         console.log(this.tasks);
-                        //console.log('aaa');
-                        //console.log(response);
-                        //console.log(response.tasks);
+                        this.pages = [];
+                        for (let i = 0; i < response.totalPages; i++) {
+                            this.pages.push(i);
+                        }
+                        //console.log(response.totalPages);
+                        //console.log(this.pages);
+                        if (page >= 2) {
+                            this.pagesPrev = (page - 1);
+                        } else {
+                            this.pagesPrev = page;
+                        }
+                        if (page < response.totalPages || page == 1) {
+                            this.pagesNext = (page + 1);
+                        } else {
+                            this.pagesNext = page;
+                        }
+                        console.log(this.pagesPrev);
+                        console.log(this.pagesNext);
                     } else {
                         //console.log('bbb');
                     }
