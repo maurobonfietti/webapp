@@ -21,8 +21,24 @@
                     <th>Acciones</th>
                 </tr>
                 <tr *ngFor="let task of tasks" class="task-item" >
-                    <td>{{task.status}}</td>
-                    <td>{{task.title}}</td>
+                    <td>
+                        <h4>
+                            <span class='label lg-label label-success' *ngIf="task.status == 'finished'">
+                                Finalizada
+                            </span>
+                            <span class='label lg-label label-warning' *ngIf="task.status == 'todo'">
+                                ToDo
+                            </span>
+                            <span class='label lg-label label-primary' *ngIf="task.status == 'new'">
+                                Nueva
+                            </span>
+                        </h4>
+                    </td>
+                    <td>
+                        <h4>
+                            {{task.title}}
+                        </h4>
+                    </td>
                     <td>
                         <a href="#" class="btn btn-warning">Editar</a>
                     </td>
