@@ -19,6 +19,7 @@ export class DefaultComponent implements OnInit {
     public pages;
     public pagesPrev;
     public pagesNext;
+    public loading;
 
     constructor (
         private _route: ActivatedRoute,
@@ -44,13 +45,15 @@ export class DefaultComponent implements OnInit {
                 page = 1;
             }
 
+            this.loading = 'show';
             this._taskService.getTasks(this.token, page).subscribe(
                 response => {
                     this.status_task = response.status;
                     console.log(response);
                     if (this.status_task == 'success') {
                         this.tasks = response.tasks;
-                        console.log(this.tasks);
+                        this.loading = 'hide';
+                        //console.log(this.tasks);
                         this.pages = [];
                         for (let i = 0; i < response.totalPages; i++) {
                             this.pages.push(i);
@@ -67,8 +70,8 @@ export class DefaultComponent implements OnInit {
                         } else {
                             this.pagesNext = page;
                         }
-                        console.log(this.pagesPrev);
-                        console.log(this.pagesNext);
+                        //console.log(this.pagesPrev);
+                        //console.log(this.pagesNext);
                     } else {
                         //console.log('bbb');
                     }
