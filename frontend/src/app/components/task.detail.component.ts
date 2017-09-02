@@ -14,8 +14,8 @@ export class TaskDetailComponent implements OnInit {
     //public page_title: string;
     public identity;
     public token;
-    //public task: Task;
-    //public status_task;
+    public task: Task;
+    public status_task;
 
     constructor (
         private _route: ActivatedRoute,
@@ -30,10 +30,37 @@ export class TaskDetailComponent implements OnInit {
 
     ngOnInit() {
         if (this.identity && this.identity.sub) {
-            
+            this.getTask();
         } else {
             this._router.navigate(['/login']);
         }
+    }
+
+    getTask() {
+        this._route.params.forEach((params: Params) => {
+            let id = +params['id'];
+    
+            this._taskService.getTask(this.token, id).subscribe(
+                response => {
+                    //this.task = response.data;
+                    this.status_task = response.status;
+                    if (response.status == 'success') {
+                        if (response.task.user.id == this.identity.sub) {
+                            this.task = response.task;
+                            console.log(this.task);
+                        } else {
+                            this._router.navigate(['/']);
+                        }
+                    } else {
+                        this._router.navigate(['/login']);
+                    }
+                    //console.log(response);
+                },
+                error => {
+                    console.log(<any>error);
+                }
+            );
+        });
     }
 /*
     onSubmit() {

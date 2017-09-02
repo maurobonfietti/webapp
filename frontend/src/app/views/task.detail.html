@@ -1,33 +1,20 @@
 <div class="col-md-12">
-    <h3>{{page_title}}</h3>
     
-    <div class="alert alert-success" *ngIf="status_task == 'success'">
-        Tarea creada correctamente.
+    <div class="col-md-12" *ngIf='task'>
+        <h3>{{task.title}}</h3>
+        <hr />
+        <div class='panel panel-default task-data'>
+            <div class='panel-heading'>
+                <h3 class='panel-title'>
+                    Tarea creada por <strong>{{task.user.name + ' ' + task.user.surname}}</strong>
+                    el {{task.createdAt.timestamp}}
+                </h3>
+            </div>
+            <div class='panel-body'>
+                {{task.description}}
+            </div>
+        </div>
     </div>
-  
-    <div class="alert alert-danger" *ngIf="status_task == 'error'">
-        Error al crear la nueva tarea.
-    </div>
-
-    <form #taskNewForm="ngForm" (ngSubmit)="onSubmit()" class="col-md-7 no-padding">
-        <p>
-            <label>Titulo</label>
-            <input type="text" class="form-control" name="title" #title="ngModel" [(ngModel)]="task.title" required />
-            <span *ngIf="!title.valid && title.touched">El titulo no es correcto.</span>
-        </p>
-        <p>
-            <label>Descripcion</label>
-            <textarea class="form-control" name="description" #description="ngModel" [(ngModel)]="task.description" ></textarea>
-        </p>
-        <p>
-            <label>Estado</label>
-            <select class="form-control" name="status" #status="ngModel" [(ngModel)]="task.status" required>
-                <option value="new">Nueva</option>
-                <option value="todo">Para Hacer</option>
-                <option value="finished">Finalizada</option>
-            </select>
-        </p>
-
-        <input type="submit" value="{{page_title}}" class="btn btn-success" [disabled]="!taskNewForm.form.valid" />
-    </form>
+    
+    
 </div>
