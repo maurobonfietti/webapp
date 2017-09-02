@@ -13,6 +13,7 @@ import { DefaultComponent } from './components/default.component';
 import { UserEditComponent } from './components/user.edit.component';
 import { TaskNewComponent } from './components/task.new.component';
 import { TaskDetailComponent } from './components/task.detail.component';
+import { TaskEditComponent } from './components/task.edit.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { TaskDetailComponent } from './components/task.detail.component';
     UserEditComponent,
     TaskNewComponent,
     TaskDetailComponent,
+    TaskEditComponent,
   ],
   imports: [
     routing,

@@ -24,7 +24,6 @@ export class TaskService{
     }
 
     getTasks(token, page = null) {
-        //let json = JSON.stringify(task);
         let params = 'authorization='+token;
         let headers = new Headers({'Content-Type':"application/x-www-form-urlencoded"});
 
@@ -40,5 +39,13 @@ export class TaskService{
         let headers = new Headers({'Content-Type':"application/x-www-form-urlencoded"});
 
         return this._http.post(this.url+'/task/detail/'+id, params, {headers: headers}).map(res => res.json());
+    }
+
+    update(token, task, id) {
+        let json = JSON.stringify(task);
+        let params = "json="+json+'&authorization='+token;
+        let headers = new Headers({'Content-Type':"application/x-www-form-urlencoded"});
+
+        return this._http.post(this.url+'/task/edit/'+id, params, {headers: headers}).map(res => res.json());
     }
 }
