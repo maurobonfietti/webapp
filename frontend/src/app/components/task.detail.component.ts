@@ -16,6 +16,7 @@ export class TaskDetailComponent implements OnInit {
     public token;
     public task: Task;
     public status_task;
+    public loading;
 
     constructor (
         private _route: ActivatedRoute,
@@ -37,6 +38,7 @@ export class TaskDetailComponent implements OnInit {
     }
 
     getTask() {
+        this.loading = 'show';
         this._route.params.forEach((params: Params) => {
             let id = +params['id'];
     
@@ -47,6 +49,7 @@ export class TaskDetailComponent implements OnInit {
                     if (response.status == 'success') {
                         if (response.task.user.id == this.identity.sub) {
                             this.task = response.task;
+                            this.loading = 'hide';
                             console.log(this.task);
                         } else {
                             this._router.navigate(['/']);
@@ -62,24 +65,4 @@ export class TaskDetailComponent implements OnInit {
             );
         });
     }
-/*
-    onSubmit() {
-        console.log(this.task);
-        this._taskService.create(this.token, this.task).subscribe(
-            response => {
-                this.status_task = response.status;
-                if (this.status_task != "success") {
-                    this.status_task = 'error';
-                } else {
-                    this.task = response.data;
-                    //this._router.navigate(['/task', this.task.id]);
-                    this._router.navigate(['/']);
-                }
-            },
-            error => {
-                console.log(<any>error);
-            }
-        );
-    }
-*/
 }
