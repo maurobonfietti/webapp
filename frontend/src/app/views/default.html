@@ -11,7 +11,7 @@
         <form class="col-md-12" role="search">
             <div class="form-group col-md-6">
                 <label>Mostrar solo</label>
-                <select class="form-control" name="filter">
+                <select class="form-control" name="filter" [(ngModel)]="filter">
                     <option value="0" selected="selected">Sin Filtro</option>
                     <option value="1">Nuevas</option>
                     <option value="2">Para Hacer</option>
@@ -20,7 +20,7 @@
             </div>
             <div class="form-group col-md-6">
                 <label>Ordenar por</label>
-                <select class="form-control" name="order">
+                <select class="form-control" name="order" [(ngModel)]="order">
                     <option value="0" selected="selected">Por defecto</option>
                     <option value="1">Fecha ascendente</option>
                     <option value="2">Fecha descendente</option>
@@ -28,9 +28,9 @@
             </div>
             <div class="clearfix"></div>
             <div class="form-group col-md-10">
-                <input type="text" class="form-control" placeholder="Que tarea buscas?" name="searchString" />
+                <input type="text" class="form-control" placeholder="Que tarea buscas?" name="searchString" [(ngModel)]="searchString" />
             </div>
-            <button type="submit" class="btn btn-default btn-search">
+            <button type="submit" class="btn btn-default btn-search" (click)="search();">
                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                 Buscar
             </button>

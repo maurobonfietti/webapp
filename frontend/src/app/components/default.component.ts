@@ -82,4 +82,14 @@ export class DefaultComponent implements OnInit {
             );
         });
     }
+
+    public filter = 0;
+    public order = 0;
+    public searchString;
+
+    search() {
+        console.log(this.filter);
+        console.log(this.order);
+        console.log(this.searchString);
+    }
 }
