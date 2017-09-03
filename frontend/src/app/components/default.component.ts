@@ -92,6 +92,8 @@ export class DefaultComponent implements OnInit {
         console.log(this.order);
         console.log(this.searchString);
 
+        this.loading == 'show';
+
         if (!this.searchString || this.searchString.trim().length == 0) {
             this.searchString = null;
         }
@@ -100,6 +102,7 @@ export class DefaultComponent implements OnInit {
             response => {
                 if (response.status == 'success') {
                     this.tasks = response.data;
+                    this.loading == 'hide';
                 } else {
                     this._router.navigate(['/index']);
                 }
