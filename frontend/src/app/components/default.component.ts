@@ -91,5 +91,22 @@ export class DefaultComponent implements OnInit {
         console.log(this.filter);
         console.log(this.order);
         console.log(this.searchString);
+
+        if (!this.searchString || this.searchString.trim().length == 0) {
+            this.searchString = null;
+        }
+
+        this._taskService.search(this.token, this.searchString, this.filter, this.order).subscribe(
+            response => {
+                if (response.status == 'success') {
+                    this.tasks = response.data;
+                } else {
+                    this._router.navigate(['/index']);
+                }
+            },
+            error => {
+                console.log(<any>error);
+            }
+        );
     }
 }
