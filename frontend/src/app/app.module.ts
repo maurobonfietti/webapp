@@ -14,6 +14,7 @@ import { UserEditComponent } from './components/user.edit.component';
 import { TaskNewComponent } from './components/task.new.component';
 import { TaskDetailComponent } from './components/task.detail.component';
 import { TaskEditComponent } from './components/task.edit.component';
+import { GenerateDatePipe } from './pipes/generate.date.pipe';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { TaskEditComponent } from './components/task.edit.component';
     TaskNewComponent,
     TaskDetailComponent,
     TaskEditComponent,
+    GenerateDatePipe,
   ],
   imports: [
     routing,
