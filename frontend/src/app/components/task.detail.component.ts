@@ -65,4 +65,8 @@ export class TaskDetailComponent implements OnInit {
             );
         });
     }
+
+    deleteTask() {
+        console.log('clickeado en borrar...');
+    }
 }
