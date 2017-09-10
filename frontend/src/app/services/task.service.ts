@@ -12,7 +12,7 @@ export class TaskService{
 
     constructor(private _http: Http) {
         //this.url = GLOBAL.url;
-        this.url = "http://localhost/webapp/web/app_dev.php";
+        this.url = "http://localhost/webapp/backend/web/app_dev.php";
     }
 
     create(token, task) {
