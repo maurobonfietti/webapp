@@ -24,7 +24,7 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
     {
         return array(
             array('/task/list'),
-//            array('/task/detail/12'),
+            array('/task/detail/18'),
         );
     }
 
@@ -39,11 +39,10 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertContains('200', $client->getResponse()->getContent());
         $this->assertContains('success', $client->getResponse()->getContent());
-        $this->assertContains('totalItemsCount', $client->getResponse()->getContent());
-        $this->assertContains('tasks', $client->getResponse()->getContent());
+        $this->assertContains('task', $client->getResponse()->getContent());
         $this->assertNotContains('Authorization Invalid', $client->getResponse()->getContent());
         $this->assertNotContains('error', $client->getResponse()->getContent());
-        $this->assertNotContains('400', $client->getResponse()->getContent());
+        $this->assertNotContains('403', $client->getResponse()->getContent());
     }
 
     /**
@@ -57,6 +56,17 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
         $this->assertContains('error', $client->getResponse()->getContent());
         $this->assertContains('403', $client->getResponse()->getContent());
         $this->assertEquals(403, $client->getResponse()->getStatusCode());
+        $this->assertNotContains('success', $client->getResponse()->getContent());
+    }
+
+    public function testTaskNotFound()
+    {
+        $client = self::createClient();
+        $client->request('POST', '/task/detail/1', $this->getAuthToken());
+        $this->assertContains('Task not found', $client->getResponse()->getContent());
+        $this->assertContains('error', $client->getResponse()->getContent());
+        $this->assertContains('404', $client->getResponse()->getContent());
+        $this->assertEquals(404, $client->getResponse()->getStatusCode());
         $this->assertNotContains('success', $client->getResponse()->getContent());
     }
 }

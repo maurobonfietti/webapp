@@ -148,7 +148,7 @@ class TaskController extends Controller
             $data = [
                 'status' => 'error',
                 'code' => $status,
-                'msg' => 'Authorization Invalid...',
+                'msg' => 'Authorization Invalid.',
             ];
         }
 
@@ -172,27 +172,30 @@ class TaskController extends Controller
                 ->findOneBy(['id' => $id]);
 
             if ($task && is_object($task) && $identity->sub == $task->getUser()->getId()) {
+                $status = 200;
                 $data = [
                     'status' => 'success',
-                    'code' => 200,
+                    'code' => $status,
                     'task' => $task,
                 ];
             } else {
+                $status = 404;
                 $data = [
                     'status' => 'error',
-                    'code' => 404,
+                    'code' => $status,
                     'msg' => 'Task not found.',
                 ];
             }
         } else {
+            $status = 403;
             $data = [
                 'status' => 'error',
-                'code' => 400,
+                'code' => $status,
                 'msg' => 'Authorization Invalid.',
             ];
         }
 
-        return $helpers->json($data);
+        return $helpers->json($data, $status);
     }
 
     public function searchAction(Request $request, $search = null)
