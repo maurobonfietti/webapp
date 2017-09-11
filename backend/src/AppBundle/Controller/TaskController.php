@@ -133,9 +133,10 @@ class TaskController extends Controller
             $pagination = $paginator->paginate($query, $page, $itemsPerPage);
             $totalItemsCount = $pagination->getTotalItemCount();
 
+            $status = 200;
             $data = [
                 'status' => 'success',
-                'code' => 200,
+                'code' => $status,
                 'totalItemsCount' => $totalItemsCount,
                 'actual_page' => $page,
                 'itemsPerPage' => $itemsPerPage,
@@ -143,14 +144,15 @@ class TaskController extends Controller
                 'tasks' => $pagination,
             ];
         } else {
+            $status = 403;
             $data = [
                 'status' => 'error',
-                'code' => 400,
-                'msg' => 'Authorization Invalid.',
+                'code' => $status,
+                'msg' => 'Authorization Invalid...',
             ];
         }
 
-        return $helpers->json($data);
+        return $helpers->json($data, $status);
     }
 
     public function taskAction(Request $request, $id = null)
