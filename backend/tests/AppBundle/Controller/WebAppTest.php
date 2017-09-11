@@ -37,12 +37,10 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
         $client->request('POST', $url, $this->getAuthToken());
         $this->assertTrue($client->getResponse()->isSuccessful());
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertContains('200', $client->getResponse()->getContent());
         $this->assertContains('success', $client->getResponse()->getContent());
         $this->assertContains('task', $client->getResponse()->getContent());
-        $this->assertNotContains('Authorization Invalid', $client->getResponse()->getContent());
         $this->assertNotContains('error', $client->getResponse()->getContent());
-        $this->assertNotContains('403', $client->getResponse()->getContent());
+        $this->assertNotContains('Authorization Invalid', $client->getResponse()->getContent());
     }
 
     /**
@@ -54,7 +52,6 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
         $client->request('POST', $url);
         $this->assertContains('Authorization Invalid', $client->getResponse()->getContent());
         $this->assertContains('error', $client->getResponse()->getContent());
-        $this->assertContains('403', $client->getResponse()->getContent());
         $this->assertEquals(403, $client->getResponse()->getStatusCode());
         $this->assertNotContains('success', $client->getResponse()->getContent());
     }
@@ -65,7 +62,6 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
         $client->request('POST', '/task/detail/1', $this->getAuthToken());
         $this->assertContains('Task not found', $client->getResponse()->getContent());
         $this->assertContains('error', $client->getResponse()->getContent());
-        $this->assertContains('404', $client->getResponse()->getContent());
         $this->assertEquals(404, $client->getResponse()->getStatusCode());
         $this->assertNotContains('success', $client->getResponse()->getContent());
     }
