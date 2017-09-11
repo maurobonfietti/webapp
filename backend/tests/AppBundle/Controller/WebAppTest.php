@@ -7,6 +7,15 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 class ApplicationAvailabilityFunctionalTest extends WebTestCase
 {
     /**
+     * @return array
+     */
+    private function getAuthToken() {
+        return [
+            'authorization' => 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEzLCJlbWFpbCI6Im1AYi5jb20uYXIiLCJuYW1lIjoiTWF1cml0byIsInN1cm5hbWUiOiJCb25kIiwiaWF0IjoxNTA1MDc3NDQ2LCJleHAiOjE1MDU2ODIyNDZ9.VP6hyBPMCyzcYg5wnlQPVaFi85xjMo3un9etU4NETPY',
+        ];
+    }
+
+    /**
      * Url of endpoints to test.
      *
      * @return array
@@ -25,13 +34,13 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
     public function testPageIsSuccessful($url)
     {
         $client = self::createClient();
-        $data = [
-            'authorization' => 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEzLCJlbWFpbCI6Im1AYi5jb20uYXIiLCJuYW1lIjoiTWF1cml0byIsInN1cm5hbWUiOiJCb25kIiwiaWF0IjoxNTA1MDc3NDQ2LCJleHAiOjE1MDU2ODIyNDZ9.VP6hyBPMCyzcYg5wnlQPVaFi85xjMo3un9etU4NETPY',
-        ];
-        $client->request('POST', $url, $data);
+        $client->request('POST', $url, $this->getAuthToken());
         $this->assertTrue($client->getResponse()->isSuccessful());
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertContains('200', $client->getResponse()->getContent());
+        $this->assertContains('success', $client->getResponse()->getContent());
+        $this->assertContains('totalItemsCount', $client->getResponse()->getContent());
+        $this->assertContains('tasks', $client->getResponse()->getContent());
         $this->assertNotContains('Authorization Invalid', $client->getResponse()->getContent());
         $this->assertNotContains('error', $client->getResponse()->getContent());
         $this->assertNotContains('400', $client->getResponse()->getContent());
@@ -48,5 +57,6 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
         $this->assertContains('error', $client->getResponse()->getContent());
         $this->assertContains('403', $client->getResponse()->getContent());
         $this->assertEquals(403, $client->getResponse()->getStatusCode());
+        $this->assertNotContains('success', $client->getResponse()->getContent());
     }
 }
