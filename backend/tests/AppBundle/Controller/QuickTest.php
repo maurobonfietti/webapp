@@ -25,7 +25,10 @@ class QuickTest extends WebTestCase
         return array(
             array('/task/edit/11'),
             array('/task/search'),
-            array('/task/remove/12'),
+            array('/task/remove/11'),
+            array('/task/new'),
+            array('/user/edit'),
+            array('/pruebas'),
         );
     }
 
