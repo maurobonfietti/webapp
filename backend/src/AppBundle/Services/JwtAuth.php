@@ -22,12 +22,10 @@ class JwtAuth
             'email' => $email,
             'password' => $password,
         ]);
-
         $signUp = false;
         if (is_object($user)) {
             $signUp = true;
         }
-
         if ($signUp == true) {
             $token = [
                 'sub' => $user->getId(),
@@ -37,10 +35,8 @@ class JwtAuth
                 'iat' => time(),
                 'exp' => time() + (7 * 24 * 60 * 60),
             ];
-
             $jwt = JWT::encode($token, $this->key, 'HS256');
             $decoded = JWT::decode($jwt, $this->key, ['HS256']);
-
             if ($getHash == null) {
                 $data = $jwt;
             } else {
@@ -66,11 +62,9 @@ class JwtAuth
         } catch (\DomainException $e) {
             $auth = false;
         }
-
         if (isset($decoded) && is_object($decoded) && isset($decoded->sub)) {
             $auth = true;
         }
-
         if ($getIdentity == false) {
             return $auth;
         } else {

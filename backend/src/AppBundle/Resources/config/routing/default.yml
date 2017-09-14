@@ -1,8 +1,3 @@
-default_index:
-    path: /
-    defaults: { _controller: "AppBundle:Default:index" }
-    methods: GET
-
 default_login:
     path: /login
     defaults: { _controller: "AppBundle:Default:login" }
