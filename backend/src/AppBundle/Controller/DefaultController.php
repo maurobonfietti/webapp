@@ -52,30 +52,4 @@ class DefaultController extends Controller
 
         return $helpers->json($data);
     }
-
-    public function pruebasAction(Request $request)
-    {
-        $helpers = $this->get(Helpers::class);
-        $jwtAuth = $this->get(JwtAuth::class);
-
-        $token = $request->get('authorization', null);
-
-        if ($token && $jwtAuth->checkToken($token) == true) {
-            $em = $this->getDoctrine()->getManager();
-            $userRepo = $em->getRepository('AppBundle:Users');
-            $users = $userRepo->findAll();
-            $response = [
-                'status' => 'success',
-                'users' => $users,
-            ];
-        } else {
-            $response = [
-                'status' => 'error',
-                'data' => 'Authorization Invalid.',
-                'code' => 400,
-            ];
-        }
-
-        return $helpers->json($response);
-    }
 }
