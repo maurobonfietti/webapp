@@ -197,4 +197,3 @@ class Users
         return $this->createdAt;
     }
 }
-

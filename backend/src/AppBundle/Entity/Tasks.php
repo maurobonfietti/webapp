@@ -197,4 +197,3 @@ class Tasks
         return $this->user;
     }
 }
-
