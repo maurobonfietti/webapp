@@ -4,7 +4,7 @@ namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use BackendBundle\Entity\Task;
+use AppBundle\Entity\Tasks;
 use AppBundle\Services\Helpers;
 use AppBundle\Services\JwtAuth;
 
@@ -37,11 +37,11 @@ class TaskController extends Controller
                 if ($userId != null && $title != null) {
                     $em = $this->getDoctrine()->getManager();
 
-                    $user = $em->getRepository('BackendBundle:User')
+                    $user = $em->getRepository('AppBundle:Users')
                         ->findOneBy(['id' => $userId]);
 
                     if ($id == null) {
-                        $task = new Task();
+                        $task = new Tasks();
                         $task->setUser($user);
                         $task->setTitle($title);
                         $task->setDescription($description);
@@ -59,7 +59,7 @@ class TaskController extends Controller
                             'task' => $task,
                         ];
                     } else {
-                        $task = $em->getRepository('BackendBundle:Task')
+                        $task = $em->getRepository('AppBundle:Tasks')
                             ->findOneBy(['id' => $id]);
 
                         if (isset($identity->sub) && $identity->sub == $task->getUser()->getId()) {
@@ -123,7 +123,7 @@ class TaskController extends Controller
 
             $em = $this->getDoctrine()->getManager();
 
-            $dql = "SELECT t FROM BackendBundle:Task t WHERE t.user = $identity->sub ORDER BY t.id ASC";
+            $dql = "SELECT t FROM AppBundle:Tasks t WHERE t.user = $identity->sub ORDER BY t.id ASC";
 
             $query = $em->createQuery($dql);
 
@@ -168,7 +168,7 @@ class TaskController extends Controller
 
             $em = $this->getDoctrine()->getManager();
 
-            $task = $em->getRepository('BackendBundle:Task')
+            $task = $em->getRepository('AppBundle:Tasks')
                 ->findOneBy(['id' => $id]);
 
             if ($task && is_object($task) && $identity->sub == $task->getUser()->getId()) {
@@ -231,11 +231,11 @@ class TaskController extends Controller
 
             if ($search != null) {
                 $dql = "
-                    SELECT t FROM BackendBundle:Task t WHERE t.user = $identity->sub
+                    SELECT t FROM AppBundle:Tasks t WHERE t.user = $identity->sub
                     AND t.title LIKE :search OR t.description LIKE :search
                 ";
             } else {
-                $dql = "SELECT t FROM BackendBundle:Task t WHERE t.user = $identity->sub ";
+                $dql = "SELECT t FROM AppBundle:Tasks t WHERE t.user = $identity->sub ";
             }
 
             if ($filter != null) {
@@ -284,7 +284,7 @@ class TaskController extends Controller
 
             $em = $this->getDoctrine()->getManager();
 
-            $task = $em->getRepository('BackendBundle:Task')
+            $task = $em->getRepository('AppBundle:Tasks')
                 ->findOneBy(['id' => $id]);
 
             if ($task && is_object($task) && $identity->sub == $task->getUser()->getId()) {

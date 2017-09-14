@@ -62,7 +62,7 @@ class DefaultController extends Controller
 
         if ($token && $jwtAuth->checkToken($token) == true) {
             $em = $this->getDoctrine()->getManager();
-            $userRepo = $em->getRepository('BackendBundle:User');
+            $userRepo = $em->getRepository('AppBundle:Users');
             $users = $userRepo->findAll();
             $response = [
                 'status' => 'success',

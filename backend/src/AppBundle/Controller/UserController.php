@@ -5,7 +5,7 @@ namespace AppBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints as Assert;
-use BackendBundle\Entity\User;
+use AppBundle\Entity\Users;
 use AppBundle\Services\Helpers;
 use AppBundle\Services\JwtAuth;
 
@@ -37,7 +37,7 @@ class UserController extends Controller
             $validateEmail = $this->get('validator')->validate($email, $emailConstraint);
 
             if ($email != null && count($validateEmail) == 0 && $name != null && $password != null && $surname != null) {
-                $user = new User();
+                $user = new Users();
                 $user->setCreatedAt($createdAt);
                 $user->setRole($role);
                 $user->setEmail($email);
@@ -47,7 +47,7 @@ class UserController extends Controller
                 $user->setPassword($pwd);
 
                 $em = $this->getDoctrine()->getManager();
-                $issetUser = $em->getRepository('BackendBundle:User')
+                $issetUser = $em->getRepository('AppBundle:Users')
                     ->findBy(["email" => $email]);
 
                 if (count($issetUser) == 0) {
@@ -86,7 +86,7 @@ class UserController extends Controller
 
             $identity = $jwtAuth->checkToken($token, true);
 
-            $user = $em->getRepository('BackendBundle:User')
+            $user = $em->getRepository('AppBundle:Users')
                 ->findOneBy(["id" => $identity->sub]);
 
             $json = $request->get('json', null);
@@ -120,7 +120,7 @@ class UserController extends Controller
                         $user->setPassword($pwd);
                     }
 
-                    $issetUser = $em->getRepository('BackendBundle:User')
+                    $issetUser = $em->getRepository('AppBundle:Users')
                         ->findBy(["email" => $email]);
 
                     if (count($issetUser) == 0 || $identity->email == $email) {

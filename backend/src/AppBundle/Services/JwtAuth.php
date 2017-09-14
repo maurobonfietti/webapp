@@ -18,7 +18,7 @@ class JwtAuth
 
     public function signUp($email, $password, $getHash = null)
     {
-        $user = $this->manager->getRepository('BackendBundle:User')->findOneBy([
+        $user = $this->manager->getRepository('AppBundle:Users')->findOneBy([
             'email' => $email,
             'password' => $password,
         ]);
