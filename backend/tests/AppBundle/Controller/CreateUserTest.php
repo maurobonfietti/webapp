@@ -23,7 +23,7 @@ class CreateUserTest extends WebTestCase
     public function testCreateUserError()
     {
         $data = [
-            'json' => '{"email": "", "password": ""}',
+//            'json' => '{"email": "", "password": ""}',
         ];
         $client = self::createClient();
         $client->request('POST', '/user/new', $data);
