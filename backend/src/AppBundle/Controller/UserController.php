@@ -2,18 +2,16 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints as Assert;
 use AppBundle\Entity\Users;
 use AppBundle\Services\Helpers;
 use AppBundle\Services\JwtAuth;
 
-class UserController extends Controller
+class UserController extends BaseController
 {
     public function newAction(Request $request)
     {
-        $helpers = $this->get(Helpers::class);
         $json = $request->get('json', null);
         $params = json_decode($json);
         $status = 400;
@@ -63,12 +61,11 @@ class UserController extends Controller
             }
         }
 
-        return $helpers->json($data, $status);
+        return $this->get(Helpers::class)->json($data, $status);
     }
 
     public function editAction(Request $request)
     {
-        $helpers = $this->get(Helpers::class);
         $jwtAuth = $this->get(JwtAuth::class);
         $token = $request->get('authorization', null);
         $authCheck = $jwtAuth->checkToken($token);
@@ -127,6 +124,6 @@ class UserController extends Controller
             ];
         }
 
-        return $helpers->json($data);
+        return $this->get(Helpers::class)->json($data);
     }
 }
