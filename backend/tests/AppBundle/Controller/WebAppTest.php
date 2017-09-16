@@ -13,6 +13,7 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
     {
         return [
             'authorization' => 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEzLCJlbWFpbCI6Im1AYi5jb20uYXIiLCJuYW1lIjoiTWF1cml0byIsInN1cm5hbWUiOiJCb25kIiwiaWF0IjoxNTA1MDc3NDQ2LCJleHAiOjE1MDU2ODIyNDZ9.VP6hyBPMCyzcYg5wnlQPVaFi85xjMo3un9etU4NETPY',
+            'json' => '{"name":"Mau","surname":"B","email": "m@b.com.ar", "password": "123"}',
         ];
     }
 
@@ -26,6 +27,7 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
         return array(
             array('/task/list'),
             array('/task/detail/18'),
+            array('/user/edit'),
         );
     }
 
@@ -39,7 +41,6 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
         $this->assertTrue($client->getResponse()->isSuccessful());
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertContains('success', $client->getResponse()->getContent());
-        $this->assertContains('task', $client->getResponse()->getContent());
         $this->assertNotContains('error', $client->getResponse()->getContent());
         $this->assertNotContains('Authorization Invalid', $client->getResponse()->getContent());
     }

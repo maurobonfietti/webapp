@@ -26,8 +26,7 @@ class EditUserTest extends WebTestCase
     {
         $client = self::createClient();
         $client->request('POST', '/user/edit');
-        $this->assertTrue($client->getResponse()->isSuccessful());
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals(403, $client->getResponse()->getStatusCode());
         $this->assertContains('Authorization Invalid', $client->getResponse()->getContent());
         $this->assertNotContains('success', $client->getResponse()->getContent());
     }
@@ -40,8 +39,7 @@ class EditUserTest extends WebTestCase
         ];
         $client = self::createClient();
         $client->request('POST', '/user/edit', $data);
-        $this->assertTrue($client->getResponse()->isSuccessful());
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals(400, $client->getResponse()->getStatusCode());
         $this->assertContains('User exists.', $client->getResponse()->getContent());
         $this->assertNotContains('success', $client->getResponse()->getContent());
     }

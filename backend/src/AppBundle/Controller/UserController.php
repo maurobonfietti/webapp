@@ -75,9 +75,10 @@ class UserController extends BaseController
             $user = $em->getRepository('AppBundle:Users')->findOneBy(["id" => $identity->sub]);
             $json = $request->get('json', null);
             $params = json_decode($json);
+            $status = 400;
             $data = [
                 'status' => 'error',
-                'code' => 400,
+                'code' => $status,
                 'msg' => 'User Not Edited.',
             ];
             if ($json != null) {
@@ -101,29 +102,32 @@ class UserController extends BaseController
                     if (count($issetUser) == 0 || $identity->email == $email) {
                         $em->persist($user);
                         $em->flush();
+                        $status = 200;
                         $data = [
                             'status' => 'success',
-                            'code' => 200,
+                            'code' => $status,
                             'msg' => 'User Updated.',
                             'user' => $user,
                         ];
                     } else {
+                        $status = 400;
                         $data = [
                             'status' => 'error',
-                            'code' => 400,
+                            'code' => $status,
                             'msg' => 'User exists.',
                         ];
                     }
                 }
             }
         } else {
+            $status = 403;
             $data = [
                 'status' => 'error',
-                'code' => 400,
+                'code' => $status,
                 'msg' => 'Authorization Invalid.',
             ];
         }
 
-        return $this->get(Helpers::class)->json($data);
+        return $this->get(Helpers::class)->json($data, $status);
     }
 }
