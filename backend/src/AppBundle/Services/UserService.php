@@ -33,10 +33,9 @@ class UserService
         if (count($issetUser) == 0) {
             $em->persist($user);
             $em->flush();
-            $status = 200;
             $data = [
                 'status' => 'success',
-                'code' => $status,
+                'code' => 200,
                 'msg' => 'User Created.',
                 'user' => $user,
             ];
@@ -50,49 +49,42 @@ class UserService
     public function update($json, $validator, $em, $jwtAuth, $token)
     {
         $authCheck = $jwtAuth->checkToken($token);
-        if ($authCheck == true) {
-            $identity = $jwtAuth->checkToken($token, true);
-            $user = $em->getRepository('AppBundle:Users')->findOneBy(["id" => $identity->sub]);
-            $params = json_decode($json);
-            $status = 400;
-            if ($json == null) {
-                throw new \Exception('error: User Not Edited.', 400);
-            }
-            $role = 'user';
-            $email = isset($params->email) ? $params->email : null;
-            $name = isset($params->name) ? $params->name : null;
-            $surname = isset($params->surname) ? $params->surname : null;
-            $password = isset($params->password) ? $params->password : null;
-            $emailConstraint = new Assert\Email();
-            $validateEmail = $validator->validate($email, $emailConstraint);
-            if ($email != null && count($validateEmail) == 0 && $name != null && $surname != null) {
-                $user->setRole($role);
-                $user->setEmail($email);
-                $user->setName($name);
-                $user->setSurname($surname);
-                if ($password != null) {
-                    $pwd = hash('sha256', $password);
-                    $user->setPassword($pwd);
-                }
-                $issetUser = $em->getRepository('AppBundle:Users')->findBy(["email" => $email]);
-                if (count($issetUser) == 0 || $identity->email == $email) {
-                    $em->persist($user);
-                    $em->flush();
-                    $status = 200;
-                    $data = [
-                        'status' => 'success',
-                        'code' => $status,
-                        'msg' => 'User Updated.',
-                        'user' => $user,
-                    ];
-                } else {
-                    throw new \Exception('error: User exists.', 400);
-                }
-            } else {
-                throw new \Exception('error: User Not Edited...', 400);
-            }
-        } else {
+        if (!$authCheck) {
             throw new \Exception('error: Authorization Invalid.', 403);
+        }
+        $identity = $jwtAuth->checkToken($token, true);
+        $user = $em->getRepository('AppBundle:Users')->findOneBy(["id" => $identity->sub]);
+        $params = json_decode($json);
+        $role = 'user';
+        $email = isset($params->email) ? $params->email : null;
+        $name = isset($params->name) ? $params->name : null;
+        $surname = isset($params->surname) ? $params->surname : null;
+        $password = isset($params->password) ? $params->password : null;
+        $emailConstraint = new Assert\Email();
+        $validateEmail = $validator->validate($email, $emailConstraint);
+        if ($email == null || count($validateEmail) > 0 || $name == null || $surname == null) {
+            throw new \Exception('error: User Not Edited.', 400);
+        }
+        $user->setRole($role);
+        $user->setEmail($email);
+        $user->setName($name);
+        $user->setSurname($surname);
+        if ($password != null) {
+            $pwd = hash('sha256', $password);
+            $user->setPassword($pwd);
+        }
+        $issetUser = $em->getRepository('AppBundle:Users')->findBy(["email" => $email]);
+        if (count($issetUser) == 0 || $identity->email == $email) {
+            $em->persist($user);
+            $em->flush();
+            $data = [
+                'status' => 'success',
+                'code' => 200,
+                'msg' => 'User Updated.',
+                'user' => $user,
+            ];
+        } else {
+            throw new \Exception('error: User exists.', 400);
         }
 
         return $data;
