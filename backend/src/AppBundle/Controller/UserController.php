@@ -16,9 +16,10 @@ class UserController extends Controller
         $helpers = $this->get(Helpers::class);
         $json = $request->get('json', null);
         $params = json_decode($json);
+        $status = 400;
         $data = [
             'status' => 'error',
-            'code' => 400,
+            'code' => $status,
             'msg' => 'User Not Created.',
         ];
         if ($json != null) {
@@ -44,23 +45,25 @@ class UserController extends Controller
                 if (count($issetUser) == 0) {
                     $em->persist($user);
                     $em->flush();
+                    $status = 200;
                     $data = [
                         'status' => 'success',
-                        'code' => 200,
+                        'code' => $status,
                         'msg' => 'User Created.',
                         'user' => $user,
                     ];
                 } else {
+                    $status = 400;
                     $data = [
                         'status' => 'error',
-                        'code' => 400,
+                        'code' => $status,
                         'msg' => 'User exists.',
                     ];
                 }
             }
         }
 
-        return $helpers->json($data);
+        return $helpers->json($data, $status);
     }
 
     public function editAction(Request $request)

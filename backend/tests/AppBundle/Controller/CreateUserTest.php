@@ -27,8 +27,7 @@ class CreateUserTest extends WebTestCase
         ];
         $client = self::createClient();
         $client->request('POST', '/user/new', $data);
-        $this->assertTrue($client->getResponse()->isSuccessful());
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals(400, $client->getResponse()->getStatusCode());
         $this->assertContains('User Not Created', $client->getResponse()->getContent());
         $this->assertContains('error', $client->getResponse()->getContent());
         $this->assertNotContains('success', $client->getResponse()->getContent());
@@ -41,8 +40,7 @@ class CreateUserTest extends WebTestCase
         ];
         $client = self::createClient();
         $client->request('POST', '/user/new', $data);
-        $this->assertTrue($client->getResponse()->isSuccessful());
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals(400, $client->getResponse()->getStatusCode());
         $this->assertContains('User exists', $client->getResponse()->getContent());
         $this->assertContains('error', $client->getResponse()->getContent());
         $this->assertNotContains('success', $client->getResponse()->getContent());
