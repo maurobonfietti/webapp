@@ -16,15 +16,11 @@ class TaskService
         $this->manager = $manager;
     }
 
-    public function newAction(Request $request, $id = null)
+    public function create($json, $token, $jwtAuth, $id = null)
     {
-        $helpers = $this->get(Helpers::class);
-        $jwtAuth = $this->get(JwtAuth::class);
-        $token = $request->get('authorization', null);
         $authCheck = $jwtAuth->checkToken($token);
         if ($authCheck == true) {
             $identity = $jwtAuth->checkToken($token, true);
-            $json = $request->get('json', null);
             if ($json != null) {
                 $params = json_decode($json);
                 $createdAt = new \DateTime("now");
@@ -34,7 +30,7 @@ class TaskService
                 $description = isset($params->description) ? $params->description : null;
                 $status = isset($params->status) ? $params->status : null;
                 if ($userId != null && $title != null) {
-                    $em = $this->getDoctrine()->getManager();
+                    $em = $this->manager;
                     $user = $em->getRepository('AppBundle:Users')->findOneBy(['id' => $userId]);
                     if ($id == null) {
                         $task = new Tasks();
@@ -97,7 +93,7 @@ class TaskService
             ];
         }
 
-        return $helpers->json($data);
+        return $data;
     }
 
     public function tasksAction(Request $request)
