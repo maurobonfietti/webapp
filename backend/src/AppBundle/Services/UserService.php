@@ -83,29 +83,8 @@ class UserService
         if ($email == null || count($validateEmail) > 0 || $name == null || $surname == null) {
             throw new \Exception('error: User Not Edited.', 400);
         }
-
-        return $this->updateUser($user, $email, $name, $surname, $password, $identity);
-    }
-
-    private function updateUser($user, $email, $name, $surname, $password, $identity)
-    {
-        $user->setRole('user');
-        $user->setEmail($email);
-        $user->setName($name);
-        $user->setSurname($surname);
-        if ($password != null) {
-            $pwd = hash('sha256', $password);
-            $user->setPassword($pwd);
-        }
         $this->checkUserExistUpdate($email, $identity);
-        $this->manager->persist($user);
-        $this->manager->flush();
-        $data = [
-            'status' => 'success',
-            'code' => 200,
-            'msg' => 'User Updated.',
-            'user' => $user,
-        ]; 
+        $data = $this->updateUser($user, $email, $name, $surname, $password);
 
         return $data;
     }
@@ -116,5 +95,26 @@ class UserService
         if (count($issetUser) > 0 && $identity->email != $email) {
             throw new \Exception('error: User exists.', 400);
         }
+    }
+
+    private function updateUser($user, $email, $name, $surname, $password)
+    {
+        $user->setEmail($email);
+        $user->setName($name);
+        $user->setSurname($surname);
+        if ($password != null) {
+            $pwd = hash('sha256', $password);
+            $user->setPassword($pwd);
+        }
+        $this->manager->persist($user);
+        $this->manager->flush();
+        $data = [
+            'status' => 'success',
+            'code' => 200,
+            'msg' => 'User Updated.',
+            'user' => $user,
+        ]; 
+
+        return $data;
     }
 }
