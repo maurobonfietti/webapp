@@ -12,11 +12,10 @@ class UserController extends BaseController
     public function createAction(Request $request)
     {
         try {
-            $em = $this->getDoctrine()->getManager();
             $json = $request->get('json', null);
             $validator = $this->get('validator');
-            $userService = new UserService();
-            $data = $userService->create($json, $validator, $em);
+            $userService = $this->get(UserService::class);
+            $data = $userService->create($json, $validator);
 
             return $this->get(Helpers::class)->json($data);
         } catch (\Exception $e) {
@@ -27,13 +26,12 @@ class UserController extends BaseController
     public function updateAction(Request $request)
     {
         try {
-            $em = $this->getDoctrine()->getManager();
             $jwtAuth = $this->get(JwtAuth::class);
             $token = $request->get('authorization', null);
             $json = $request->get('json', null);
             $validator = $this->get('validator');
-            $userService = new UserService();
-            $data = $userService->update($json, $validator, $em, $jwtAuth, $token);
+            $userService = $this->get(UserService::class);
+            $data = $userService->update($json, $validator, $jwtAuth, $token);
 
             return $this->get(Helpers::class)->json($data);
         } catch (\Exception $e) {

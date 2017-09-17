@@ -7,7 +7,14 @@ use AppBundle\Entity\Users;
 
 class UserService
 {
-    public function create($json, $validator, $em)
+    public $manager;
+
+    public function __construct($manager)
+    {
+        $this->manager = $manager;
+    }
+
+    public function create($json, $validator)
     {
         $params = json_decode($json);
         $createdAt = new \DateTime("now");
@@ -29,10 +36,10 @@ class UserService
         $user->setSurname($surname);
         $pwd = hash('sha256', $password);
         $user->setPassword($pwd);
-        $issetUser = $em->getRepository('AppBundle:Users')->findBy(["email" => $email]);
+        $issetUser = $this->manager->getRepository('AppBundle:Users')->findBy(["email" => $email]);
         if (count($issetUser) == 0) {
-            $em->persist($user);
-            $em->flush();
+            $this->manager->persist($user);
+            $this->manager->flush();
             $data = [
                 'status' => 'success',
                 'code' => 200,
@@ -46,14 +53,14 @@ class UserService
         return $data;
     }
 
-    public function update($json, $validator, $em, $jwtAuth, $token)
+    public function update($json, $validator, $jwtAuth, $token)
     {
         $authCheck = $jwtAuth->checkToken($token);
         if (!$authCheck) {
             throw new \Exception('error: Authorization Invalid.', 403);
         }
         $identity = $jwtAuth->checkToken($token, true);
-        $user = $em->getRepository('AppBundle:Users')->findOneBy(["id" => $identity->sub]);
+        $user = $this->manager->getRepository('AppBundle:Users')->findOneBy(["id" => $identity->sub]);
         $params = json_decode($json);
         $role = 'user';
         $email = isset($params->email) ? $params->email : null;
@@ -73,10 +80,10 @@ class UserService
             $pwd = hash('sha256', $password);
             $user->setPassword($pwd);
         }
-        $issetUser = $em->getRepository('AppBundle:Users')->findBy(["email" => $email]);
+        $issetUser = $this->manager->getRepository('AppBundle:Users')->findBy(["email" => $email]);
         if (count($issetUser) == 0 || $identity->email == $email) {
-            $em->persist($user);
-            $em->flush();
+            $this->manager->persist($user);
+            $this->manager->flush();
             $data = [
                 'status' => 'success',
                 'code' => 200,

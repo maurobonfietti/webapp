@@ -43,3 +43,8 @@ services:
         public: true
         arguments:
             $manager: '@doctrine.orm.entity_manager'
+
+    AppBundle\Services\UserService:
+        public: true
+        arguments:
+            $manager: '@doctrine.orm.entity_manager'
