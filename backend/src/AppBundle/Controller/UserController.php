@@ -24,10 +24,10 @@ class UserController extends BaseController
     {
         try {
             $this->getUserService();
-            $jwtAuth = $this->get(JwtAuth::class);
-            $token = $request->get('authorization', null);
             $json = $request->get('json', null);
-            $user = $this->userService->update($json, $jwtAuth, $token);
+            $token = $request->get('authorization', null);
+            $jwtAuth = $this->get(JwtAuth::class);
+            $user = $this->userService->update($json, $token, $jwtAuth);
 
             return $this->response($user);
         } catch (\Exception $e) {

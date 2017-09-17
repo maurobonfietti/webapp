@@ -30,7 +30,7 @@ class UserService
             throw new \Exception('error: User Not Created.', 400);
         }
         $this->checkUserExist($email);
-        $user = $this->saveUser($email, $name, $surname, $password);
+        $user = $this->createUser($email, $name, $surname, $password);
 
         return $user;
     }
@@ -43,7 +43,7 @@ class UserService
         }
     }
 
-    private function saveUser($email, $name, $surname, $password)
+    private function createUser($email, $name, $surname, $password)
     {
         $user = new Users();
         $user->setCreatedAt(new \DateTime("now"));
@@ -65,7 +65,7 @@ class UserService
         return $data;
     }
 
-    public function update($json, $jwtAuth, $token)
+    public function update($json, $token, $jwtAuth)
     {
         $authCheck = $jwtAuth->checkToken($token);
         if (!$authCheck) {
@@ -74,7 +74,6 @@ class UserService
         $identity = $jwtAuth->checkToken($token, true);
         $user = $this->manager->getRepository('AppBundle:Users')->findOneBy(["id" => $identity->sub]);
         $params = json_decode($json);
-        $role = 'user';
         $email = isset($params->email) ? $params->email : null;
         $name = isset($params->name) ? $params->name : null;
         $surname = isset($params->surname) ? $params->surname : null;
@@ -84,7 +83,13 @@ class UserService
         if ($email == null || count($validateEmail) > 0 || $name == null || $surname == null) {
             throw new \Exception('error: User Not Edited.', 400);
         }
-        $user->setRole($role);
+
+        return $this->updateUser($user, $email, $name, $surname, $password, $identity);
+    }
+
+    private function updateUser($user, $email, $name, $surname, $password, $identity)
+    {
+        $user->setRole('user');
         $user->setEmail($email);
         $user->setName($name);
         $user->setSurname($surname);
@@ -92,20 +97,24 @@ class UserService
             $pwd = hash('sha256', $password);
             $user->setPassword($pwd);
         }
-        $issetUser = $this->manager->getRepository('AppBundle:Users')->findBy(["email" => $email]);
-        if (count($issetUser) == 0 || $identity->email == $email) {
-            $this->manager->persist($user);
-            $this->manager->flush();
-            $data = [
-                'status' => 'success',
-                'code' => 200,
-                'msg' => 'User Updated.',
-                'user' => $user,
-            ];
-        } else {
-            throw new \Exception('error: User exists.', 400);
-        }
+        $this->checkUserExistUpdate($email, $identity);
+        $this->manager->persist($user);
+        $this->manager->flush();
+        $data = [
+            'status' => 'success',
+            'code' => 200,
+            'msg' => 'User Updated.',
+            'user' => $user,
+        ]; 
 
         return $data;
+    }
+
+    private function checkUserExistUpdate($email, $identity)
+    {
+        $issetUser = $this->manager->getRepository('AppBundle:Users')->findBy(["email" => $email]);
+        if (count($issetUser) > 0 && $identity->email != $email) {
+            throw new \Exception('error: User exists.', 400);
+        }
     }
 }
