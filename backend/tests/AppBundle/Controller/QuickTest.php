@@ -24,10 +24,10 @@ class QuickTest extends WebTestCase
     public function urlProvider()
     {
         return array(
-            array('/task/edit/11'),
+//            array('/task/edit/11'),
             array('/task/search'),
             array('/task/remove/11'),
-            array('/task/new'),
+//            array('/task/new'),
 //            array('/user/edit'),
         );
     }

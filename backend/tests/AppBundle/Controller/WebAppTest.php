@@ -13,7 +13,7 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
     {
         return [
             'authorization' => 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEzLCJlbWFpbCI6Im1AYi5jb20uYXIiLCJuYW1lIjoiTWF1cml0byIsInN1cm5hbWUiOiJCb25kIiwiaWF0IjoxNTA1MDc3NDQ2LCJleHAiOjE1MDU2ODIyNDZ9.VP6hyBPMCyzcYg5wnlQPVaFi85xjMo3un9etU4NETPY',
-            'json' => '{"name":"Mau","surname":"B","email": "m@b.com.ar", "password": "123"}',
+            'json' => '{"name":"Mau","surname":"B","email": "m@b.com.ar", "password": "123", "title":"test.", "description":"Mi test 1...", "status":"todo"}',
         ];
     }
 
@@ -28,6 +28,8 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
             array('/task/list'),
             array('/task/detail/18'),
             array('/user/edit'),
+            array('/task/new'),
+            array('/task/edit/11'),
         );
     }
 
