@@ -27,7 +27,7 @@ class UserService
         $emailConstraint = new Assert\Email();
         $validateEmail = $this->validator->validate($email, $emailConstraint);
         if ($email == null || count($validateEmail) > 0 || $name == null || $password == null || $surname == null) {
-            throw new \Exception('error: User Not Created.', 400);
+            throw new \Exception('error: Usuario no creado.', 400);
         }
         $this->checkUserExist($email);
         $user = $this->createUser($email, $name, $surname, $password);
@@ -39,7 +39,7 @@ class UserService
     {
         $user = $this->manager->getRepository('AppBundle:Users')->findBy(["email" => $email]);
         if (count($user) > 0) {
-            throw new \Exception('error: User exists.', 400);
+            throw new \Exception('error: Usuario existente.', 400);
         }
     }
 
@@ -58,7 +58,7 @@ class UserService
         $data = [
             'status' => 'success',
             'code' => 200,
-            'msg' => 'User Created.',
+            'msg' => 'Usuario creado.',
             'user' => $user,
         ];
 
@@ -81,7 +81,7 @@ class UserService
         $emailConstraint = new Assert\Email();
         $validateEmail = $this->validator->validate($email, $emailConstraint);
         if ($email == null || count($validateEmail) > 0 || $name == null || $surname == null) {
-            throw new \Exception('error: User Not Edited.', 400);
+            throw new \Exception('error: Usuario no actualizado.', 400);
         }
         $this->checkUserExistUpdate($email, $identity);
         $data = $this->updateUser($user, $email, $name, $surname, $password);
@@ -93,7 +93,7 @@ class UserService
     {
         $issetUser = $this->manager->getRepository('AppBundle:Users')->findBy(["email" => $email]);
         if (count($issetUser) > 0 && $identity->email != $email) {
-            throw new \Exception('error: User exists.', 400);
+            throw new \Exception('error: Usuario existente.', 400);
         }
     }
 
@@ -111,7 +111,7 @@ class UserService
         $data = [
             'status' => 'success',
             'code' => 200,
-            'msg' => 'User Updated.',
+            'msg' => 'Usuario actualizado.',
             'user' => $user,
         ]; 
 

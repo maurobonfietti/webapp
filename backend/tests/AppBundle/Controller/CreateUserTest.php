@@ -16,19 +16,19 @@ class CreateUserTest extends WebTestCase
         $client->request('POST', '/user/new', $data);
         $this->assertTrue($client->getResponse()->isSuccessful());
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertContains('User Created', $client->getResponse()->getContent());
+        $this->assertContains('Usuario creado.', $client->getResponse()->getContent());
         $this->assertNotContains('error', $client->getResponse()->getContent());
     }
 
     public function testCreateUserError()
     {
         $data = [
-//            'json' => '{"email": "", "password": ""}',
+            'json' => '{"email": "", "password": ""}',
         ];
         $client = self::createClient();
         $client->request('POST', '/user/new', $data);
         $this->assertEquals(400, $client->getResponse()->getStatusCode());
-        $this->assertContains('User Not Created', $client->getResponse()->getContent());
+        $this->assertContains('Usuario no creado.', $client->getResponse()->getContent());
         $this->assertContains('error', $client->getResponse()->getContent());
         $this->assertNotContains('success', $client->getResponse()->getContent());
     }
@@ -41,7 +41,7 @@ class CreateUserTest extends WebTestCase
         $client = self::createClient();
         $client->request('POST', '/user/new', $data);
         $this->assertEquals(400, $client->getResponse()->getStatusCode());
-        $this->assertContains('User exists', $client->getResponse()->getContent());
+        $this->assertContains('Usuario existente.', $client->getResponse()->getContent());
         $this->assertContains('error', $client->getResponse()->getContent());
         $this->assertNotContains('success', $client->getResponse()->getContent());
     }

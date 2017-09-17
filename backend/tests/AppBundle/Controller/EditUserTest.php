@@ -17,7 +17,7 @@ class EditUserTest extends WebTestCase
         $this->assertTrue($client->getResponse()->isSuccessful());
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertContains('success', $client->getResponse()->getContent());
-        $this->assertContains('User Updated.', $client->getResponse()->getContent());
+        $this->assertContains('Usuario actualizado.', $client->getResponse()->getContent());
         $this->assertNotContains('error', $client->getResponse()->getContent());
         $this->assertNotContains('Authorization Invalid', $client->getResponse()->getContent());
     }
@@ -39,7 +39,7 @@ class EditUserTest extends WebTestCase
         $client = self::createClient();
         $client->request('POST', '/user/edit', $data);
         $this->assertEquals(400, $client->getResponse()->getStatusCode());
-        $this->assertContains('User Not Edited.', $client->getResponse()->getContent());
+        $this->assertContains('Usuario no actualizado.', $client->getResponse()->getContent());
         $this->assertNotContains('success', $client->getResponse()->getContent());
     }
 
@@ -52,7 +52,7 @@ class EditUserTest extends WebTestCase
         $client = self::createClient();
         $client->request('POST', '/user/edit', $data);
         $this->assertEquals(400, $client->getResponse()->getStatusCode());
-        $this->assertContains('User exists.', $client->getResponse()->getContent());
+        $this->assertContains('Usuario existente.', $client->getResponse()->getContent());
         $this->assertNotContains('success', $client->getResponse()->getContent());
     }
 }
