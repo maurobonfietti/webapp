@@ -12,7 +12,7 @@ class QuickTest extends WebTestCase
     private function getAuthToken()
     {
         return [
-            'authorization' => 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEzLCJlbWFpbCI6Im1AYi5jb20uYXIiLCJuYW1lIjoiTWF1cml0byIsInN1cm5hbWUiOiJCb25kIiwiaWF0IjoxNTA1MDc3NDQ2LCJleHAiOjE1MDU2ODIyNDZ9.VP6hyBPMCyzcYg5wnlQPVaFi85xjMo3un9etU4NETPY',
+            'authorization' => 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEzLCJlbWFpbCI6Im1AYi5jb20uYXIiLCJuYW1lIjoiTWF1Iiwic3VybmFtZSI6IkIiLCJpYXQiOjE1MDU2ODM4MzQsImV4cCI6MTUwNjI4ODYzNH0.-l0r61i2pyC8u-EdiKSHJ14MkVOeq2Qo2t5kbXmBEZo',
         ];
     }
 
@@ -24,11 +24,11 @@ class QuickTest extends WebTestCase
     public function urlProvider()
     {
         return array(
-//            array('/task/edit/11'),
+//array('/task/edit/11'),
             array('/task/search'),
-            array('/task/remove/11'),
-//            array('/task/new'),
-//            array('/user/edit'),
+            array('/task/remove/40'),
+//array('/task/new'),
+//array('/user/edit'),
         );
     }
 

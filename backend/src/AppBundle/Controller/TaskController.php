@@ -8,14 +8,14 @@ use AppBundle\Services\JwtAuth;
 
 class TaskController extends BaseController
 {
-    public function newAction(Request $request)
+    public function newAction(Request $request, $id = null)
     {
         try {
             $this->getTaskService();
             $json = $request->get('json', null);
             $token = $request->get('authorization', null);
             $jwtAuth = $this->get(JwtAuth::class);
-            $task = $this->taskService->create($json, $token, $jwtAuth);
+            $task = $this->taskService->create($json, $token, $jwtAuth, $id);
 
             return $this->response($task);
         } catch (\Exception $e) {
