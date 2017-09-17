@@ -49,3 +49,8 @@ services:
         arguments:
             $manager: '@doctrine.orm.entity_manager'
             $validator: '@validator'
+
+    AppBundle\Services\TaskService:
+        public: true
+        arguments:
+            $manager: '@doctrine.orm.entity_manager'
