@@ -2,15 +2,14 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Validator\Constraints as Assert;
 use AppBundle\Services\Helpers;
 use AppBundle\Services\JwtAuth;
 use AppBundle\Services\UserService;
+use Symfony\Component\HttpFoundation\Request;
 
 class UserController extends BaseController
 {
-    public function newAction(Request $request)
+    public function createAction(Request $request)
     {
         try {
             $em = $this->getDoctrine()->getManager();
@@ -25,7 +24,7 @@ class UserController extends BaseController
         }
     }
 
-    public function editAction(Request $request)
+    public function updateAction(Request $request)
     {
         try {
             $em = $this->getDoctrine()->getManager();

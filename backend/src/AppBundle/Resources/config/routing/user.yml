@@ -1,9 +1,9 @@
 user_new:
     path: /new
-    defaults: { _controller: "AppBundle:User:new" }
+    defaults: { _controller: "AppBundle:User:create" }
     methods: POST
 
 user_edit:
     path: /edit
-    defaults: { _controller: "AppBundle:User:edit" }
+    defaults: { _controller: "AppBundle:User:update" }
     methods: POST
