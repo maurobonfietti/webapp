@@ -4,7 +4,6 @@ namespace AppBundle\Controller;
 
 use AppBundle\Services\Helpers;
 use AppBundle\Services\JwtAuth;
-use AppBundle\Services\UserService;
 use Symfony\Component\HttpFoundation\Request;
 
 class UserController extends BaseController
@@ -12,9 +11,9 @@ class UserController extends BaseController
     public function createAction(Request $request)
     {
         try {
+            $this->getUserService();
             $json = $request->get('json', null);
-            $userService = $this->get(UserService::class);
-            $data = $userService->create($json);
+            $data = $this->userService->create($json);
 
             return $this->get(Helpers::class)->json($data);
         } catch (\Exception $e) {
@@ -25,11 +24,11 @@ class UserController extends BaseController
     public function updateAction(Request $request)
     {
         try {
+            $this->getUserService();
             $jwtAuth = $this->get(JwtAuth::class);
             $token = $request->get('authorization', null);
             $json = $request->get('json', null);
-            $userService = $this->get(UserService::class);
-            $data = $userService->update($json, $jwtAuth, $token);
+            $data = $this->userService->update($json, $jwtAuth, $token);
 
             return $this->get(Helpers::class)->json($data);
         } catch (\Exception $e) {
