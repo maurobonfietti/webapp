@@ -9,12 +9,15 @@ class UserService
 {
     public $manager;
 
-    public function __construct($manager)
+    public $validator;
+
+    public function __construct($manager, $validator)
     {
         $this->manager = $manager;
+        $this->validator = $validator;
     }
 
-    public function create($json, $validator)
+    public function create($json)
     {
         $params = json_decode($json);
         $createdAt = new \DateTime("now");
@@ -24,7 +27,7 @@ class UserService
         $surname = isset($params->surname) ? $params->surname : null;
         $password = isset($params->password) ? $params->password : null;
         $emailConstraint = new Assert\Email();
-        $validateEmail = $validator->validate($email, $emailConstraint);
+        $validateEmail = $this->validator->validate($email, $emailConstraint);
         if ($email == null || count($validateEmail) > 0 || $name == null || $password == null || $surname == null) {
             throw new \Exception('error: User Not Created.', 400);
         }
@@ -53,7 +56,7 @@ class UserService
         return $data;
     }
 
-    public function update($json, $validator, $jwtAuth, $token)
+    public function update($json, $jwtAuth, $token)
     {
         $authCheck = $jwtAuth->checkToken($token);
         if (!$authCheck) {
@@ -68,7 +71,7 @@ class UserService
         $surname = isset($params->surname) ? $params->surname : null;
         $password = isset($params->password) ? $params->password : null;
         $emailConstraint = new Assert\Email();
-        $validateEmail = $validator->validate($email, $emailConstraint);
+        $validateEmail = $this->validator->validate($email, $emailConstraint);
         if ($email == null || count($validateEmail) > 0 || $name == null || $surname == null) {
             throw new \Exception('error: User Not Edited.', 400);
         }

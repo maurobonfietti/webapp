@@ -13,9 +13,8 @@ class UserController extends BaseController
     {
         try {
             $json = $request->get('json', null);
-            $validator = $this->get('validator');
             $userService = $this->get(UserService::class);
-            $data = $userService->create($json, $validator);
+            $data = $userService->create($json);
 
             return $this->get(Helpers::class)->json($data);
         } catch (\Exception $e) {
@@ -29,9 +28,8 @@ class UserController extends BaseController
             $jwtAuth = $this->get(JwtAuth::class);
             $token = $request->get('authorization', null);
             $json = $request->get('json', null);
-            $validator = $this->get('validator');
             $userService = $this->get(UserService::class);
-            $data = $userService->update($json, $validator, $jwtAuth, $token);
+            $data = $userService->update($json, $jwtAuth, $token);
 
             return $this->get(Helpers::class)->json($data);
         } catch (\Exception $e) {
