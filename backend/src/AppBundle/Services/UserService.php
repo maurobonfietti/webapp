@@ -2,8 +2,8 @@
 
 namespace AppBundle\Services;
 
-use Symfony\Component\Validator\Constraints as Assert;
 use AppBundle\Entity\Users;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class UserService
 {
@@ -20,8 +20,6 @@ class UserService
     public function create($json)
     {
         $params = json_decode($json);
-        $createdAt = new \DateTime("now");
-        $role = 'user';
         $email = isset($params->email) ? $params->email : null;
         $name = isset($params->name) ? $params->name : null;
         $surname = isset($params->surname) ? $params->surname : null;
@@ -31,27 +29,38 @@ class UserService
         if ($email == null || count($validateEmail) > 0 || $name == null || $password == null || $surname == null) {
             throw new \Exception('error: User Not Created.', 400);
         }
+        $this->checkUserExist($email);
+        $user = $this->saveUser($email, $name, $surname, $password);
+
+        return $user;
+    }
+
+    private function checkUserExist($email)
+    {
+        $user = $this->manager->getRepository('AppBundle:Users')->findBy(["email" => $email]);
+        if (count($user) > 0) {
+            throw new \Exception('error: User exists.', 400);
+        }
+    }
+
+    private function saveUser($email, $name, $surname, $password)
+    {
         $user = new Users();
-        $user->setCreatedAt($createdAt);
-        $user->setRole($role);
+        $user->setCreatedAt(new \DateTime("now"));
+        $user->setRole('user');
         $user->setEmail($email);
         $user->setName($name);
         $user->setSurname($surname);
         $pwd = hash('sha256', $password);
         $user->setPassword($pwd);
-        $issetUser = $this->manager->getRepository('AppBundle:Users')->findBy(["email" => $email]);
-        if (count($issetUser) == 0) {
-            $this->manager->persist($user);
-            $this->manager->flush();
-            $data = [
-                'status' => 'success',
-                'code' => 200,
-                'msg' => 'User Created.',
-                'user' => $user,
-            ];
-        } else {
-            throw new \Exception('error: User exists.', 400);
-        }
+        $this->manager->persist($user);
+        $this->manager->flush();
+        $data = [
+            'status' => 'success',
+            'code' => 200,
+            'msg' => 'User Created.',
+            'user' => $user,
+        ];
 
         return $data;
     }
