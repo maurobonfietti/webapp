@@ -2,14 +2,12 @@
 
 namespace Tests\AppBundle;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-
-class CreateTaskTest extends WebTestCase
+class CreateTaskTest extends BaseTest
 {
     public function testCreateTaskOk()
     {
         $data = [
-            'authorization' => 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEzLCJlbWFpbCI6Im1AYi5jb20uYXIiLCJuYW1lIjoiTWF1Iiwic3VybmFtZSI6IkIiLCJpYXQiOjE1MDU2ODM4MzQsImV4cCI6MTUwNjI4ODYzNH0.-l0r61i2pyC8u-EdiKSHJ14MkVOeq2Qo2t5kbXmBEZo',
+            'authorization' => $this->getAuthToken(),
             'json' => '{"title":"test.", "description":"Mi test 1...", "status":"todo"}',
         ];
         $client = self::createClient();

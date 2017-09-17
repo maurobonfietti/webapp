@@ -2,9 +2,7 @@
 
 namespace Tests\AppBundle;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-
-class LoginTest extends WebTestCase
+class LoginTest extends BaseTest
 {
     public function testLoginOk()
     {

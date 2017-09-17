@@ -2,21 +2,8 @@
 
 namespace Tests\AppBundle;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-
-class ApplicationAvailabilityFunctionalTest extends WebTestCase
+class ApplicationAvailabilityFunctionalTest extends BaseTest
 {
-    /**
-     * @return array
-     */
-    private function getAuthToken()
-    {
-        return [
-            'authorization' => 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEzLCJlbWFpbCI6Im1AYi5jb20uYXIiLCJuYW1lIjoiTWF1Iiwic3VybmFtZSI6IkIiLCJpYXQiOjE1MDU2ODM4MzQsImV4cCI6MTUwNjI4ODYzNH0.-l0r61i2pyC8u-EdiKSHJ14MkVOeq2Qo2t5kbXmBEZo',
-            'json' => '{"name":"Mau","surname":"B","email": "m@b.com.ar", "password": "123", "title":"test.", "description":"Mi test 1...", "status":"todo"}',
-        ];
-    }
-
     /**
      * Url of endpoints to test.
      *
@@ -38,8 +25,12 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
      */
     public function testPageIsSuccessful($url)
     {
+        $data = [
+            'authorization' => $this->getAuthToken(),
+            'json' => '{"name":"Mau","surname":"B","email": "m@b.com.ar", "password": "123", "title":"test.", "description":"Mi test 1...", "status":"todo"}',
+        ];
         $client = self::createClient();
-        $client->request('POST', $url, $this->getAuthToken());
+        $client->request('POST', $url, $data);
         $this->assertTrue($client->getResponse()->isSuccessful());
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertContains('success', $client->getResponse()->getContent());
@@ -62,8 +53,12 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
 
     public function testTaskNotFound()
     {
+        $data = [
+            'authorization' => $this->getAuthToken(),
+            'json' => '{"name":"Mau","surname":"B","email": "m@b.com.ar", "password": "123", "title":"test.", "description":"Mi test 1...", "status":"todo"}',
+        ];
         $client = self::createClient();
-        $client->request('POST', '/task/detail/1', $this->getAuthToken());
+        $client->request('POST', '/task/detail/1', $data);
         $this->assertContains('Task not found', $client->getResponse()->getContent());
         $this->assertContains('error', $client->getResponse()->getContent());
         $this->assertEquals(404, $client->getResponse()->getStatusCode());

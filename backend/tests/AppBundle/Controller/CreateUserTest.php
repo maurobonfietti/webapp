@@ -2,9 +2,7 @@
 
 namespace Tests\AppBundle;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-
-class CreateUserTest extends WebTestCase
+class CreateUserTest extends BaseTest
 {
     public function testCreateUserOk()
     {
