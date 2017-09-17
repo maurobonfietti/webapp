@@ -22,70 +22,55 @@ class TaskService
         if (!$authCheck) {
             throw new \Exception('error: Authorization Invalid.', 403);
         }
+        if ($json == null) {
+            throw new \Exception('error: Sin datos para actualizar la tarea.', 400);
+        }
+        $params = json_decode($json);
         $identity = $jwtAuth->checkToken($token, true);
-        if ($json != null) {
-            $params = json_decode($json);
-            $createdAt = new \DateTime("now");
-            $updateAt = new \DateTime("now");
-            $userId = ($identity->sub != null) ? $identity->sub : null;
-            $title = isset($params->title) ? $params->title : null;
-            $description = isset($params->description) ? $params->description : null;
-            $status = isset($params->status) ? $params->status : null;
-            if ($userId != null && $title != null) {
-                $em = $this->manager;
-                $user = $em->getRepository('AppBundle:Users')->findOneBy(['id' => $userId]);
-                if ($id == null) {
-                    $task = new Tasks();
-                    $task->setUser($user);
+        $userId = ($identity->sub != null) ? $identity->sub : null;
+        $title = isset($params->title) ? $params->title : null;
+        $description = isset($params->description) ? $params->description : null;
+        $status = isset($params->status) ? $params->status : null;
+        if ($userId != null && $title != null) {
+            $em = $this->manager;
+            $user = $em->getRepository('AppBundle:Users')->findOneBy(['id' => $userId]);
+            if ($id == null) {
+                $task = new Tasks();
+                $task->setUser($user);
+                $task->setTitle($title);
+                $task->setDescription($description);
+                $task->setStatus($status);
+                $task->setCreatedAt(new \DateTime("now"));
+                $task->setUpdatedAt(new \DateTime("now"));
+                $em->persist($task);
+                $em->flush();
+                $data = [
+                    'status' => 'success',
+                    'code' => 200,
+                    'msg' => 'Task Created.',
+                    'task' => $task,
+                ];
+            } else {
+                $task = $em->getRepository('AppBundle:Tasks')->findOneBy(['id' => $id]);
+                if (isset($identity->sub) && $identity->sub == $task->getUser()->getId()) {
                     $task->setTitle($title);
                     $task->setDescription($description);
                     $task->setStatus($status);
-                    $task->setCreatedAt($createdAt);
-                    $task->setUpdatedAt($updateAt);
+                    $task->setUpdatedAt(new \DateTime("now"));
                     $em->persist($task);
                     $em->flush();
                     $data = [
                         'status' => 'success',
                         'code' => 200,
-                        'msg' => 'Task Created.',
+                        'msg' => 'Task Updated.',
                         'task' => $task,
                     ];
                 } else {
-                    $task = $em->getRepository('AppBundle:Tasks')->findOneBy(['id' => $id]);
-                    if (isset($identity->sub) && $identity->sub == $task->getUser()->getId()) {
-                        $task->setTitle($title);
-                        $task->setDescription($description);
-                        $task->setStatus($status);
-                        $task->setUpdatedAt($updateAt);
-                        $em->persist($task);
-                        $em->flush();
-                        $data = [
-                            'status' => 'success',
-                            'code' => 200,
-                            'msg' => 'Task Updated.',
-                            'task' => $task,
-                        ];
-                    } else {
-                        $data = [
-                            'status' => 'error',
-                            'code' => 400,
-                            'msg' => 'Task validation failed. Owner task error.',
-                       ];
-                    }
+                    throw new \Exception('error: Task validation failed. Owner task error.', 400);
                 }
-            } else {
-                $data = [
-                    'status' => 'error',
-                    'code' => 400,
-                    'msg' => 'Task validation failed.',
-               ];
             }
         } else {
-            $data = [
-                'status' => 'error',
-                'code' => 400,
-                'msg' => 'Task  ....  exists.',
-            ];
+            throw new \Exception('error: Task validation failed.', 400);
         }
 
         return $data;
