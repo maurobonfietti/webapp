@@ -6,13 +6,6 @@ use \Symfony\Component\Serializer;
 
 class Helpers
 {
-    public $manager;
-
-    public function __construct($manager)
-    {
-        $this->manager = $manager;
-    }
-
     public function json($data, $status = 200)
     {
         $normalizers = [ new Serializer\Normalizer\GetSetMethodNormalizer()];

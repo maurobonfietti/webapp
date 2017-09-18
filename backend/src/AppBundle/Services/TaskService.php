@@ -2,10 +2,7 @@
 
 namespace AppBundle\Services;
 
-//use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Tasks;
-//use AppBundle\Services\Helpers;
-//use AppBundle\Services\JwtAuth;
 
 class TaskService
 {
@@ -32,7 +29,6 @@ class TaskService
         $description = isset($params->description) ? $params->description : null;
         $status = isset($params->status) ? $params->status : null;
         if ($userId != null && $title != null) {
-//            $this->em = $this->em;
             $user = $this->em->getRepository('AppBundle:Users')->findOneBy(['id' => $userId]);
             if ($id == null) {
                 $task = new Tasks();
@@ -247,6 +243,6 @@ class TaskService
 
         return $helpers->json($data);
     }
- * 
+ *
  */
 }

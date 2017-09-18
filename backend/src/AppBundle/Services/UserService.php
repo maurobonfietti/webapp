@@ -113,7 +113,7 @@ class UserService
             'code' => 200,
             'msg' => 'Usuario actualizado.',
             'user' => $user,
-        ]; 
+        ];
 
         return $data;
     }
