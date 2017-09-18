@@ -75,7 +75,7 @@ class TaskService
 
         return $data;
     }
-
+/*
     public function tasksAction(Request $request)
     {
         $helpers = $this->get(Helpers::class);
@@ -247,4 +247,6 @@ class TaskService
 
         return $helpers->json($data);
     }
+ * 
+ */
 }
