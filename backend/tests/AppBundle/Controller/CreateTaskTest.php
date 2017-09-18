@@ -19,7 +19,7 @@ class CreateTaskTest extends BaseTest
         $this->assertTrue($client->getResponse()->isSuccessful());
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertContains('success', $client->getResponse()->getContent());
-        $this->assertContains('Task Created.', $client->getResponse()->getContent());
+        $this->assertContains('Tarea creada.', $client->getResponse()->getContent());
         $this->assertNotContains('error', $client->getResponse()->getContent());
         $this->assertNotContains('Authorization Invalid', $client->getResponse()->getContent());
     }
