@@ -6,19 +6,19 @@ use Firebase\JWT\JWT;
 
 class JwtAuth
 {
-    public $manager;
+    public $em;
 
     public $key;
 
     public function __construct($manager)
     {
-        $this->manager = $manager;
+        $this->em = $manager;
         $this->key = 'SecretKey...123...';
     }
 
     public function signUp($email, $password, $getHash = null)
     {
-        $user = $this->manager->getRepository('AppBundle:Users')->findOneBy([
+        $user = $this->em->getRepository('AppBundle:Users')->findOneBy([
             'email' => $email,
             'password' => $password,
         ]);

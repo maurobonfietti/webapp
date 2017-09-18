@@ -2,18 +2,18 @@
 
 namespace AppBundle\Services;
 
-use Symfony\Component\HttpFoundation\Request;
+//use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Tasks;
-use AppBundle\Services\Helpers;
-use AppBundle\Services\JwtAuth;
+//use AppBundle\Services\Helpers;
+//use AppBundle\Services\JwtAuth;
 
 class TaskService
 {
-    public $manager;
+    public $em;
 
     public function __construct($manager)
     {
-        $this->manager = $manager;
+        $this->em = $manager;
     }
 
     public function create($json, $token, $jwtAuth, $id = null)
@@ -32,8 +32,8 @@ class TaskService
         $description = isset($params->description) ? $params->description : null;
         $status = isset($params->status) ? $params->status : null;
         if ($userId != null && $title != null) {
-            $em = $this->manager;
-            $user = $em->getRepository('AppBundle:Users')->findOneBy(['id' => $userId]);
+//            $this->em = $this->em;
+            $user = $this->em->getRepository('AppBundle:Users')->findOneBy(['id' => $userId]);
             if ($id == null) {
                 $task = new Tasks();
                 $task->setUser($user);
@@ -42,8 +42,8 @@ class TaskService
                 $task->setStatus($status);
                 $task->setCreatedAt(new \DateTime("now"));
                 $task->setUpdatedAt(new \DateTime("now"));
-                $em->persist($task);
-                $em->flush();
+                $this->em->persist($task);
+                $this->em->flush();
                 $data = [
                     'status' => 'success',
                     'code' => 200,
@@ -51,14 +51,14 @@ class TaskService
                     'task' => $task,
                 ];
             } else {
-                $task = $em->getRepository('AppBundle:Tasks')->findOneBy(['id' => $id]);
+                $task = $this->em->getRepository('AppBundle:Tasks')->findOneBy(['id' => $id]);
                 if (isset($identity->sub) && $identity->sub == $task->getUser()->getId()) {
                     $task->setTitle($title);
                     $task->setDescription($description);
                     $task->setStatus($status);
                     $task->setUpdatedAt(new \DateTime("now"));
-                    $em->persist($task);
-                    $em->flush();
+                    $this->em->persist($task);
+                    $this->em->flush();
                     $data = [
                         'status' => 'success',
                         'code' => 200,
@@ -84,9 +84,9 @@ class TaskService
         $authCheck = $jwtAuth->checkToken($token);
         if ($authCheck == true) {
             $identity = $jwtAuth->checkToken($token, true);
-            $em = $this->getDoctrine()->getManager();
+            $this->em = $this->getDoctrine()->getManager();
             $dql = "SELECT t FROM AppBundle:Tasks t WHERE t.user = $identity->sub ORDER BY t.id ASC";
-            $query = $em->createQuery($dql);
+            $query = $this->em->createQuery($dql);
             $page = $request->query->getInt('page', 1);
             $paginator = $this->get('knp_paginator');
             $itemsPerPage = 10;
@@ -122,8 +122,8 @@ class TaskService
         $authCheck = $jwtAuth->checkToken($token);
         if ($authCheck == true) {
             $identity = $jwtAuth->checkToken($token, true);
-            $em = $this->getDoctrine()->getManager();
-            $task = $em->getRepository('AppBundle:Tasks')->findOneBy(['id' => $id]);
+            $this->em = $this->getDoctrine()->getManager();
+            $task = $this->em->getRepository('AppBundle:Tasks')->findOneBy(['id' => $id]);
             if ($task && is_object($task) && $identity->sub == $task->getUser()->getId()) {
                 $status = 200;
                 $data = [
@@ -159,7 +159,7 @@ class TaskService
         $authCheck = $jwtAuth->checkToken($token);
         if ($authCheck == true) {
             $identity = $jwtAuth->checkToken($token, true);
-            $em = $this->getDoctrine()->getManager();
+            $this->em = $this->getDoctrine()->getManager();
             $filter = $request->get('filter', null);
             if (empty($filter)) {
                 $filter = null;
@@ -188,7 +188,7 @@ class TaskService
                 $dql.= " AND t.status = :filter ";
             }
             $dql.= " ORDER BY t.id $order ";
-            $query = $em->createQuery($dql);
+            $query = $this->em->createQuery($dql);
             if (!empty($search)) {
                 $query->setParameter('search', "%$search%");
             }
@@ -220,11 +220,11 @@ class TaskService
         $authCheck = $jwtAuth->checkToken($token);
         if ($authCheck == true) {
             $identity = $jwtAuth->checkToken($token, true);
-            $em = $this->getDoctrine()->getManager();
-            $task = $em->getRepository('AppBundle:Tasks')->findOneBy(['id' => $id]);
+            $this->em = $this->getDoctrine()->getManager();
+            $task = $this->em->getRepository('AppBundle:Tasks')->findOneBy(['id' => $id]);
             if ($task && is_object($task) && $identity->sub == $task->getUser()->getId()) {
-                $em->remove($task);
-                $em->flush();
+                $this->em->remove($task);
+                $this->em->flush();
                 $data = [
                     'status' => 'success',
                     'code' => 200,

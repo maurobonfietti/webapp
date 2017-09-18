@@ -7,13 +7,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class UserService
 {
-    public $manager;
+    public $em;
 
     public $validator;
 
     public function __construct($manager, $validator)
     {
-        $this->manager = $manager;
+        $this->em = $manager;
         $this->validator = $validator;
     }
 
@@ -37,7 +37,7 @@ class UserService
 
     private function checkUserExist($email)
     {
-        $user = $this->manager->getRepository('AppBundle:Users')->findBy(["email" => $email]);
+        $user = $this->em->getRepository('AppBundle:Users')->findBy(["email" => $email]);
         if (count($user) > 0) {
             throw new \Exception('error: Usuario existente.', 400);
         }
@@ -53,8 +53,8 @@ class UserService
         $user->setSurname($surname);
         $pwd = hash('sha256', $password);
         $user->setPassword($pwd);
-        $this->manager->persist($user);
-        $this->manager->flush();
+        $this->em->persist($user);
+        $this->em->flush();
         $data = [
             'status' => 'success',
             'code' => 200,
@@ -72,7 +72,7 @@ class UserService
             throw new \Exception('error: Authorization Invalid.', 403);
         }
         $identity = $jwtAuth->checkToken($token, true);
-        $user = $this->manager->getRepository('AppBundle:Users')->findOneBy(["id" => $identity->sub]);
+        $user = $this->em->getRepository('AppBundle:Users')->findOneBy(["id" => $identity->sub]);
         $params = json_decode($json);
         $email = isset($params->email) ? $params->email : null;
         $name = isset($params->name) ? $params->name : null;
@@ -91,7 +91,7 @@ class UserService
 
     private function checkUserExistUpdate($email, $identity)
     {
-        $issetUser = $this->manager->getRepository('AppBundle:Users')->findBy(["email" => $email]);
+        $issetUser = $this->em->getRepository('AppBundle:Users')->findBy(["email" => $email]);
         if (count($issetUser) > 0 && $identity->email != $email) {
             throw new \Exception('error: Usuario existente.', 400);
         }
@@ -106,8 +106,8 @@ class UserService
             $pwd = hash('sha256', $password);
             $user->setPassword($pwd);
         }
-        $this->manager->persist($user);
-        $this->manager->flush();
+        $this->em->persist($user);
+        $this->em->flush();
         $data = [
             'status' => 'success',
             'code' => 200,
