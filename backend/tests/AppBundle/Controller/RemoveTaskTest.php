@@ -23,7 +23,7 @@ class RemoveTaskTest extends BaseTest
     {
         $client = self::createClient();
         $client->request('POST', '/task/remove/200');
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals(403, $client->getResponse()->getStatusCode());
         $this->assertContains('Authorization Invalid', $client->getResponse()->getContent());
         $this->assertNotContains('success', $client->getResponse()->getContent());
     }

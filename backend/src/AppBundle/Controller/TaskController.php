@@ -143,20 +143,22 @@ class TaskController extends BaseController
                 $query->setParameter('filter', "$filter");
             }
             $task = $query->getResult();
+            $status = 200;
             $data = [
                 'status' => 'success',
-                'code' => 200,
+                'code' => $status,
                 'data' => $task,
             ];
         } else {
+            $status = 403;
             $data = [
                 'status' => 'error',
-                'code' => 400,
+                'code' => $status,
                 'msg' => 'Authorization Invalid.',
             ];
         }
 
-        return $helpers->json($data);
+        return $helpers->json($data, $status);
     }
 
     public function removeAction(Request $request, $id = null)
@@ -172,26 +174,29 @@ class TaskController extends BaseController
             if ($task && is_object($task) && $identity->sub == $task->getUser()->getId()) {
                 $em->remove($task);
                 $em->flush();
+                $status = 200;
                 $data = [
                     'status' => 'success',
-                    'code' => 200,
+                    'code' => $status,
                     'msg' => 'Task Deleted.',
                 ];
             } else {
+                $status = 404;
                 $data = [
                     'status' => 'error',
-                    'code' => 404,
+                    'code' => $status,
                     'msg' => 'Task not found.',
                 ];
             }
         } else {
+            $status = 403;
             $data = [
                 'status' => 'error',
-                'code' => 400,
+                'code' => $status,
                 'msg' => 'Authorization Invalid.',
             ];
         }
 
-        return $helpers->json($data);
+        return $helpers->json($data, $status);
     }
 }
