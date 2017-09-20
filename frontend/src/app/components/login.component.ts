@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
         private _router: Router,
         private _userService: UserService
     ) {
-        this.title = 'Ingresar:';
+        this.title = 'Ingresar';
         this.user = {
             "email": "",
             "password": "",

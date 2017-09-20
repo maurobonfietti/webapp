@@ -12,17 +12,17 @@
         </div>
 
         <div class="alert alert-danger" *ngIf="status_task == 'error'">
-            Error al crear la nueva tarea.
+            Error al crear la tarea.
         </div>     
 
         <form #taskNewForm="ngForm" (ngSubmit)="onSubmit()" class="col-md-7 no-padding">
             <p>
-                <label>Titulo</label>
+                <label>Título</label>
                 <input type="text" class="form-control" name="title" #title="ngModel" [(ngModel)]="task.title" required />
-                <span *ngIf="!title.valid && title.touched">El titulo no es correcto.</span>
+                <span *ngIf="!title.valid && title.touched">El título no es correcto.</span>
             </p>
             <p>
-                <label>Descripcion</label>
+                <label>Descripción</label>
                 <textarea class="form-control" name="description" #description="ngModel" [(ngModel)]="task.description" ></textarea>
             </p>
             <p>
