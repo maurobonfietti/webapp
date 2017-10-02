@@ -2,7 +2,7 @@
 
 namespace Tests\AppBundle;
 
-class LoginTest extends BaseTest
+class AsLoginTest extends BaseTest
 {
     public function testLoginOk()
     {
@@ -11,6 +11,9 @@ class LoginTest extends BaseTest
         ];
         $client = self::createClient();
         $client->request('POST', '/login', $data);
+
+        self::$bearer = substr($client->getResponse()->getContent(), 1, -1);
+
         $this->assertTrue($client->getResponse()->isSuccessful());
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertContains('ey', $client->getResponse()->getContent());
