@@ -26,14 +26,14 @@ class ApplicationAvailabilityFunctionalTest extends BaseTest
      */
     public function testPageIsSuccessful($url)
     {
-        $data = [
+        $client = self::createClient();
+        $client->request('POST', $url, [
             'authorization' => $this->getAuthToken(),
             'json' => '{"name":"Mau","surname":"B","email": "m@b.com.ar", "password": "123", "title":"test.", "description":"Mi test 1...", "status":"todo"}',
-        ];
-        $client = self::createClient();
-        $client->request('POST', $url, $data);
-        $this->assertTrue($client->getResponse()->isSuccessful());
+        ]);
+
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertTrue($client->getResponse()->isSuccessful());
         $this->assertContains('success', $client->getResponse()->getContent());
         $this->assertNotContains('error', $client->getResponse()->getContent());
         $this->assertNotContains('Authorization Invalid', $client->getResponse()->getContent());
@@ -46,23 +46,24 @@ class ApplicationAvailabilityFunctionalTest extends BaseTest
     {
         $client = self::createClient();
         $client->request('POST', $url);
-        $this->assertContains('Authorization Invalid', $client->getResponse()->getContent());
-        $this->assertContains('error', $client->getResponse()->getContent());
+
         $this->assertEquals(403, $client->getResponse()->getStatusCode());
+        $this->assertContains('Authorization Invalid', $client->getResponse()->getContent());
+        $this->assertContains('error', $client->getResponse()->getContent());        
         $this->assertNotContains('success', $client->getResponse()->getContent());
     }
 
     public function testTaskNotFound()
     {
-        $data = [
+        $client = self::createClient();
+        $client->request('POST', '/task/detail/1', [
             'authorization' => $this->getAuthToken(),
             'json' => '{"name":"Mau","surname":"B","email": "m@b.com.ar", "password": "123", "title":"test.", "description":"Mi test 1...", "status":"todo"}',
-        ];
-        $client = self::createClient();
-        $client->request('POST', '/task/detail/1', $data);
+        ]);
+
+        $this->assertEquals(404, $client->getResponse()->getStatusCode());
         $this->assertContains('Task not found', $client->getResponse()->getContent());
         $this->assertContains('error', $client->getResponse()->getContent());
-        $this->assertEquals(404, $client->getResponse()->getStatusCode());
         $this->assertNotContains('success', $client->getResponse()->getContent());
     }
 }

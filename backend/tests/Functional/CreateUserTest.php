@@ -6,25 +6,24 @@ class CreateUserTest extends BaseTest
 {
     public function testCreateUserOk()
     {
-        $rnd = rand(1, 99999);
-        $data = [
-            'json' => '{"name":"test","surname":"test","email": "test-'.$rnd.'@test.com", "password": "test"}',
-        ];
         $client = self::createClient();
-        $client->request('POST', '/user/new', $data);
-        $this->assertTrue($client->getResponse()->isSuccessful());
+        $client->request('POST', '/user/new', [
+            'json' => '{"name":"test","surname":"test","email": "test-'.rand(1, 99999).'@test.com", "password": "test"}',
+        ]);
+
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertTrue($client->getResponse()->isSuccessful());
         $this->assertContains('Usuario creado.', $client->getResponse()->getContent());
         $this->assertNotContains('error', $client->getResponse()->getContent());
     }
 
     public function testCreateUserError()
     {
-        $data = [
-            'json' => '{"email": "", "password": ""}',
-        ];
         $client = self::createClient();
-        $client->request('POST', '/user/new', $data);
+        $client->request('POST', '/user/new', [
+            'json' => '{"email": "", "password": ""}',
+        ]);
+
         $this->assertEquals(400, $client->getResponse()->getStatusCode());
         $this->assertContains('Usuario no creado.', $client->getResponse()->getContent());
         $this->assertContains('error', $client->getResponse()->getContent());
@@ -33,11 +32,11 @@ class CreateUserTest extends BaseTest
 
     public function testCreateUserExists()
     {
-        $data = [
-            'json' => '{"name":"test","surname":"test","email": "test@test.com", "password": "test"}',
-        ];
         $client = self::createClient();
-        $client->request('POST', '/user/new', $data);
+        $client->request('POST', '/user/new', [
+            'json' => '{"name":"test","surname":"test","email": "test@test.com", "password": "test"}',
+        ]);
+
         $this->assertEquals(400, $client->getResponse()->getStatusCode());
         $this->assertContains('Usuario existente.', $client->getResponse()->getContent());
         $this->assertContains('error', $client->getResponse()->getContent());

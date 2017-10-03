@@ -6,33 +6,29 @@ class AsLoginTest extends BaseTest
 {
     public function testLoginOk()
     {
-        $data = [
-            'json' => '{"email": "m@b.com.ar", "password": "123"}',
-        ];
         $client = self::createClient();
-        $client->request('POST', '/login', $data);
+        $client->request('POST', '/login', [
+            'json' => '{"email": "m@b.com.ar", "password": "123"}',
+        ]);
 
         $result = $client->getResponse()->getContent();
         self::$bearer = substr($result, 1, -1);
 
-        $this->assertTrue($client->getResponse()->isSuccessful());
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-
+        $this->assertTrue($client->getResponse()->isSuccessful());
         $this->assertContains('ey', $result);
         $this->assertNotContains('error', $result);
     }
 
     public function testLoginHashOk()
     {
-        $data = [
-            'json' => '{"email": "m@b.com.ar", "password": "123", "getHash": 1}',
-        ];
         $client = self::createClient();
-        $client->request('POST', '/login', $data);
+        $client->request('POST', '/login', [
+            'json' => '{"email": "m@b.com.ar", "password": "123", "getHash": 1}',
+        ]);
 
-        $this->assertTrue($client->getResponse()->isSuccessful());
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-
+        $this->assertTrue($client->getResponse()->isSuccessful());
         $this->assertContains('sub', $client->getResponse()->getContent());
         $this->assertContains('email', $client->getResponse()->getContent());
         $this->assertContains('name', $client->getResponse()->getContent());
@@ -44,14 +40,12 @@ class AsLoginTest extends BaseTest
 
     public function testLoginError()
     {
-        $data = [
-            'json' => '{"email": "", "password": ""}',
-        ];
         $client = self::createClient();
-        $client->request('POST', '/login', $data);
+        $client->request('POST', '/login', [
+            'json' => '{"email": "", "password": ""}',
+        ]);
 
         $this->assertEquals(403, $client->getResponse()->getStatusCode());
-
         $this->assertContains('error', $client->getResponse()->getContent());
         $this->assertContains('incorrecto', $client->getResponse()->getContent());
         $this->assertNotContains('ey', $client->getResponse()->getContent());
