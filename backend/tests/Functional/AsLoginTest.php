@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\AppBundle;
+namespace Tests\Functional;
 
 class AsLoginTest extends BaseTest
 {
