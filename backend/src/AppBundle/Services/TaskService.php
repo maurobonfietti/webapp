@@ -17,7 +17,7 @@ class TaskService
     {
         $authCheck = $jwtAuth->checkToken($token);
         if (!$authCheck) {
-            throw new \Exception('error: Authorization Invalid.', 403);
+            throw new \Exception('error: Sin Autorizacion.', 403);
         }
         if ($json == null) {
             throw new \Exception('error: Sin datos para actualizar la tarea.', 400);

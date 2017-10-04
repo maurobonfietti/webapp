@@ -17,7 +17,7 @@ class EditUserTest extends BaseTest
         $this->assertContains('success', $client->getResponse()->getContent());
         $this->assertContains('Usuario actualizado.', $client->getResponse()->getContent());
         $this->assertNotContains('error', $client->getResponse()->getContent());
-        $this->assertNotContains('Authorization Invalid', $client->getResponse()->getContent());
+        $this->assertNotContains('Sin Autorizacion', $client->getResponse()->getContent());
     }
 
     public function testEditUserError()
@@ -26,7 +26,7 @@ class EditUserTest extends BaseTest
         $client->request('POST', '/user/edit');
 
         $this->assertEquals(403, $client->getResponse()->getStatusCode());
-        $this->assertContains('Authorization Invalid', $client->getResponse()->getContent());
+        $this->assertContains('Sin Autorizacion', $client->getResponse()->getContent());
         $this->assertNotContains('success', $client->getResponse()->getContent());
     }
 

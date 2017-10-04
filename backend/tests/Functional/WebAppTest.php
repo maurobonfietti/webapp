@@ -36,7 +36,7 @@ class ApplicationAvailabilityFunctionalTest extends BaseTest
         $this->assertTrue($client->getResponse()->isSuccessful());
         $this->assertContains('success', $client->getResponse()->getContent());
         $this->assertNotContains('error', $client->getResponse()->getContent());
-        $this->assertNotContains('Authorization Invalid', $client->getResponse()->getContent());
+        $this->assertNotContains('Sin Autorizacion', $client->getResponse()->getContent());
     }
 
     /**
@@ -48,7 +48,7 @@ class ApplicationAvailabilityFunctionalTest extends BaseTest
         $client->request('POST', $url);
 
         $this->assertEquals(403, $client->getResponse()->getStatusCode());
-        $this->assertContains('Authorization Invalid', $client->getResponse()->getContent());
+        $this->assertContains('Sin Autorizacion', $client->getResponse()->getContent());
         $this->assertContains('error', $client->getResponse()->getContent());        
         $this->assertNotContains('success', $client->getResponse()->getContent());
     }

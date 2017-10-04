@@ -69,7 +69,7 @@ class UserService
     {
         $authCheck = $jwtAuth->checkToken($token);
         if (!$authCheck) {
-            throw new \Exception('error: Authorization Invalid.', 403);
+            throw new \Exception('error: Sin Autorizacion.', 403);
         }
         $identity = $jwtAuth->checkToken($token, true);
         $user = $this->em->getRepository('AppBundle:Users')->findOneBy(["id" => $identity->sub]);

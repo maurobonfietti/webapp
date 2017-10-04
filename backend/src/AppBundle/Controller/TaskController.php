@@ -54,7 +54,7 @@ class TaskController extends BaseController
             $data = [
                 'status' => 'error',
                 'code' => $status,
-                'msg' => 'Authorization Invalid.',
+                'msg' => 'Sin Autorizacion.',
             ];
         }
 
@@ -91,7 +91,7 @@ class TaskController extends BaseController
             $data = [
                 'status' => 'error',
                 'code' => $status,
-                'msg' => 'Authorization Invalid.',
+                'msg' => 'Sin Autorizacion.',
             ];
         }
 
@@ -154,7 +154,7 @@ class TaskController extends BaseController
             $data = [
                 'status' => 'error',
                 'code' => $status,
-                'msg' => 'Authorization Invalid.',
+                'msg' => 'Sin Autorizacion.',
             ];
         }
 
@@ -193,7 +193,7 @@ class TaskController extends BaseController
             $data = [
                 'status' => 'error',
                 'code' => $status,
-                'msg' => 'Authorization Invalid.',
+                'msg' => 'Sin Autorizacion.',
             ];
         }
 

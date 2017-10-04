@@ -13,7 +13,7 @@ class DefaultController extends BaseController
         try {
             $json = $request->get('json', null);
             if ($json == null) {
-                throw new \Exception('error: Sending data...', 403);
+                throw new \Exception('error: Datos incompletos...', 403);
             }
             $params = json_decode($json);
             $data = $this->login($params);

@@ -16,7 +16,7 @@ class RemoveTaskTest extends BaseTest
         $this->assertTrue($client->getResponse()->isSuccessful());
         $this->assertContains('success', $client->getResponse()->getContent());
         $this->assertNotContains('error', $client->getResponse()->getContent());
-        $this->assertNotContains('Authorization Invalid', $client->getResponse()->getContent());
+        $this->assertNotContains('Sin Autorizacion', $client->getResponse()->getContent());
     }
 
     public function testRemoveTaskError()
@@ -25,7 +25,7 @@ class RemoveTaskTest extends BaseTest
         $client->request('POST', '/task/remove/200');
 
         $this->assertEquals(403, $client->getResponse()->getStatusCode());
-        $this->assertContains('Authorization Invalid', $client->getResponse()->getContent());
+        $this->assertContains('Sin Autorizacion', $client->getResponse()->getContent());
         $this->assertNotContains('success', $client->getResponse()->getContent());
     }
 }
