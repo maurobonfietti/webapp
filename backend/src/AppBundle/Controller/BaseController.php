@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Services\JwtAuth;
 use AppBundle\Services\Helpers;
 use AppBundle\Services\UserService;
 use AppBundle\Services\TaskService;
@@ -15,6 +16,9 @@ class BaseController extends Controller
     /** @var TaskService */
     protected $taskService;
 
+    /** @var JwtAuth */
+    protected $jwtService;
+
     public function getUserService()
     {
         $this->userService = $this->get(UserService::class);
@@ -23,6 +27,11 @@ class BaseController extends Controller
     public function getTaskService()
     {
         $this->taskService = $this->get(TaskService::class);
+    }
+
+    public function getJwtService()
+    {
+        $this->jwtService = $this->get(JwtAuth::class);
     }
 
     public function response($data)

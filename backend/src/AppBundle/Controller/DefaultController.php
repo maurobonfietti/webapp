@@ -4,7 +4,6 @@ namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints as Assert;
-use AppBundle\Services\JwtAuth;
 
 class DefaultController extends BaseController
 {
@@ -12,7 +11,7 @@ class DefaultController extends BaseController
     {
         try {
             $json = $request->get('json', null);
-            if ($json == null) {
+            if ($json === null) {
                 throw new \Exception('error: Datos incompletos...', 403);
             }
             $params = json_decode($json);
@@ -35,11 +34,11 @@ class DefaultController extends BaseController
         if ($email == null || count($validateEmail) > 0 || $password == null) {
             throw new \Exception('error: El email o el password es incorrecto...', 403);
         }
-        $jwtAuth = $this->get(JwtAuth::class);
-        if ($getHash == null || $getHash == false) {
-            $data = $jwtAuth->signUp($email, $pwd);
+        $this->getJwtService();
+        if ($getHash === null || $getHash === false) {
+            $data = $this->jwtService->signUp($email, $pwd);
         } else {
-            $data = $jwtAuth->signUp($email, $pwd, true);
+            $data = $this->jwtService->signUp($email, $pwd, true);
         }
 
         return $data;

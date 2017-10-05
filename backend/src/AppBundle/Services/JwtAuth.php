@@ -26,7 +26,7 @@ class JwtAuth
         if (is_object($user)) {
             $signUp = true;
         }
-        if ($signUp == true) {
+        if ($signUp === true) {
             $token = [
                 'sub' => $user->getId(),
                 'email' => $user->getEmail(),
@@ -45,7 +45,7 @@ class JwtAuth
         } else {
             $data = [
                 'status' => 'error',
-                'data' => 'Login Failed.',
+                'data' => 'Error en inicio de sesion.',
             ];
         }
 
@@ -65,7 +65,7 @@ class JwtAuth
         if (isset($decoded) && is_object($decoded) && isset($decoded->sub)) {
             $auth = true;
         }
-        if ($getIdentity == false) {
+        if ($getIdentity === false) {
             return $auth;
         } else {
             return $decoded;
