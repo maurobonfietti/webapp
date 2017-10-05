@@ -26,7 +26,7 @@ class UserService
         $password = isset($params->password) ? $params->password : null;
         $emailConstraint = new Assert\Email();
         $validateEmail = $this->validator->validate($email, $emailConstraint);
-        if ($email == null || count($validateEmail) > 0 || $name == null || $password == null || $surname == null) {
+        if ($email === null || count($validateEmail) > 0 || $name === null || $password === null || $surname === null) {
             throw new \Exception('error: Usuario no creado.', 400);
         }
         $this->checkUserExist($email);
@@ -80,7 +80,7 @@ class UserService
         $password = isset($params->password) ? $params->password : null;
         $emailConstraint = new Assert\Email();
         $validateEmail = $this->validator->validate($email, $emailConstraint);
-        if ($email == null || count($validateEmail) > 0 || $name == null || $surname == null) {
+        if ($email === null || count($validateEmail) > 0 || $name === null || $surname === null) {
             throw new \Exception('error: Usuario no actualizado.', 400);
         }
         $this->checkUserExistUpdate($email, $identity);
@@ -102,7 +102,7 @@ class UserService
         $user->setEmail($email);
         $user->setName($name);
         $user->setSurname($surname);
-        if ($password != null) {
+        if ($password !== null) {
             $pwd = hash('sha256', $password);
             $user->setPassword($pwd);
         }

@@ -29,7 +29,7 @@ class TaskController extends BaseController
         $jwtAuth = $this->get(JwtAuth::class);
         $token = $request->get('authorization', null);
         $authCheck = $jwtAuth->checkToken($token);
-        if ($authCheck == true) {
+        if ($authCheck === true) {
             $identity = $jwtAuth->checkToken($token, true);
             $em = $this->getDoctrine()->getManager();
             $dql = "SELECT t FROM AppBundle:Tasks t WHERE t.user = $identity->sub ORDER BY t.id ASC";
@@ -67,7 +67,7 @@ class TaskController extends BaseController
         $jwtAuth = $this->get(JwtAuth::class);
         $token = $request->get('authorization', null);
         $authCheck = $jwtAuth->checkToken($token);
-        if ($authCheck == true) {
+        if ($authCheck === true) {
             $identity = $jwtAuth->checkToken($token, true);
             $em = $this->getDoctrine()->getManager();
             $task = $em->getRepository('AppBundle:Tasks')->findOneBy(['id' => $id]);
@@ -104,7 +104,7 @@ class TaskController extends BaseController
         $jwtAuth = $this->get(JwtAuth::class);
         $token = $request->get('authorization', null);
         $authCheck = $jwtAuth->checkToken($token);
-        if ($authCheck == true) {
+        if ($authCheck === true) {
             $identity = $jwtAuth->checkToken($token, true);
             $em = $this->getDoctrine()->getManager();
             $filter = $request->get('filter', null);
@@ -167,7 +167,7 @@ class TaskController extends BaseController
         $jwtAuth = $this->get(JwtAuth::class);
         $token = $request->get('authorization', null);
         $authCheck = $jwtAuth->checkToken($token);
-        if ($authCheck == true) {
+        if ($authCheck === true) {
             $identity = $jwtAuth->checkToken($token, true);
             $em = $this->getDoctrine()->getManager();
             $task = $em->getRepository('AppBundle:Tasks')->findOneBy(['id' => $id]);

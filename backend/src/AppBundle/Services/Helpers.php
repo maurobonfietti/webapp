@@ -8,7 +8,7 @@ class Helpers
 {
     public function json($data, $status = 200)
     {
-        $normalizers = [ new Serializer\Normalizer\GetSetMethodNormalizer()];
+        $normalizers = [new Serializer\Normalizer\GetSetMethodNormalizer()];
         $encoders = ['json' => new Serializer\Encoder\JsonEncoder()];
         $serializer = new Serializer\Serializer($normalizers, $encoders);
         $json = $serializer->serialize($data, 'json');
