@@ -111,39 +111,22 @@ class TaskService
 
     public function getTask($jwtAuth, $token, $id)
     {
-//        $helpers = $this->get(Helpers::class);
-//        $jwtAuth = $this->get(JwtAuth::class);
-//        $token = $request->get('authorization', null);
         $authCheck = $jwtAuth->checkToken($token);
-        if ($authCheck === true) {
-            $identity = $jwtAuth->checkToken($token, true);
-            $em = $this->em;
-            $task = $em->getRepository('AppBundle:Tasks')->findOneBy(['id' => $id]);
-            if ($task && is_object($task) && $identity->sub == $task->getUser()->getId()) {
-                $status = 200;
-                $data = [
-                    'status' => 'success',
-                    'code' => $status,
-                    'task' => $task,
-                ];
-            } else {
-                $status = 404;
-                $data = [
-                    'status' => 'error',
-                    'code' => $status,
-                    'msg' => 'Task not found.',
-                ];
-            }
-        } else {
-            $status = 403;
+        if (!$authCheck) {
+            throw new \Exception('error: Sin Autorizacion.', 403);
+        }
+        $identity = $jwtAuth->checkToken($token, true);
+        $task = $this->em->getRepository('AppBundle:Tasks')->findOneBy(['id' => $id]);
+        if ($task && is_object($task) && $identity->sub == $task->getUser()->getId()) {
             $data = [
-                'status' => 'error',
-                'code' => $status,
-                'msg' => 'Sin Autorizacion.',
+                'status' => 'success',
+                'code' => 200,
+                'task' => $task,
             ];
+        } else {
+            throw new \Exception('error: Task not found.', 404);
         }
 
         return $data;
-//        return $helpers->json($data, $status);
     }
 }
