@@ -96,10 +96,9 @@ class TaskService
         $itemsPerPage = 10;
         $pagination = $paginator->paginate($query, $page, $itemsPerPage);
         $totalItemsCount = $pagination->getTotalItemCount();
-        $status = 200;
         $data = [
             'status' => 'success',
-            'code' => $status,
+            'code' => 200,
             'totalItemsCount' => $totalItemsCount,
             'actual_page' => $page,
             'itemsPerPage' => $itemsPerPage,
@@ -108,5 +107,43 @@ class TaskService
         ];
 
         return $data;
+    }
+
+    public function getTask($jwtAuth, $token, $id)
+    {
+//        $helpers = $this->get(Helpers::class);
+//        $jwtAuth = $this->get(JwtAuth::class);
+//        $token = $request->get('authorization', null);
+        $authCheck = $jwtAuth->checkToken($token);
+        if ($authCheck === true) {
+            $identity = $jwtAuth->checkToken($token, true);
+            $em = $this->em;
+            $task = $em->getRepository('AppBundle:Tasks')->findOneBy(['id' => $id]);
+            if ($task && is_object($task) && $identity->sub == $task->getUser()->getId()) {
+                $status = 200;
+                $data = [
+                    'status' => 'success',
+                    'code' => $status,
+                    'task' => $task,
+                ];
+            } else {
+                $status = 404;
+                $data = [
+                    'status' => 'error',
+                    'code' => $status,
+                    'msg' => 'Task not found.',
+                ];
+            }
+        } else {
+            $status = 403;
+            $data = [
+                'status' => 'error',
+                'code' => $status,
+                'msg' => 'Sin Autorizacion.',
+            ];
+        }
+
+        return $data;
+//        return $helpers->json($data, $status);
     }
 }

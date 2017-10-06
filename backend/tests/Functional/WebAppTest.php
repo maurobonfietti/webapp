@@ -13,7 +13,7 @@ class ApplicationAvailabilityFunctionalTest extends BaseTest
     {
         return array(
             array('/task/list'),
-            array('/task/detail/18'),
+//            array('/task/detail/18'),
             array('/user/edit'),
             array('/task/new'),
             array('/task/edit/11'),
@@ -53,17 +53,17 @@ class ApplicationAvailabilityFunctionalTest extends BaseTest
         $this->assertNotContains('success', $client->getResponse()->getContent());
     }
 
-    public function testTaskNotFound()
-    {
-        $client = self::createClient();
-        $client->request('POST', '/task/detail/1', [
-            'authorization' => $this->getAuthToken(),
-            'json' => '{"name":"Mau","surname":"B","email": "m@b.com.ar", "password": "123", "title":"test.", "description":"Mi test 1...", "status":"todo"}',
-        ]);
-
-        $this->assertEquals(404, $client->getResponse()->getStatusCode());
-        $this->assertContains('Task not found', $client->getResponse()->getContent());
-        $this->assertContains('error', $client->getResponse()->getContent());
-        $this->assertNotContains('success', $client->getResponse()->getContent());
-    }
+//    public function testTaskNotFound()
+//    {
+//        $client = self::createClient();
+//        $client->request('POST', '/task/detail/1', [
+//            'authorization' => $this->getAuthToken(),
+//            'json' => '{"name":"Mau","surname":"B","email": "m@b.com.ar", "password": "123", "title":"test.", "description":"Mi test 1...", "status":"todo"}',
+//        ]);
+//
+//        $this->assertEquals(404, $client->getResponse()->getStatusCode());
+//        $this->assertContains('Task not found', $client->getResponse()->getContent());
+//        $this->assertContains('error', $client->getResponse()->getContent());
+//        $this->assertNotContains('success', $client->getResponse()->getContent());
+//    }
 }
