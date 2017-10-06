@@ -25,40 +25,17 @@ class TaskController extends BaseController
 
     public function tasksAction(Request $request)
     {
-        $helpers = $this->get(Helpers::class);
-        $jwtAuth = $this->get(JwtAuth::class);
-        $token = $request->get('authorization', null);
-        $authCheck = $jwtAuth->checkToken($token);
-        if ($authCheck === true) {
-            $identity = $jwtAuth->checkToken($token, true);
-            $em = $this->getDoctrine()->getManager();
-            $dql = "SELECT t FROM AppBundle:Tasks t WHERE t.user = $identity->sub ORDER BY t.id ASC";
-            $query = $em->createQuery($dql);
-            $page = $request->query->getInt('page', 1);
+        try {
+            $this->getTaskService();
+            $jwtAuth = $this->get(JwtAuth::class);
+            $token = $request->get('authorization', null);
             $paginator = $this->get('knp_paginator');
-            $itemsPerPage = 10;
-            $pagination = $paginator->paginate($query, $page, $itemsPerPage);
-            $totalItemsCount = $pagination->getTotalItemCount();
-            $status = 200;
-            $data = [
-                'status' => 'success',
-                'code' => $status,
-                'totalItemsCount' => $totalItemsCount,
-                'actual_page' => $page,
-                'itemsPerPage' => $itemsPerPage,
-                'totalPages' => ceil($totalItemsCount / $itemsPerPage),
-                'tasks' => $pagination,
-            ];
-        } else {
-            $status = 403;
-            $data = [
-                'status' => 'error',
-                'code' => $status,
-                'msg' => 'Sin Autorizacion.',
-            ];
-        }
+            $tasks = $this->taskService->getTasks($request, $jwtAuth, $token, $paginator);
 
-        return $helpers->json($data, $status);
+            return $this->response($tasks);
+        } catch (\Exception $e) {
+            return $this->responseError($e);
+        }
     }
 
     public function taskAction(Request $request, $id = null)

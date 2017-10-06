@@ -83,4 +83,38 @@ class TaskService
 
         return $data;
     }
+
+    public function getTasks($request, $jwtAuth, $token, $paginator)
+    {
+        $authCheck = $jwtAuth->checkToken($token);
+        if ($authCheck === true) {
+            $identity = $jwtAuth->checkToken($token, true);
+            $em = $this->em;
+            $dql = "SELECT t FROM AppBundle:Tasks t WHERE t.user = $identity->sub ORDER BY t.id ASC";
+            $query = $em->createQuery($dql);
+            $page = $request->query->getInt('page', 1);
+            $itemsPerPage = 10;
+            $pagination = $paginator->paginate($query, $page, $itemsPerPage);
+            $totalItemsCount = $pagination->getTotalItemCount();
+            $status = 200;
+            $data = [
+                'status' => 'success',
+                'code' => $status,
+                'totalItemsCount' => $totalItemsCount,
+                'actual_page' => $page,
+                'itemsPerPage' => $itemsPerPage,
+                'totalPages' => ceil($totalItemsCount / $itemsPerPage),
+                'tasks' => $pagination,
+            ];
+        } else {
+            $status = 403;
+            $data = [
+                'status' => 'error',
+                'code' => $status,
+                'msg' => 'Sin Autorizacion.',
+            ];
+        }
+
+        return $data;
+    }
 }
