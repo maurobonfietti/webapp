@@ -84,36 +84,28 @@ class TaskService
         return $data;
     }
 
-    public function getTasks($request, $jwtAuth, $token, $paginator)
+    public function getTasks($jwtAuth, $token, $paginator, $page)
     {
         $authCheck = $jwtAuth->checkToken($token);
-        if ($authCheck === true) {
-            $identity = $jwtAuth->checkToken($token, true);
-            $em = $this->em;
-            $dql = "SELECT t FROM AppBundle:Tasks t WHERE t.user = $identity->sub ORDER BY t.id ASC";
-            $query = $em->createQuery($dql);
-            $page = $request->query->getInt('page', 1);
-            $itemsPerPage = 10;
-            $pagination = $paginator->paginate($query, $page, $itemsPerPage);
-            $totalItemsCount = $pagination->getTotalItemCount();
-            $status = 200;
-            $data = [
-                'status' => 'success',
-                'code' => $status,
-                'totalItemsCount' => $totalItemsCount,
-                'actual_page' => $page,
-                'itemsPerPage' => $itemsPerPage,
-                'totalPages' => ceil($totalItemsCount / $itemsPerPage),
-                'tasks' => $pagination,
-            ];
-        } else {
-            $status = 403;
-            $data = [
-                'status' => 'error',
-                'code' => $status,
-                'msg' => 'Sin Autorizacion.',
-            ];
+        if (!$authCheck) {
+            throw new \Exception('error: Sin Autorizacion.', 403);
         }
+        $identity = $jwtAuth->checkToken($token, true);
+        $dql = "SELECT t FROM AppBundle:Tasks t WHERE t.user = $identity->sub ORDER BY t.id ASC";
+        $query = $this->em->createQuery($dql);
+        $itemsPerPage = 10;
+        $pagination = $paginator->paginate($query, $page, $itemsPerPage);
+        $totalItemsCount = $pagination->getTotalItemCount();
+        $status = 200;
+        $data = [
+            'status' => 'success',
+            'code' => $status,
+            'totalItemsCount' => $totalItemsCount,
+            'actual_page' => $page,
+            'itemsPerPage' => $itemsPerPage,
+            'totalPages' => ceil($totalItemsCount / $itemsPerPage),
+            'tasks' => $pagination,
+        ];
 
         return $data;
     }
