@@ -137,22 +137,7 @@ class TaskService
             throw new \Exception('error: Sin Autorizacion.', 403);
         }
         $identity = $jwtAuth->checkToken($token, true);
-        $em = $this->em;
-        if (empty($filter)) {
-            $filter = null;
-        } elseif ($filter == 1) {
-            $filter = 'new';
-        } elseif ($filter == 2) {
-            $filter = 'todo';
-        } else {
-            $filter = 'finished';
-        }
-        if (empty($order) || $order == 2) {
-            $order = 'DESC';
-        } else {
-            $order = 'ASC';
-        }
-        if ($search != null) {
+        if ($search !== null) {
             $dql = "
                 SELECT t FROM AppBundle:Tasks t WHERE t.user = $identity->sub
                 AND t.title LIKE :search OR t.description LIKE :search
@@ -164,18 +149,17 @@ class TaskService
             $dql.= " AND t.status = :filter ";
         }
         $dql.= " ORDER BY t.id $order ";
-        $query = $em->createQuery($dql);
+        $query = $this->em->createQuery($dql);
         if (!empty($search)) {
             $query->setParameter('search', "%$search%");
         }
-        if ($filter != null) {
+        if ($filter !== null) {
             $query->setParameter('filter', "$filter");
         }
         $task = $query->getResult();
-        $status = 200;
         $data = [
             'status' => 'success',
-            'code' => $status,
+            'code' => 200,
             'data' => $task,
         ];
 
