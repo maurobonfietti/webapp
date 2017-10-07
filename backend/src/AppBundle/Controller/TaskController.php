@@ -55,65 +55,18 @@ class TaskController extends BaseController
 
     public function searchAction(Request $request, $search = null)
     {
-        $helpers = $this->get(Helpers::class);
-        $jwtAuth = $this->get(JwtAuth::class);
-        $token = $request->get('authorization', null);
-        $authCheck = $jwtAuth->checkToken($token);
-        if ($authCheck === true) {
-            $identity = $jwtAuth->checkToken($token, true);
-            $em = $this->getDoctrine()->getManager();
+        try {
+            $this->getTaskService();
+            $jwtAuth = $this->get(JwtAuth::class);
+            $token = $request->get('authorization', null);
             $filter = $request->get('filter', null);
-            if (empty($filter)) {
-                $filter = null;
-            } elseif ($filter == 1) {
-                $filter = 'new';
-            } elseif ($filter == 2) {
-                $filter = 'todo';
-            } else {
-                $filter = 'finished';
-            }
             $order = $request->get('order', null);
-            if (empty($order) || $order == 2) {
-                $order = 'DESC';
-            } else {
-                $order = 'ASC';
-            }
-            if ($search != null) {
-                $dql = "
-                    SELECT t FROM AppBundle:Tasks t WHERE t.user = $identity->sub
-                    AND t.title LIKE :search OR t.description LIKE :search
-                ";
-            } else {
-                $dql = "SELECT t FROM AppBundle:Tasks t WHERE t.user = $identity->sub ";
-            }
-            if ($filter != null) {
-                $dql.= " AND t.status = :filter ";
-            }
-            $dql.= " ORDER BY t.id $order ";
-            $query = $em->createQuery($dql);
-            if (!empty($search)) {
-                $query->setParameter('search', "%$search%");
-            }
-            if ($filter != null) {
-                $query->setParameter('filter', "$filter");
-            }
-            $task = $query->getResult();
-            $status = 200;
-            $data = [
-                'status' => 'success',
-                'code' => $status,
-                'data' => $task,
-            ];
-        } else {
-            $status = 403;
-            $data = [
-                'status' => 'error',
-                'code' => $status,
-                'msg' => 'Sin Autorizacion.',
-            ];
-        }
+            $tasks = $this->taskService->searchTasks($jwtAuth, $token, $filter, $order, $search);
 
-        return $helpers->json($data, $status);
+            return $this->response($tasks);
+        } catch (\Exception $e) {
+            return $this->responseError($e);
+        }
     }
 
     public function removeAction(Request $request, $id = null)
