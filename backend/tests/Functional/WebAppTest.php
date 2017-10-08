@@ -16,7 +16,7 @@ class ApplicationAvailabilityFunctionalTest extends BaseTest
             array('/task/detail/18'),
             array('/user/edit'),
             array('/task/new'),
-            array('/task/edit/11'),
+            array('/task/edit/41'),
             array('/task/search'),
         );
     }

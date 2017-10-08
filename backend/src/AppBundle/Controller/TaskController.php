@@ -31,7 +31,9 @@ class TaskController extends BaseController
             $token = $request->get('authorization', null);
             $paginator = $this->get('knp_paginator');
             $page = $request->query->getInt('page', 1);
-            $tasks = $this->taskService->getTasks($jwtAuth, $token, $paginator, $page);
+            $tasks = $this->taskService->getTasks(
+                $jwtAuth, $token, $paginator, $page
+            );
 
             return $this->response($tasks);
         } catch (\Exception $e) {
@@ -60,10 +62,12 @@ class TaskController extends BaseController
             $jwtAuth = $this->get(JwtAuth::class);
             $token = $request->get('authorization', null);
             $filter = $request->get('filter', null);
-            $filter = $this->getFilter($filter);
             $order = $request->get('order', null);
-            $order = $this->getOrder($order);
-            $tasks = $this->taskService->searchTasks($jwtAuth, $token, $filter, $order, $search);
+            $filterStr = $this->getFilter($filter);
+            $orderStr = $this->getOrder($order);
+            $tasks = $this->taskService->searchTasks(
+                $jwtAuth, $token, $filterStr, $orderStr, $search
+            );
 
             return $this->response($tasks);
         } catch (\Exception $e) {
