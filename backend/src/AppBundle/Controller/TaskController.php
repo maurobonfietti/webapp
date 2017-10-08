@@ -78,16 +78,16 @@ class TaskController extends BaseController
     private function getFilter($filter)
     {
         if (empty($filter)) {
-            $filter = null;
+            $filterStr = null;
         } elseif ($filter == 1) {
-            $filter = 'new';
+            $filterStr = 'new';
         } elseif ($filter == 2) {
-            $filter = 'todo';
+            $filterStr = 'todo';
         } else {
-            $filter = 'finished';
+            $filterStr = 'finished';
         }
 
-        return $filter;
+        return $filterStr;
     }
 
     private function getOrder($order)
