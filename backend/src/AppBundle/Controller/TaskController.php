@@ -103,40 +103,15 @@ class TaskController extends BaseController
 
     public function removeAction(Request $request, $id = null)
     {
-        $helpers = $this->get(Helpers::class);
-        $jwtAuth = $this->get(JwtAuth::class);
-        $token = $request->get('authorization', null);
-        $authCheck = $jwtAuth->checkToken($token);
-        if ($authCheck === true) {
-            $identity = $jwtAuth->checkToken($token, true);
-            $em = $this->getDoctrine()->getManager();
-            $task = $em->getRepository('AppBundle:Tasks')->findOneBy(['id' => $id]);
-            if ($task && is_object($task) && $identity->sub == $task->getUser()->getId()) {
-                $em->remove($task);
-                $em->flush();
-                $status = 200;
-                $data = [
-                    'status' => 'success',
-                    'code' => $status,
-                    'msg' => 'Task Deleted.',
-                ];
-            } else {
-                $status = 404;
-                $data = [
-                    'status' => 'error',
-                    'code' => $status,
-                    'msg' => 'Task not found.',
-                ];
-            }
-        } else {
-            $status = 403;
-            $data = [
-                'status' => 'error',
-                'code' => $status,
-                'msg' => 'Sin Autorizacion.',
-            ];
-        }
+        try {
+            $this->getTaskService();
+            $jwtAuth = $this->get(JwtAuth::class);
+            $token = $request->get('authorization', null);
+            $tasks = $this->taskService->deleteTask($jwtAuth, $token, $id);
 
-        return $helpers->json($data, $status);
+            return $this->response($tasks);
+        } catch (\Exception $e) {
+            return $this->responseError($e);
+        }
     }
 }

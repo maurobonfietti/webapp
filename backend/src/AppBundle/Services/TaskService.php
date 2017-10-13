@@ -165,4 +165,27 @@ class TaskService
 
         return $data;
     }
+
+    public function deleteTask($jwtAuth, $token, $id)
+    {
+        $authCheck = $jwtAuth->checkToken($token);
+        if (!$authCheck) {
+            throw new \Exception('error: Sin Autorizacion.', 403);
+        }
+        $identity = $jwtAuth->checkToken($token, true);
+        $task = $this->em->getRepository('AppBundle:Tasks')->findOneBy(['id' => $id]);
+        if ($task && is_object($task) && $identity->sub == $task->getUser()->getId()) {
+            $this->em->remove($task);
+            $this->em->flush();
+            $data = [
+                'status' => 'success',
+                'code' => 200,
+                'msg' => 'Task Deleted.',
+            ];
+        } else {
+            throw new \Exception('error: Task not found.', 404);
+        }
+
+        return $data;
+    }
 }
