@@ -11,7 +11,7 @@ class CreateUserTest extends BaseTest
             'json' => '{"name":"test","surname":"test","email": "test-'.rand(1, 99999).'@test.com", "password": "test"}',
         ]);
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals(201, $client->getResponse()->getStatusCode());
         $this->assertTrue($client->getResponse()->isSuccessful());
         $this->assertContains('Usuario creado.', $client->getResponse()->getContent());
         $this->assertNotContains('error', $client->getResponse()->getContent());

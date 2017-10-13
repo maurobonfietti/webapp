@@ -34,9 +34,9 @@ class BaseController extends Controller
         $this->jwtService = $this->get(JwtAuth::class);
     }
 
-    public function response($data)
+    public function response($data, $status = 200)
     {
-        return $this->get(Helpers::class)->json($data);
+        return $this->get(Helpers::class)->json($data, $status);
     }
 
     public function responseError($e)

@@ -14,7 +14,7 @@ class UserController extends BaseController
             $json = $request->get('json', null);
             $user = $this->userService->create($json);
 
-            return $this->response($user);
+            return $this->response($user, 201);
         } catch (\Exception $e) {
             return $this->responseError($e);
         }

@@ -57,7 +57,7 @@ class UserService
         $this->em->flush();
         $data = [
             'status' => 'success',
-            'code' => 200,
+            'code' => 201,
             'msg' => 'Usuario creado.',
             'user' => $user,
         ];
