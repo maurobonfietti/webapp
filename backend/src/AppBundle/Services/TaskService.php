@@ -84,7 +84,7 @@ class TaskService
         return $data;
     }
 
-    public function getTasks($jwtAuth, $token, $paginator, $page)
+    public function getAll($jwtAuth, $token, $paginator, $page)
     {
         $authCheck = $jwtAuth->checkToken($token);
         if (!$authCheck) {
@@ -109,7 +109,7 @@ class TaskService
         return $data;
     }
 
-    public function getTask($jwtAuth, $token, $id)
+    public function getOne($jwtAuth, $token, $id)
     {
         $authCheck = $jwtAuth->checkToken($token);
         if (!$authCheck) {
@@ -130,7 +130,7 @@ class TaskService
         return $data;
     }
 
-    public function searchTasks($jwtAuth, $token, $filter, $order, $search)
+    public function search($jwtAuth, $token, $filter, $order, $search)
     {
         $authCheck = $jwtAuth->checkToken($token);
         if (!$authCheck) {
@@ -166,7 +166,7 @@ class TaskService
         return $data;
     }
 
-    public function deleteTask($jwtAuth, $token, $id)
+    public function delete($jwtAuth, $token, $id)
     {
         $authCheck = $jwtAuth->checkToken($token);
         if (!$authCheck) {

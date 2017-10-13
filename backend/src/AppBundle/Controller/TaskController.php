@@ -2,13 +2,12 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Services\Helpers;
 use AppBundle\Services\JwtAuth;
+use Symfony\Component\HttpFoundation\Request;
 
 class TaskController extends BaseController
 {
-    public function newAction(Request $request, $id = null)
+    public function createAction(Request $request, $id = null)
     {
         try {
             $this->getTaskService();
@@ -23,7 +22,7 @@ class TaskController extends BaseController
         }
     }
 
-    public function tasksAction(Request $request)
+    public function getAllAction(Request $request)
     {
         try {
             $this->getTaskService();
@@ -31,7 +30,7 @@ class TaskController extends BaseController
             $token = $request->get('authorization', null);
             $paginator = $this->get('knp_paginator');
             $page = $request->query->getInt('page', 1);
-            $tasks = $this->taskService->getTasks(
+            $tasks = $this->taskService->getAll(
                 $jwtAuth, $token, $paginator, $page
             );
 
@@ -41,13 +40,13 @@ class TaskController extends BaseController
         }
     }
 
-    public function taskAction(Request $request, $id = null)
+    public function getOneAction(Request $request, $id = null)
     {
         try {
             $this->getTaskService();
             $jwtAuth = $this->get(JwtAuth::class);
             $token = $request->get('authorization', null);
-            $task = $this->taskService->getTask($jwtAuth, $token, $id);
+            $task = $this->taskService->getOne($jwtAuth, $token, $id);
 
             return $this->response($task);
         } catch (\Exception $e) {
@@ -65,7 +64,7 @@ class TaskController extends BaseController
             $order = $request->get('order', null);
             $filterStr = $this->getFilter($filter);
             $orderStr = $this->getOrder($order);
-            $tasks = $this->taskService->searchTasks(
+            $tasks = $this->taskService->search(
                 $jwtAuth, $token, $filterStr, $orderStr, $search
             );
 
@@ -101,13 +100,13 @@ class TaskController extends BaseController
         return $order;
     }
 
-    public function removeAction(Request $request, $id = null)
+    public function deleteAction(Request $request, $id = null)
     {
         try {
             $this->getTaskService();
             $jwtAuth = $this->get(JwtAuth::class);
             $token = $request->get('authorization', null);
-            $tasks = $this->taskService->deleteTask($jwtAuth, $token, $id);
+            $tasks = $this->taskService->delete($jwtAuth, $token, $id);
 
             return $this->response($tasks);
         } catch (\Exception $e) {

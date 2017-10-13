@@ -1,21 +1,21 @@
 task_new:
     path: /new
-    defaults: { _controller: "AppBundle:Task:new" }
+    defaults: { _controller: "AppBundle:Task:create" }
     methods: POST
 
 task_edit:
     path: /edit/{id}
-    defaults: { _controller: "AppBundle:Task:new", id: null }
+    defaults: { _controller: "AppBundle:Task:create", id: null }
     methods: POST
 
 task_list:
     path: /list
-    defaults: { _controller: "AppBundle:Task:tasks" }
+    defaults: { _controller: "AppBundle:Task:getAll" }
     methods: POST
 
 task_detail:
     path: /detail/{id}
-    defaults: { _controller: "AppBundle:Task:task", id: null }
+    defaults: { _controller: "AppBundle:Task:getOne", id: null }
     methods: POST
 
 task_search:
@@ -25,5 +25,5 @@ task_search:
 
 task_remove:
     path: /remove/{id}
-    defaults: { _controller: "AppBundle:Task:remove", id: null }
+    defaults: { _controller: "AppBundle:Task:delete", id: null }
     methods: POST
