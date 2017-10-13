@@ -177,15 +177,8 @@ class TaskService
         if ($task && is_object($task) && $identity->sub == $task->getUser()->getId()) {
             $this->em->remove($task);
             $this->em->flush();
-            $data = [
-                'status' => 'success',
-                'code' => 200,
-                'msg' => 'Task Deleted.',
-            ];
         } else {
             throw new \Exception('error: Task not found.', 404);
         }
-
-        return $data;
     }
 }

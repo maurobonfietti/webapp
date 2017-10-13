@@ -12,9 +12,8 @@ class RemoveTaskTest extends BaseTest
             'json' => '{"title":"test.", "description":"Mi test 1...", "status":"todo"}',
         ]);
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals(204, $client->getResponse()->getStatusCode());
         $this->assertTrue($client->getResponse()->isSuccessful());
-        $this->assertContains('success', $client->getResponse()->getContent());
         $this->assertNotContains('error', $client->getResponse()->getContent());
         $this->assertNotContains('Sin Autorizacion', $client->getResponse()->getContent());
     }
