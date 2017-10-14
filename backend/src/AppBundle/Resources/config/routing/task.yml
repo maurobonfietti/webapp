@@ -6,7 +6,7 @@ task_new:
 task_edit:
     path: /edit/{id}
     defaults: { _controller: "AppBundle:Task:update", id: null }
-    methods: PUT
+    methods: PATCH
 
 task_list:
     path: /list

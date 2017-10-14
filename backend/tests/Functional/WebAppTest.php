@@ -23,7 +23,7 @@ class ApplicationAvailabilityFunctionalTest extends BaseTest
     public function testPageIsSuccessful($url)
     {
         $client = self::createClient();
-        $client->request('PUT', $url, [
+        $client->request('PATCH', $url, [
             'authorization' => $this->getAuthToken(),
             'json' => '{"name":"Mau","surname":"B","email": "m@b.com.ar", "password": "123", "title":"test.", "description":"Mi test 1...", "status":"todo"}',
         ], [], [
@@ -43,7 +43,7 @@ class ApplicationAvailabilityFunctionalTest extends BaseTest
     public function testPageIsNotAllowed($url)
     {
         $client = self::createClient();
-        $client->request('PUT', $url);
+        $client->request('PATCH', $url);
 
         $this->assertEquals(403, $client->getResponse()->getStatusCode());
         $this->assertContains('Sin Autorizacion', $client->getResponse()->getContent());

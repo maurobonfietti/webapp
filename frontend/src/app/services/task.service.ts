@@ -43,8 +43,9 @@ export class TaskService{
         let json = JSON.stringify(task);
         let params = "json="+json+'&authorization='+token;
         let headers = new Headers({'Content-Type':"application/x-www-form-urlencoded"});
+        headers.append('Authorization', token);
 
-        return this._http.put(this.url+'/task/edit/'+id, params, {headers: headers}).map(res => res.json());
+        return this._http.patch(this.url+'/task/edit/'+id, params, {headers: headers}).map(res => res.json());
     }
 
     search(token, search = null, filter = null, order = null) {
