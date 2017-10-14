@@ -15,7 +15,7 @@ class CreateTaskTest extends BaseTest
         $result = json_decode($client->getResponse()->getContent());
         self::$id = $result->task->id;
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals(201, $client->getResponse()->getStatusCode());
         $this->assertTrue($client->getResponse()->isSuccessful());
         $this->assertContains('success', $client->getResponse()->getContent());
         $this->assertContains('Tarea creada.', $client->getResponse()->getContent());

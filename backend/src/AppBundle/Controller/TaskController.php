@@ -7,7 +7,22 @@ use Symfony\Component\HttpFoundation\Request;
 
 class TaskController extends BaseController
 {
-    public function createAction(Request $request, $id = null)
+    public function createAction(Request $request)
+    {
+        try {
+            $this->getTaskService();
+            $json = $request->get('json', null);
+            $token = $request->get('authorization', null);
+            $jwtAuth = $this->get(JwtAuth::class);
+            $task = $this->taskService->create($json, $token, $jwtAuth);
+
+            return $this->response($task, 201);
+        } catch (\Exception $e) {
+            return $this->responseError($e);
+        }
+    }
+
+    public function updateAction(Request $request, $id = null)
     {
         try {
             $this->getTaskService();

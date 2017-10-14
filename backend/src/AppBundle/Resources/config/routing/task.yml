@@ -5,7 +5,7 @@ task_new:
 
 task_edit:
     path: /edit/{id}
-    defaults: { _controller: "AppBundle:Task:create", id: null }
+    defaults: { _controller: "AppBundle:Task:update", id: null }
     methods: POST
 
 task_list:
