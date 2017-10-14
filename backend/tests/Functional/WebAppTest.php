@@ -12,7 +12,7 @@ class ApplicationAvailabilityFunctionalTest extends BaseTest
     public function urlProvider()
     {
         return array(
-            array('/task/detail/18'),
+//            array('/task/detail/18'),
             array('/user/edit'),
             array('/task/edit/41'),
         );
@@ -53,9 +53,8 @@ class ApplicationAvailabilityFunctionalTest extends BaseTest
     public function testTaskNotFound()
     {
         $client = self::createClient();
-        $client->request('POST', '/task/detail/1', [
-            'authorization' => $this->getAuthToken(),
-            'json' => '{"name":"Mau","surname":"B","email": "m@b.com.ar", "password": "123", "title":"test.", "description":"Mi test 1...", "status":"todo"}',
+        $client->request('GET', '/task/detail/1', [], [], [
+            'HTTP_authorization' => $this->getAuthToken(),
         ]);
 
         $this->assertEquals(404, $client->getResponse()->getStatusCode());
