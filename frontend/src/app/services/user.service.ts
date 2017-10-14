@@ -60,7 +60,8 @@ export class UserService{
         let json = JSON.stringify(user_to_update);
         let params = "json="+json+'&authorization='+this.getToken();
         let headers = new Headers({'Content-Type':"application/x-www-form-urlencoded"});
+        headers.append('Authorization', this.getToken());
 
-        return this._http.post(this.url+'/user/edit', params, {headers: headers}).map(res => res.json());
+        return this._http.patch(this.url+'/user/edit', params, {headers: headers}).map(res => res.json());
     }
 }

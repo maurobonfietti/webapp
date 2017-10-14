@@ -7,10 +7,9 @@ class UpdateUserTest extends BaseTest
     public function testUpdateUserOk()
     {
         $client = self::createClient();
-        $client->request('POST', '/user/edit', [
-            'authorization' => $this->getAuthToken(),
+        $client->request('PATCH', '/user/edit', [
             'json' => '{"name":"Mau","surname":"B","email": "m@b.com.ar", "password": "123"}',
-        ]);
+        ], [], ['HTTP_authorization' => $this->getAuthToken()]);
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertTrue($client->getResponse()->isSuccessful());
@@ -23,7 +22,7 @@ class UpdateUserTest extends BaseTest
     public function testUpdateUserError()
     {
         $client = self::createClient();
-        $client->request('POST', '/user/edit');
+        $client->request('PATCH', '/user/edit');
 
         $this->assertEquals(403, $client->getResponse()->getStatusCode());
         $this->assertContains('Sin Autorizacion', $client->getResponse()->getContent());
@@ -33,9 +32,7 @@ class UpdateUserTest extends BaseTest
     public function testUpdateUserNotEdited()
     {
         $client = self::createClient();
-        $client->request('POST', '/user/edit', [
-            'authorization' => $this->getAuthToken(),
-        ]);
+        $client->request('PATCH', '/user/edit', [], [], ['HTTP_authorization' => $this->getAuthToken()]);
 
         $this->assertEquals(400, $client->getResponse()->getStatusCode());
         $this->assertContains('Usuario no actualizado.', $client->getResponse()->getContent());
@@ -45,10 +42,9 @@ class UpdateUserTest extends BaseTest
     public function testUpdateUserExists()
     {
         $client = self::createClient();
-        $client->request('POST', '/user/edit', [
-            'authorization' => $this->getAuthToken(),
+        $client->request('PATCH', '/user/edit', [
             'json' => '{"name":"Mau","surname":"B","email": "test@test.com", "password": "123"}',
-        ]);
+        ], [], ['HTTP_authorization' => $this->getAuthToken()]);
 
         $this->assertEquals(400, $client->getResponse()->getStatusCode());
         $this->assertContains('Usuario existente.', $client->getResponse()->getContent());

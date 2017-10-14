@@ -6,4 +6,4 @@ user_new:
 user_edit:
     path: /edit
     defaults: { _controller: "AppBundle:User:update" }
-    methods: POST
+    methods: PATCH

@@ -25,7 +25,7 @@ class UserController extends BaseController
         try {
             $this->getUserService();
             $json = $request->get('json', null);
-            $token = $request->get('authorization', null);
+            $token = $request->headers->get('Authorization');
             $jwtAuth = $this->get(JwtAuth::class);
             $user = $this->userService->update($json, $token, $jwtAuth);
 
