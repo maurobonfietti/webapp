@@ -12,7 +12,6 @@ class ApplicationAvailabilityFunctionalTest extends BaseTest
     public function urlProvider()
     {
         return array(
-//            array('/task/detail/18'),
             array('/user/edit'),
             array('/task/edit/41'),
         );
@@ -46,19 +45,6 @@ class ApplicationAvailabilityFunctionalTest extends BaseTest
 
         $this->assertEquals(403, $client->getResponse()->getStatusCode());
         $this->assertContains('Sin Autorizacion', $client->getResponse()->getContent());
-        $this->assertContains('error', $client->getResponse()->getContent());        
-        $this->assertNotContains('success', $client->getResponse()->getContent());
-    }
-
-    public function testTaskNotFound()
-    {
-        $client = self::createClient();
-        $client->request('GET', '/task/detail/1', [], [], [
-            'HTTP_authorization' => $this->getAuthToken(),
-        ]);
-
-        $this->assertEquals(404, $client->getResponse()->getStatusCode());
-        $this->assertContains('Task not found', $client->getResponse()->getContent());
         $this->assertContains('error', $client->getResponse()->getContent());
         $this->assertNotContains('success', $client->getResponse()->getContent());
     }
