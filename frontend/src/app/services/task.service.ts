@@ -24,13 +24,13 @@ export class TaskService{
     }
 
     getTasks(token, page = null) {
-    let params = 'auth='+token;
+        let headers = new Headers({'Authorization': token});
 
-    var headers = new Headers();
-    headers.append('Authorization', token);
-    var options = new RequestOptions({headers: headers});
-    return this._http.get(this.url+'/task/list?page='+1, options).map(res => res.json());
+        if(page == null) {
+            page = 1;
+        }
 
+        return this._http.get(this.url+'/task/list?page='+page, {headers: headers}).map(res => res.json());
     }
 
     getTask(token, id) {
