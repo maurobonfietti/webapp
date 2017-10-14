@@ -26,4 +26,4 @@ task_search:
 task_remove:
     path: /remove/{id}
     defaults: { _controller: "AppBundle:Task:delete", id: null }
-    methods: POST
+    methods: DELETE

@@ -13,7 +13,7 @@ class ApplicationAvailabilityFunctionalTest extends BaseTest
     {
         return array(
             array('/user/edit'),
-            array('/task/edit/41'),
+            array('/task/edit/36'),
         );
     }
 

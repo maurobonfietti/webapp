@@ -63,9 +63,8 @@ export class TaskService{
     }
 
     deleteTask(token, id) {
-        let params = 'authorization='+token;
-        let headers = new Headers({'Content-Type':"application/x-www-form-urlencoded"});
+        let headers = new Headers({'Authorization': token});
 
-        return this._http.post(this.url+'/task/remove/'+id, params, {headers: headers}).map(res => res.json());
+        return this._http.delete(this.url+'/task/remove/'+id, {headers: headers}).map(res => res.json());
     }
 }

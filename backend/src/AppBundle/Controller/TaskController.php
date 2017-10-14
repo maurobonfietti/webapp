@@ -91,7 +91,7 @@ class TaskController extends BaseController
         try {
             $this->getTaskService();
             $jwtAuth = $this->get(JwtAuth::class);
-            $token = $request->get('authorization', null);
+            $token = $request->headers->get('Authorization');
             $this->taskService->delete($jwtAuth, $token, $id);
 
             return $this->response(null, 204);
