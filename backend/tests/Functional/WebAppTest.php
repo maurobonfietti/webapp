@@ -12,7 +12,7 @@ class ApplicationAvailabilityFunctionalTest extends BaseTest
     public function urlProvider()
     {
         return array(
-            array('/user/edit'),
+//            array('/user/edit'),
             array('/task/edit/36'),
         );
     }
@@ -23,9 +23,11 @@ class ApplicationAvailabilityFunctionalTest extends BaseTest
     public function testPageIsSuccessful($url)
     {
         $client = self::createClient();
-        $client->request('POST', $url, [
+        $client->request('PUT', $url, [
             'authorization' => $this->getAuthToken(),
             'json' => '{"name":"Mau","surname":"B","email": "m@b.com.ar", "password": "123", "title":"test.", "description":"Mi test 1...", "status":"todo"}',
+        ], [], [
+            'HTTP_authorization' => $this->getAuthToken(),
         ]);
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
@@ -41,7 +43,7 @@ class ApplicationAvailabilityFunctionalTest extends BaseTest
     public function testPageIsNotAllowed($url)
     {
         $client = self::createClient();
-        $client->request('POST', $url);
+        $client->request('PUT', $url);
 
         $this->assertEquals(403, $client->getResponse()->getStatusCode());
         $this->assertContains('Sin Autorizacion', $client->getResponse()->getContent());

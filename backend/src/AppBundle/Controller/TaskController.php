@@ -28,6 +28,9 @@ class TaskController extends BaseController
             $this->getTaskService();
             $json = $request->get('json', null);
             $token = $request->get('authorization', null);
+//            var_dump($json);
+//            exit;
+//            $token = $request->headers->get('Authorization');
             $jwtAuth = $this->get(JwtAuth::class);
             $task = $this->taskService->create($json, $token, $jwtAuth, $id);
 
