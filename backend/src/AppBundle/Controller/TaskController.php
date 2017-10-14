@@ -77,42 +77,13 @@ class TaskController extends BaseController
             $token = $request->get('authorization', null);
             $filter = $request->get('filter', null);
             $order = $request->get('order', null);
-            $filterStr = $this->getFilter($filter);
-            $orderStr = $this->getOrder($order);
-            $tasks = $this->taskService->search(
-                $jwtAuth, $token, $filterStr, $orderStr, $search
-            );
+            $tasks = $this->taskService
+                ->search($jwtAuth, $token, $filter, $order, $search);
 
             return $this->response($tasks);
         } catch (\Exception $e) {
             return $this->responseError($e);
         }
-    }
-
-    private function getFilter($filter)
-    {
-        if (empty($filter)) {
-            $filterStr = null;
-        } elseif ($filter == 1) {
-            $filterStr = 'new';
-        } elseif ($filter == 2) {
-            $filterStr = 'todo';
-        } else {
-            $filterStr = 'finished';
-        }
-
-        return $filterStr;
-    }
-
-    private function getOrder($order)
-    {
-        if (empty($order) || $order == 2) {
-            $order = 'DESC';
-        } else {
-            $order = 'ASC';
-        }
-
-        return $order;
     }
 
     public function deleteAction(Request $request, $id = null)

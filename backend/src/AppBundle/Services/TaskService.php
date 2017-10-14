@@ -136,6 +136,8 @@ class TaskService
         if (!$authCheck) {
             throw new \Exception('error: Sin Autorizacion.', 403);
         }
+        $filter = $this->getFilter($filter);
+        $order = $this->getOrder($order);
         $identity = $jwtAuth->checkToken($token, true);
         if ($search !== null) {
             $dql = "
@@ -164,6 +166,32 @@ class TaskService
         ];
 
         return $data;
+    }
+
+    private function getFilter($filter)
+    {
+        if (empty($filter)) {
+            $filterStr = null;
+        } elseif ($filter == 1) {
+            $filterStr = 'new';
+        } elseif ($filter == 2) {
+            $filterStr = 'todo';
+        } else {
+            $filterStr = 'finished';
+        }
+
+        return $filterStr;
+    }
+
+    private function getOrder($order)
+    {
+        if (empty($order) || $order == 2) {
+            $order = 'DESC';
+        } else {
+            $order = 'ASC';
+        }
+
+        return $order;
     }
 
     public function delete($jwtAuth, $token, $id)
