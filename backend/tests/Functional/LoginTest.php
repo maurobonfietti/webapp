@@ -2,7 +2,7 @@
 
 namespace Tests\Functional;
 
-class AsLoginTest extends BaseTest
+class LoginTest extends BaseTest
 {
     public function testLoginOk()
     {

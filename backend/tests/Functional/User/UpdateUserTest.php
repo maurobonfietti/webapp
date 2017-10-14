@@ -2,9 +2,9 @@
 
 namespace Tests\Functional;
 
-class EditUserTest extends BaseTest
+class UpdateUserTest extends BaseTest
 {
-    public function testEditUserOk()
+    public function testUpdateUserOk()
     {
         $client = self::createClient();
         $client->request('POST', '/user/edit', [
@@ -20,7 +20,7 @@ class EditUserTest extends BaseTest
         $this->assertNotContains('Sin Autorizacion', $client->getResponse()->getContent());
     }
 
-    public function testEditUserError()
+    public function testUpdateUserError()
     {
         $client = self::createClient();
         $client->request('POST', '/user/edit');
@@ -30,7 +30,7 @@ class EditUserTest extends BaseTest
         $this->assertNotContains('success', $client->getResponse()->getContent());
     }
 
-    public function testEditUserNotEdited()
+    public function testUpdateUserNotEdited()
     {
         $client = self::createClient();
         $client->request('POST', '/user/edit', [
@@ -42,7 +42,7 @@ class EditUserTest extends BaseTest
         $this->assertNotContains('success', $client->getResponse()->getContent());
     }
 
-    public function testEditUserExists()
+    public function testUpdateUserExists()
     {
         $client = self::createClient();
         $client->request('POST', '/user/edit', [
