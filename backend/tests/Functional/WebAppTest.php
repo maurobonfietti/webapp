@@ -12,7 +12,6 @@ class ApplicationAvailabilityFunctionalTest extends BaseTest
     public function urlProvider()
     {
         return array(
-//            array('/task/list'),
             array('/task/detail/18'),
             array('/user/edit'),
             array('/task/edit/41'),
