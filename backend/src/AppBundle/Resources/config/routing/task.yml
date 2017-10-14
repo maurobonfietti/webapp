@@ -11,7 +11,7 @@ task_edit:
 task_list:
     path: /list
     defaults: { _controller: "AppBundle:Task:getAll" }
-    methods: POST
+    methods: GET
 
 task_detail:
     path: /detail/{id}
