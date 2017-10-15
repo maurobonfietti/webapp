@@ -11,7 +11,7 @@ class TaskController extends BaseController
         try {
             $json = $request->get('json', null);
             $token = $request->get('authorization', null);
-            $task = $this->getTaskService()->create($json, $token);
+            $task = $this->getTaskService()->create($token, $json);
 
             return $this->response($task, 201);
         } catch (\Exception $e) {
@@ -24,7 +24,7 @@ class TaskController extends BaseController
         try {
             $json = $request->get('json', null);
             $token = $request->headers->get('Authorization');
-            $task = $this->getTaskService()->create($json, $token, $id);
+            $task = $this->getTaskService()->create($token, $json, $id);
 
             return $this->response($task);
         } catch (\Exception $e) {
@@ -35,9 +35,9 @@ class TaskController extends BaseController
     public function getAllAction(Request $request)
     {
         try {
-            $token = $request->headers->get('Authorization');
             $paginator = $this->get('knp_paginator');
             $page = $request->query->getInt('page', 1);
+            $token = $request->headers->get('Authorization');
             $tasks = $this->getTaskService()->getAll($token, $paginator, $page);
 
             return $this->response($tasks);

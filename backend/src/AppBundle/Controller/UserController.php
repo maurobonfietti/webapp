@@ -23,7 +23,7 @@ class UserController extends BaseController
         try {
             $json = $request->get('json', null);
             $token = $request->headers->get('Authorization');
-            $user = $this->getUserService()->update($json, $token);
+            $user = $this->getUserService()->update($token, $json);
 
             return $this->response($user);
         } catch (\Exception $e) {

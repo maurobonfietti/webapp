@@ -39,7 +39,7 @@ class DefaultController extends BaseController
         if ($getData === true) {
             $data = $this->getJwtService()->signUp($user, true);
         } else {
-            $data = $this->getJwtService()->signUp($user);
+            $data = $this->getJwtService()->signUp($user, false);
         }
 
         return $data;

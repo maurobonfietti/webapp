@@ -20,7 +20,7 @@ class TaskService
         $this->jwtAuth = $jwtAuth;
     }
 
-    public function create($json, $token, $id = null)
+    public function create($token, $json, $id = null)
     {
         $identity = $this->jwtAuth->checkToken($token);
         if ($json === null) {

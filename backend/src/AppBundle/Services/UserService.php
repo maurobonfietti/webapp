@@ -69,10 +69,9 @@ class UserService
         return $data;
     }
 
-    public function update($json, $token)
+    public function update($token, $json)
     {
         $identity = $this->jwtAuth->checkToken($token);
-        $user = $this->em->getRepository('AppBundle:Users')->findOneBy(["id" => $identity->sub]);
         $params = json_decode($json);
         $email = isset($params->email) ? $params->email : null;
         $name = isset($params->name) ? $params->name : null;
@@ -87,6 +86,7 @@ class UserService
         if (count($checkUserExist) >= 1 && $identity->email != $email) {
             throw new \Exception('error: Usuario existente.', 400);
         }
+        $user = $this->em->getRepository('AppBundle:Users')->findOneBy(["id" => $identity->sub]);
         $data = $this->updateUser($user, $email, $name, $surname, $password);
 
         return $data;
