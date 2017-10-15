@@ -22,11 +22,15 @@ class BaseController extends Controller
     public function getUserService()
     {
         $this->userService = $this->get(UserService::class);
+
+        return $this->userService;
     }
 
     public function getTaskService()
     {
         $this->taskService = $this->get(TaskService::class);
+
+        return $this->taskService;
     }
 
     public function getJwtService()

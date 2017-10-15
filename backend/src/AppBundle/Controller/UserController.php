@@ -9,9 +9,8 @@ class UserController extends BaseController
     public function createAction(Request $request)
     {
         try {
-            $this->getUserService();
             $json = $request->get('json', null);
-            $user = $this->userService->create($json);
+            $user = $this->getUserService()->create($json);
 
             return $this->response($user, 201);
         } catch (\Exception $e) {
@@ -22,10 +21,9 @@ class UserController extends BaseController
     public function updateAction(Request $request)
     {
         try {
-            $this->getUserService();
             $json = $request->get('json', null);
             $token = $request->headers->get('Authorization');
-            $user = $this->userService->update($json, $token);
+            $user = $this->getUserService()->update($json, $token);
 
             return $this->response($user);
         } catch (\Exception $e) {
