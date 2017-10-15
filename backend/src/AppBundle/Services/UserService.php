@@ -4,6 +4,7 @@ namespace AppBundle\Services;
 
 use AppBundle\Entity\Users;
 use AppBundle\Services\JwtAuth;
+use AppBundle\Repository\UserRepository;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -42,31 +43,10 @@ class UserService
         if (count($checkUserExist) >= 1) {
             throw new \Exception('error: Usuario existente.', 400);
         }
-        $user = $this->createUser($email, $name, $surname, $password);
+        $userRepository = new UserRepository($this->em);
+        $user = $userRepository->create($email, $name, $surname, $password);
 
         return $user;
-    }
-
-    private function createUser($email, $name, $surname, $password)
-    {
-        $user = new Users();
-        $user->setCreatedAt(new \DateTime("now"));
-        $user->setRole('user');
-        $user->setEmail($email);
-        $user->setName($name);
-        $user->setSurname($surname);
-        $pwd = hash('sha256', $password);
-        $user->setPassword($pwd);
-        $this->em->persist($user);
-        $this->em->flush();
-        $data = [
-            'status' => 'success',
-            'code' => 201,
-            'msg' => 'Usuario creado.',
-            'user' => $user,
-        ];
-
-        return $data;
     }
 
     public function update($token, $json)

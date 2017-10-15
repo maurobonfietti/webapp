@@ -52,3 +52,8 @@ services:
         arguments:
             $manager: '@doctrine.orm.entity_manager'
             $jwtAuth: '@AppBundle\Services\JwtAuth'
+
+    AppBundle\Repository\UserRepository:
+        public: true
+        arguments:
+            $manager: '@doctrine.orm.entity_manager'
