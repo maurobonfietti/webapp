@@ -2,7 +2,6 @@
 
 namespace AppBundle\Services;
 
-use AppBundle\Entity\Users;
 use AppBundle\Services\JwtAuth;
 use AppBundle\Repository\UserRepository;
 use Doctrine\ORM\EntityManager;
@@ -67,28 +66,8 @@ class UserService
             throw new \Exception('error: Usuario existente.', 400);
         }
         $user = $this->em->getRepository('AppBundle:Users')->findOneBy(["id" => $identity->sub]);
-        $data = $this->updateUser($user, $email, $name, $surname, $password);
-
-        return $data;
-    }
-
-    private function updateUser($user, $email, $name, $surname, $password)
-    {
-        $user->setEmail($email);
-        $user->setName($name);
-        $user->setSurname($surname);
-        if ($password !== null) {
-            $pwd = hash('sha256', $password);
-            $user->setPassword($pwd);
-        }
-        $this->em->persist($user);
-        $this->em->flush();
-        $data = [
-            'status' => 'success',
-            'code' => 200,
-            'msg' => 'Usuario actualizado.',
-            'user' => $user,
-        ];
+        $userRepository = new UserRepository($this->em);
+        $data = $userRepository->update($user, $email, $name, $surname, $password);
 
         return $data;
     }

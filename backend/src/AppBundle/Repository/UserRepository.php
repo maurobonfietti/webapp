@@ -36,4 +36,25 @@ class UserRepository
 
         return $data;
     }
+
+    public function update($user, $email, $name, $surname, $password)
+    {
+        $user->setEmail($email);
+        $user->setName($name);
+        $user->setSurname($surname);
+        if ($password !== null) {
+            $pwd = hash('sha256', $password);
+            $user->setPassword($pwd);
+        }
+        $this->em->persist($user);
+        $this->em->flush();
+        $data = [
+            'status' => 'success',
+            'code' => 200,
+            'msg' => 'Usuario actualizado.',
+            'user' => $user,
+        ];
+
+        return $data;
+    }
 }
