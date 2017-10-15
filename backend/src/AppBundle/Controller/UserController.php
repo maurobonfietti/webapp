@@ -2,7 +2,6 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Services\JwtAuth;
 use Symfony\Component\HttpFoundation\Request;
 
 class UserController extends BaseController
@@ -26,8 +25,7 @@ class UserController extends BaseController
             $this->getUserService();
             $json = $request->get('json', null);
             $token = $request->headers->get('Authorization');
-            $jwtAuth = $this->get(JwtAuth::class);
-            $user = $this->userService->update($json, $token, $jwtAuth);
+            $user = $this->userService->update($json, $token);
 
             return $this->response($user);
         } catch (\Exception $e) {

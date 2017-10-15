@@ -46,6 +46,7 @@ services:
         public: true
         arguments:
             $manager: '@doctrine.orm.entity_manager'
+            $jwtAuth: '@AppBundle\Services\JwtAuth'
             $validator: '@validator'
 
     AppBundle\Services\TaskService:

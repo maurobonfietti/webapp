@@ -3,17 +3,26 @@
 namespace AppBundle\Services;
 
 use AppBundle\Entity\Users;
+use AppBundle\Services\JwtAuth;
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class UserService
 {
+    /** @var EntityManager */
     public $em;
 
+    /** @var JwtAuth */
+    public $jwtAuth;
+
+    /** @var ValidatorInterface */
     public $validator;
 
-    public function __construct($manager, $validator)
+    public function __construct($manager, $jwtAuth, $validator)
     {
         $this->em = $manager;
+        $this->jwtAuth = $jwtAuth;
         $this->validator = $validator;
     }
 
@@ -65,13 +74,13 @@ class UserService
         return $data;
     }
 
-    public function update($json, $token, $jwtAuth)
+    public function update($json, $token)
     {
-        $authCheck = $jwtAuth->checkToken($token);
+        $authCheck = $this->jwtAuth->checkToken($token);
         if (!$authCheck) {
             throw new \Exception('error: Sin Autorizacion.', 403);
         }
-        $identity = $jwtAuth->checkToken($token, true);
+        $identity = $this->jwtAuth->checkToken($token, true);
         $user = $this->em->getRepository('AppBundle:Users')->findOneBy(["id" => $identity->sub]);
         $params = json_decode($json);
         $email = isset($params->email) ? $params->email : null;
