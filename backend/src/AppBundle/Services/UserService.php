@@ -38,18 +38,13 @@ class UserService
         if ($email === null || count($validateEmail) > 0 || $name === null || $password === null || $surname === null) {
             throw new \Exception('error: Usuario no creado.', 400);
         }
-        $this->checkUserExist($email);
+        $checkUserExist = $this->em->getRepository('AppBundle:Users')->findBy(["email" => $email]);
+        if (count($checkUserExist) >= 1) {
+            throw new \Exception('error: Usuario existente.', 400);
+        }
         $user = $this->createUser($email, $name, $surname, $password);
 
         return $user;
-    }
-
-    private function checkUserExist($email)
-    {
-        $user = $this->em->getRepository('AppBundle:Users')->findBy(["email" => $email]);
-        if (count($user) > 0) {
-            throw new \Exception('error: Usuario existente.', 400);
-        }
     }
 
     private function createUser($email, $name, $surname, $password)
@@ -88,18 +83,13 @@ class UserService
         if ($email === null || count($validateEmail) > 0 || $name === null || $surname === null) {
             throw new \Exception('error: Usuario no actualizado.', 400);
         }
-        $this->checkUserExistUpdate($email, $identity);
+        $checkUserExist = $this->em->getRepository('AppBundle:Users')->findBy(["email" => $email]);
+        if (count($checkUserExist) >= 1 && $identity->email != $email) {
+            throw new \Exception('error: Usuario existente.', 400);
+        }
         $data = $this->updateUser($user, $email, $name, $surname, $password);
 
         return $data;
-    }
-
-    private function checkUserExistUpdate($email, $identity)
-    {
-        $issetUser = $this->em->getRepository('AppBundle:Users')->findBy(["email" => $email]);
-        if (count($issetUser) > 0 && $identity->email != $email) {
-            throw new \Exception('error: Usuario existente.', 400);
-        }
     }
 
     private function updateUser($user, $email, $name, $surname, $password)
