@@ -24,7 +24,7 @@ class LoginTest extends BaseTest
     {
         $client = self::createClient();
         $client->request('POST', '/login', [
-            'json' => '{"email": "m@b.com.ar", "password": "123", "getHash": 1}',
+            'json' => '{"email": "m@b.com.ar", "password": "123", "getData": true}',
         ]);
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());

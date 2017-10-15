@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
         this.user = {
             "email": "",
             "password": "",
-            "getHash": "true"
+            "getData": true
         };
     }
 
@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
                         localStorage.setItem('identity', JSON.stringify(this.identity));
 
                         // Get Token.
-                        this.user.getHash = null;
+                        this.user.getData = false;
                         this._userService.signUp(this.user).subscribe(
                             response => {
                                 this.token = response;

@@ -13,7 +13,7 @@ class JwtAuth
         $this->key = 'SecretKey...123...';
     }
 
-    public function signUp($user, $getHash = null)
+    public function signUp($user, $getData = false)
     {
         $token = [
             'sub' => $user->getId(),
@@ -24,7 +24,7 @@ class JwtAuth
             'exp' => time() + (7 * 24 * 60 * 60),
         ];
 
-        if ($getHash === true) {
+        if ($getData === true) {
             $data = $token;
         } else {
             $data = JWT::encode($token, $this->key, 'HS256');
