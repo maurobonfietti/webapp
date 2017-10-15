@@ -8,9 +8,12 @@ class TaskService
 {
     public $em;
 
-    public function __construct($manager)
+    public $jwtAuth;
+
+    public function __construct($manager, $jwtAuth)
     {
         $this->em = $manager;
+        $this->jwtAuth = $jwtAuth;
     }
 
     public function create($json, $token, $jwtAuth, $id = null)
@@ -130,15 +133,15 @@ class TaskService
         return $data;
     }
 
-    public function search($jwtAuth, $token, $filter, $order, $search)
+    public function search($token, $filter, $order, $search)
     {
-        $authCheck = $jwtAuth->checkToken($token);
+        $authCheck = $this->jwtAuth->checkToken($token);
         if (!$authCheck) {
             throw new \Exception('error: Sin Autorizacion.', 403);
         }
         $filter = $this->getFilter($filter);
         $order = $this->getOrder($order);
-        $identity = $jwtAuth->checkToken($token, true);
+        $identity = $this->jwtAuth->checkToken($token, true);
         $dql = "SELECT t FROM AppBundle:Tasks t WHERE t.user = $identity->sub ";
         if ($search !== null) {
             $dql.= " AND (t.title LIKE :search OR t.description LIKE :search) ";
