@@ -3,49 +3,31 @@
 namespace AppBundle\Services;
 
 use Firebase\JWT\JWT;
-use Doctrine\ORM\EntityManager;
 
 class JwtAuth
 {
-    /** @var EntityManager */
-    public $em;
-
-    /** @var string */
     public $key;
 
-    public function __construct($manager)
+    public function __construct()
     {
-        $this->em = $manager;
         $this->key = 'SecretKey...123...';
     }
 
-    public function signUp($email, $password, $getHash = null)
+    public function signUp($user, $getHash = null)
     {
-        $user = $this->em->getRepository('AppBundle:Users')->findOneBy([
-            'email' => $email,
-            'password' => $password,
-        ]);
-        if (is_object($user)) {
-            $token = [
-                'sub' => $user->getId(),
-                'email' => $user->getEmail(),
-                'name' => $user->getName(),
-                'surname' => $user->getSurname(),
-                'iat' => time(),
-                'exp' => time() + (7 * 24 * 60 * 60),
-            ];
-            $jwt = JWT::encode($token, $this->key, 'HS256');
-            $decoded = JWT::decode($jwt, $this->key, ['HS256']);
-            if ($getHash == null) {
-                $data = $jwt;
-            } else {
-                $data = $decoded;
-            }
+        $token = [
+            'sub' => $user->getId(),
+            'email' => $user->getEmail(),
+            'name' => $user->getName(),
+            'surname' => $user->getSurname(),
+            'iat' => time(),
+            'exp' => time() + (7 * 24 * 60 * 60),
+        ];
+
+        if ($getHash === true) {
+            $data = $token;
         } else {
-            $data = [
-                'status' => 'error',
-                'data' => 'Error en inicio de sesion.',
-            ];
+            $data = JWT::encode($token, $this->key, 'HS256');
         }
 
         return $data;

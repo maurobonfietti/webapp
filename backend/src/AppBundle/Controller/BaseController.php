@@ -36,6 +36,8 @@ class BaseController extends Controller
     public function getJwtService()
     {
         $this->jwtService = $this->get(JwtAuth::class);
+
+        return $this->jwtService;
     }
 
     public function response($data, $status = 200)

@@ -3,7 +3,6 @@
 namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Validator\Constraints as Assert;
 
 class DefaultController extends BaseController
 {
@@ -11,11 +10,7 @@ class DefaultController extends BaseController
     {
         try {
             $json = $request->get('json', null);
-            if ($json === null) {
-                throw new \Exception('error: Datos incompletos...', 403);
-            }
-            $params = json_decode($json);
-            $data = $this->login($params);
+            $data = $this->login($json);
 
             return $this->json($data);
         } catch (\Exception $e) {
@@ -23,22 +18,25 @@ class DefaultController extends BaseController
         }
     }
 
-    private function login($params)
+    private function login($json)
     {
+        if ($json === null) {
+            throw new \Exception('error: Datos incompletos...', 403);
+        }
+        $params = json_decode($json);
         $email = isset($params->email) ? $params->email : null;
         $password = isset($params->password) ? $params->password : null;
         $getHash = isset($params->getHash) ? $params->getHash : null;
-        $emailConstraint = new Assert\Email();
-        $validateEmail = $this->get('validator')->validate($email, $emailConstraint);
         $pwd = hash('sha256', $password);
-        if ($email == null || count($validateEmail) > 0 || $password == null) {
-            throw new \Exception('error: El email o el password es incorrecto...', 403);
+        $user = $this->getDoctrine()->getManager()->getRepository('AppBundle:Users')
+            ->findOneBy(['email' => $email, 'password' => $pwd]);
+        if (empty($user)) {
+            throw new \Exception('error: El email o password ingresado es incorrecto...', 403);
         }
-        $this->getJwtService();
         if ($getHash === null || $getHash === false) {
-            $data = $this->jwtService->signUp($email, $pwd);
+            $data = $this->getJwtService()->signUp($user);
         } else {
-            $data = $this->jwtService->signUp($email, $pwd, true);
+            $data = $this->getJwtService()->signUp($user, true);
         }
 
         return $data;
