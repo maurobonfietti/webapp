@@ -3,11 +3,14 @@
 namespace AppBundle\Services;
 
 use Firebase\JWT\JWT;
+use Doctrine\ORM\EntityManager;
 
 class JwtAuth
 {
+    /** @var EntityManager */
     public $em;
 
+    /** @var string */
     public $key;
 
     public function __construct($manager)
@@ -22,11 +25,7 @@ class JwtAuth
             'email' => $email,
             'password' => $password,
         ]);
-        $signUp = false;
         if (is_object($user)) {
-            $signUp = true;
-        }
-        if ($signUp === true) {
             $token = [
                 'sub' => $user->getId(),
                 'email' => $user->getEmail(),
