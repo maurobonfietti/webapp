@@ -3,11 +3,15 @@
 namespace AppBundle\Services;
 
 use AppBundle\Entity\Tasks;
+use AppBundle\Services\JwtAuth;
+use Doctrine\ORM\EntityManager;
 
 class TaskService
 {
+    /** @var EntityManager */
     public $em;
 
+    /** @var JwtAuth */
     public $jwtAuth;
 
     public function __construct($manager, $jwtAuth)
