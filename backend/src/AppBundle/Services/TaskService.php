@@ -139,20 +139,16 @@ class TaskService
         $filter = $this->getFilter($filter);
         $order = $this->getOrder($order);
         $identity = $jwtAuth->checkToken($token, true);
+        $dql = "SELECT t FROM AppBundle:Tasks t WHERE t.user = $identity->sub ";
         if ($search !== null) {
-            $dql = "
-                SELECT t FROM AppBundle:Tasks t WHERE t.user = $identity->sub
-                AND t.title LIKE :search OR t.description LIKE :search
-            ";
-        } else {
-            $dql = "SELECT t FROM AppBundle:Tasks t WHERE t.user = $identity->sub ";
+            $dql.= " AND (t.title LIKE :search OR t.description LIKE :search) ";
         }
         if ($filter != null) {
             $dql.= " AND t.status = :filter ";
         }
         $dql.= " ORDER BY t.id $order ";
         $query = $this->em->createQuery($dql);
-        if (!empty($search)) {
+        if ($search !== null) {
             $query->setParameter('search', "%$search%");
         }
         if ($filter !== null) {

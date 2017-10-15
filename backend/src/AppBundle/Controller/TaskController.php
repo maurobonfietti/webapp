@@ -77,8 +77,9 @@ class TaskController extends BaseController
             $token = $request->get('authorization', null);
             $filter = $request->get('filter', null);
             $order = $request->get('order', null);
-            $tasks = $this->taskService
-                ->search($jwtAuth, $token, $filter, $order, $search);
+            $tasks = $this->taskService->search(
+                $jwtAuth, $token, $filter, $order, $search
+            );
 
             return $this->response($tasks);
         } catch (\Exception $e) {
