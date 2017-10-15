@@ -2,7 +2,6 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Services\JwtAuth;
 use Symfony\Component\HttpFoundation\Request;
 
 class TaskController extends BaseController
@@ -13,8 +12,7 @@ class TaskController extends BaseController
             $this->getTaskService();
             $json = $request->get('json', null);
             $token = $request->get('authorization', null);
-            $jwtAuth = $this->get(JwtAuth::class);
-            $task = $this->taskService->create($json, $token, $jwtAuth);
+            $task = $this->taskService->create($json, $token);
 
             return $this->response($task, 201);
         } catch (\Exception $e) {
@@ -28,8 +26,7 @@ class TaskController extends BaseController
             $this->getTaskService();
             $json = $request->get('json', null);
             $token = $request->headers->get('Authorization');
-            $jwtAuth = $this->get(JwtAuth::class);
-            $task = $this->taskService->create($json, $token, $jwtAuth, $id);
+            $task = $this->taskService->create($json, $token, $id);
 
             return $this->response($task);
         } catch (\Exception $e) {
@@ -41,13 +38,10 @@ class TaskController extends BaseController
     {
         try {
             $this->getTaskService();
-            $jwtAuth = $this->get(JwtAuth::class);
             $token = $request->headers->get('Authorization');
             $paginator = $this->get('knp_paginator');
             $page = $request->query->getInt('page', 1);
-            $tasks = $this->taskService->getAll(
-                $jwtAuth, $token, $paginator, $page
-            );
+            $tasks = $this->taskService->getAll($token, $paginator, $page);
 
             return $this->response($tasks);
         } catch (\Exception $e) {
@@ -59,9 +53,8 @@ class TaskController extends BaseController
     {
         try {
             $this->getTaskService();
-            $jwtAuth = $this->get(JwtAuth::class);
             $token = $request->headers->get('Authorization');
-            $task = $this->taskService->getOne($jwtAuth, $token, $id);
+            $task = $this->taskService->getOne($token, $id);
 
             return $this->response($task);
         } catch (\Exception $e) {
@@ -88,9 +81,8 @@ class TaskController extends BaseController
     {
         try {
             $this->getTaskService();
-            $jwtAuth = $this->get(JwtAuth::class);
             $token = $request->headers->get('Authorization');
-            $this->taskService->delete($jwtAuth, $token, $id);
+            $this->taskService->delete($token, $id);
 
             return $this->response(null, 204);
         } catch (\Exception $e) {
