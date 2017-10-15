@@ -76,11 +76,7 @@ class UserService
 
     public function update($json, $token)
     {
-        $authCheck = $this->jwtAuth->checkToken($token);
-        if (!$authCheck) {
-            throw new \Exception('error: Sin Autorizacion.', 403);
-        }
-        $identity = $this->jwtAuth->checkToken($token, true);
+        $identity = $this->jwtAuth->checkToken($token);
         $user = $this->em->getRepository('AppBundle:Users')->findOneBy(["id" => $identity->sub]);
         $params = json_decode($json);
         $email = isset($params->email) ? $params->email : null;

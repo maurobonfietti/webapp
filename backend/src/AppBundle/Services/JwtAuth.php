@@ -33,11 +33,11 @@ class JwtAuth
         return $data;
     }
 
-    public function checkToken($jwt, $getIdentity = false)
+    public function checkToken($token)
     {
         $auth = false;
         try {
-            $decoded = JWT::decode($jwt, $this->key, ['HS256']);
+            $decoded = JWT::decode($token, $this->key, ['HS256']);
         } catch (\UnexpectedValueException $e) {
             $auth = false;
         } catch (\DomainException $e) {
@@ -46,10 +46,11 @@ class JwtAuth
         if (isset($decoded) && is_object($decoded) && isset($decoded->sub)) {
             $auth = true;
         }
-        if ($getIdentity === false) {
-            return $auth;
-        } else {
-            return $decoded;
+
+        if ($auth === false) {
+            throw new \Exception('error: Sin Autorizacion.', 403);
         }
+
+        return $decoded;
     }
 }

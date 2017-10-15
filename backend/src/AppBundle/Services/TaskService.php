@@ -22,15 +22,11 @@ class TaskService
 
     public function create($json, $token, $id = null)
     {
-        $authCheck = $this->jwtAuth->checkToken($token);
-        if (!$authCheck) {
-            throw new \Exception('error: Sin Autorizacion.', 403);
-        }
+        $identity = $this->jwtAuth->checkToken($token);
         if ($json === null) {
             throw new \Exception('error: Sin datos para actualizar la tarea.', 400);
         }
         $params = json_decode($json);
-        $identity = $this->jwtAuth->checkToken($token, true);
         $userId = ($identity->sub != null) ? $identity->sub : null;
         $title = isset($params->title) ? $params->title : null;
         $description = isset($params->description) ? $params->description : null;
@@ -93,11 +89,7 @@ class TaskService
 
     public function getAll($token, $paginator, $page)
     {
-        $authCheck = $this->jwtAuth->checkToken($token);
-        if (!$authCheck) {
-            throw new \Exception('error: Sin Autorizacion.', 403);
-        }
-        $identity = $this->jwtAuth->checkToken($token, true);
+        $identity = $this->jwtAuth->checkToken($token);
         $dql = "SELECT t FROM AppBundle:Tasks t WHERE t.user = $identity->sub ORDER BY t.id ASC";
         $query = $this->em->createQuery($dql);
         $itemsPerPage = 10;
@@ -118,11 +110,7 @@ class TaskService
 
     public function getOne($token, $id)
     {
-        $authCheck = $this->jwtAuth->checkToken($token);
-        if (!$authCheck) {
-            throw new \Exception('error: Sin Autorizacion.', 403);
-        }
-        $identity = $this->jwtAuth->checkToken($token, true);
+        $identity = $this->jwtAuth->checkToken($token);
         $task = $this->em->getRepository('AppBundle:Tasks')->findOneBy(['id' => $id]);
         if ($task && is_object($task) && $identity->sub == $task->getUser()->getId()) {
             $data = [
@@ -139,13 +127,9 @@ class TaskService
 
     public function search($token, $filter, $order, $search)
     {
-        $authCheck = $this->jwtAuth->checkToken($token);
-        if (!$authCheck) {
-            throw new \Exception('error: Sin Autorizacion.', 403);
-        }
+        $identity = $this->jwtAuth->checkToken($token);
         $filter = $this->getFilter($filter);
         $order = $this->getOrder($order);
-        $identity = $this->jwtAuth->checkToken($token, true);
         $dql = "SELECT t FROM AppBundle:Tasks t WHERE t.user = $identity->sub ";
         if ($search !== null) {
             $dql.= " AND (t.title LIKE :search OR t.description LIKE :search) ";
@@ -199,11 +183,7 @@ class TaskService
 
     public function delete($token, $id)
     {
-        $authCheck = $this->jwtAuth->checkToken($token);
-        if (!$authCheck) {
-            throw new \Exception('error: Sin Autorizacion.', 403);
-        }
-        $identity = $this->jwtAuth->checkToken($token, true);
+        $identity = $this->jwtAuth->checkToken($token);
         $task = $this->em->getRepository('AppBundle:Tasks')->findOneBy(['id' => $id]);
         if ($task && is_object($task) && $identity->sub == $task->getUser()->getId()) {
             $this->em->remove($task);
