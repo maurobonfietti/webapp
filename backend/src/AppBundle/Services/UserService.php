@@ -43,10 +43,9 @@ class UserService
 
     private function validateCreateUser($email, $name, $surname, $password)
     {
-        $emailConstraint = new Assert\Email();
-        $validateEmail = $this->validator->validate($email, $emailConstraint);
-        if ($email === null || $name === null || $surname === null || $password === null || count($validateEmail) > 0 ) {
-            throw new \Exception('error: Usuario no creado.', 400);
+        $validateEmail = $this->validator->validate($email, new Assert\Email());
+        if ($email === null || $name === null || $surname === null || $password === null || $validateEmail->count() > 0) {
+            throw new \Exception('error: Los datos no son validos. Usuario no creado.', 400);
         }
         $checkUserExist = $this->em->getRepository('AppBundle:Users')->findBy(["email" => $email]);
         if ($checkUserExist) {
@@ -72,10 +71,9 @@ class UserService
 
     private function getAndValidateUser($email, $name, $surname, $identity)
     {
-        $emailConstraint = new Assert\Email();
-        $validateEmail = $this->validator->validate($email, $emailConstraint);
-        if ($email === null || count($validateEmail) > 0 || $name === null || $surname === null) {
-            throw new \Exception('error: Usuario no actualizado.', 400);
+        $validateEmail = $this->validator->validate($email, new Assert\Email());
+        if ($email === null || $name === null || $surname === null || $validateEmail->count() > 0) {
+            throw new \Exception('error: Los datos no son validos. Usuario no actualizado.', 400);
         }
         $checkUserExist = $this->em->getRepository('AppBundle:Users')->findOneBy(["email" => $email]);
         if ($checkUserExist && $identity->email !== $email) {
