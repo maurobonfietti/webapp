@@ -41,11 +41,8 @@ export class TaskEditComponent implements OnInit {
         this.loading = 'show';
         this._route.params.forEach((params: Params) => {
             let id = +params['id'];
-
             this._taskService.getTask(this.token, id).subscribe(
                 response => {
-                    //this.task = response.data;
-                    //this.status_task = response.status;
                     if (response.status == 'success') {
                         if (response.task.user.id == this.identity.sub) {
                             this.task = response.task;
@@ -57,7 +54,6 @@ export class TaskEditComponent implements OnInit {
                     } else {
                         this._router.navigate(['/login']);
                     }
-                    //console.log(response);
                 },
                 error => {
                     console.log(<any> error);
@@ -77,7 +73,6 @@ export class TaskEditComponent implements OnInit {
                         this.status_task = 'error';
                     } else {
                         this.task = response.data;
-                        //this._router.navigate(['/task', this.task.id]);
                         this._router.navigate(['/']);
                     }
                 },

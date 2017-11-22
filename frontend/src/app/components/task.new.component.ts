@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Router, ActivatedRoute, Params} from '@angular/router';
+import {Router} from '@angular/router';
 import {UserService} from '../services/user.service';
 import {TaskService} from '../services/task.service';
 import {Task} from '../models/task';
@@ -18,7 +18,6 @@ export class TaskNewComponent implements OnInit {
     public status_task;
 
     constructor(
-        private _route: ActivatedRoute,
         private _router: Router,
         private _userService: UserService,
         private _taskService: TaskService
@@ -45,7 +44,6 @@ export class TaskNewComponent implements OnInit {
                     this.status_task = 'error';
                 } else {
                     this.task = response.data;
-                    //this._router.navigate(['/task', this.task.id]);
                     this._router.navigate(['/']);
                 }
             },

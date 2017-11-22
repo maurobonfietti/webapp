@@ -33,7 +33,7 @@ export class DefaultComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('El componente default.component ha sido cargado.');
+        console.log('default.component [OK]');
         this.getAllTasks();
     }
 
@@ -53,13 +53,10 @@ export class DefaultComponent implements OnInit {
                     if (this.status_task == 'success') {
                         this.tasks = response.tasks;
                         this.loading = 'hide';
-                        //console.log(this.tasks);
                         this.pages = [];
                         for (let i = 0; i < response.totalPages; i++) {
                             this.pages.push(i);
                         }
-                        //console.log(response.totalPages);
-                        //console.log(this.pages);
                         if (page >= 2) {
                             this.pagesPrev = (page - 1);
                         } else {
@@ -70,10 +67,6 @@ export class DefaultComponent implements OnInit {
                         } else {
                             this.pagesNext = page;
                         }
-                        //console.log(this.pagesPrev);
-                        //console.log(this.pagesNext);
-                    } else {
-                        //console.log('bbb');
                     }
                 },
                 error => {

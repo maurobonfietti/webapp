@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {Router, ActivatedRoute, Params} from '@angular/router';
 import {User} from '../models/user';
 import {UserService} from '../services/user.service';
 
@@ -15,8 +14,6 @@ export class RegisterComponent implements OnInit {
     public status;
 
     constructor(
-        private _route: ActivatedRoute,
-        private _router: Router,
         private _userService: UserService
     ) {
         this.title = 'Registrate';
@@ -24,7 +21,7 @@ export class RegisterComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('El componente register.component ha sido cargado.');
+        console.log('register.component [OK]');
     }
 
     onSubmit() {

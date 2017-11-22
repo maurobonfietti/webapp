@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('El componente login.component ha sido cargado.');
+        console.log('login.component [OK]');
         this.logout();
         this.redirectIfIdentity();
     }
@@ -57,24 +57,22 @@ export class LoginComponent implements OnInit {
     }
 
     onSubmit() {
-        console.log(this.user);
-
+        //console.log(this.user);
         this._userService.signUp(this.user).subscribe(
             response => {
                 this.identity = response;
                 if (this.identity.lenght <= 1) {
-                    console.log('Error en el servidor.');
+                    console.log('Server Error...');
                 } {
                     if (!this.identity.status) {
                         localStorage.setItem('identity', JSON.stringify(this.identity));
-
                         // Get Token.
                         this.user.getData = false;
                         this._userService.signUp(this.user).subscribe(
                             response => {
                                 this.token = response;
                                 if (this.token.lenght <= 1) {
-                                    console.log('Error en el servidor.');
+                                    console.log('Server Error...');
                                 } {
                                     if (!this.token.status) {
                                         localStorage.setItem('token', JSON.stringify(this.token));

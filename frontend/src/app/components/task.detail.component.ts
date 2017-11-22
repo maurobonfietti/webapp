@@ -11,7 +11,6 @@ import {Task} from '../models/task';
 })
 
 export class TaskDetailComponent implements OnInit {
-    //public page_title: string;
     public identity;
     public token;
     public task: Task;
@@ -24,7 +23,6 @@ export class TaskDetailComponent implements OnInit {
         private _userService: UserService,
         private _taskService: TaskService
     ) {
-        //this.page_title = 'Editar tarea';
         this.identity = this._userService.getIdentity();
         this.token = this._userService.getToken();
     }
@@ -41,10 +39,8 @@ export class TaskDetailComponent implements OnInit {
         this.loading = 'show';
         this._route.params.forEach((params: Params) => {
             let id = +params['id'];
-
             this._taskService.getTask(this.token, id).subscribe(
                 response => {
-                    //this.task = response.data;
                     this.status_task = response.status;
                     if (response.status == 'success') {
                         if (response.task.user.id == this.identity.sub) {
@@ -57,7 +53,6 @@ export class TaskDetailComponent implements OnInit {
                     } else {
                         this._router.navigate(['/login']);
                     }
-                    //console.log(response);
                 },
                 error => {
                     console.log(<any> error);
@@ -70,8 +65,6 @@ export class TaskDetailComponent implements OnInit {
         this._taskService.deleteTask(this.token, id).subscribe(
             response => {
                 this._router.navigate(['/']);
-
-                //console.log(response);
             },
             error => {
                 console.log(<any> error);
