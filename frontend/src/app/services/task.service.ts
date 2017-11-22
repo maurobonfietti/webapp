@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import {Injectable} from '@angular/core';
+import {Http, Response, Headers, RequestOptions} from '@angular/http';
 import "rxjs/add/operator/map";
-import { Observable } from 'rxjs/observable';
+import {Observable} from 'rxjs/observable';
 //import { GLOBAL } from 'global';
 
 @Injectable()
-export class TaskService{
+export class TaskService {
     public url: string;
     //public identity;
     //public token;
@@ -17,46 +17,46 @@ export class TaskService{
 
     create(token, task) {
         let json = JSON.stringify(task);
-        let params = "json="+json+'&authorization='+token;
-        let headers = new Headers({'Content-Type':"application/x-www-form-urlencoded"});
+        let params = "json=" + json + '&authorization=' + token;
+        let headers = new Headers({'Content-Type': "application/x-www-form-urlencoded"});
 
-        return this._http.post(this.url+'/task/new', params, {headers: headers}).map(res => res.json());
+        return this._http.post(this.url + '/task/new', params, {headers: headers}).map(res => res.json());
     }
 
     getTasks(token, page = null) {
         let headers = new Headers({'Authorization': token});
 
-        if(page == null) {
+        if (page == null) {
             page = 1;
         }
 
-        return this._http.get(this.url+'/task/list?page='+page, {headers: headers}).map(res => res.json());
+        return this._http.get(this.url + '/task/list?page=' + page, {headers: headers}).map(res => res.json());
     }
 
     getTask(token, id) {
         let headers = new Headers({'Authorization': token});
 
-        return this._http.get(this.url+'/task/detail/'+id, {headers: headers}).map(res => res.json());
+        return this._http.get(this.url + '/task/detail/' + id, {headers: headers}).map(res => res.json());
     }
 
     update(token, task, id) {
         let json = JSON.stringify(task);
-        let params = "json="+json+'&authorization='+token;
-        let headers = new Headers({'Content-Type':"application/x-www-form-urlencoded"});
+        let params = "json=" + json + '&authorization=' + token;
+        let headers = new Headers({'Content-Type': "application/x-www-form-urlencoded"});
         headers.append('Authorization', token);
 
-        return this._http.patch(this.url+'/task/edit/'+id, params, {headers: headers}).map(res => res.json());
+        return this._http.patch(this.url + '/task/edit/' + id, params, {headers: headers}).map(res => res.json());
     }
 
     search(token, search = null, filter = null, order = null) {
-        let params = 'authorization='+token+'&filter='+filter+'&order='+order;
-        let headers = new Headers({'Content-Type':"application/x-www-form-urlencoded"});
-        let url:string;
+        let params = 'authorization=' + token + '&filter=' + filter + '&order=' + order;
+        let headers = new Headers({'Content-Type': "application/x-www-form-urlencoded"});
+        let url: string;
 
         if (search == null) {
             url = this.url + '/task/search';
         } else {
-            url = this.url + '/task/search/'+search;
+            url = this.url + '/task/search/' + search;
         }
         console.log(url);
 
@@ -66,6 +66,6 @@ export class TaskService{
     deleteTask(token, id) {
         let headers = new Headers({'Authorization': token});
 
-        return this._http.delete(this.url+'/task/remove/'+id, {headers: headers}).map(res => res.json());
+        return this._http.delete(this.url + '/task/remove/' + id, {headers: headers}).map(res => res.json());
     }
 }

@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
-import { Http, Response, Headers } from '@angular/http';
+import {Injectable} from '@angular/core';
+import {Http, Response, Headers} from '@angular/http';
 import "rxjs/add/operator/map";
-import { Observable } from 'rxjs/observable';
-import { GLOBAL } from 'global';
+import {Observable} from 'rxjs/observable';
+import {GLOBAL} from 'global';
 
 @Injectable()
-export class UserService{
+export class UserService {
 
     public url: string;
     public identity;
@@ -18,7 +18,7 @@ export class UserService{
 
     signUp(user_to_login) {
         let json = JSON.stringify(user_to_login);
-        let params = "json="+json;
+        let params = "json=" + json;
         let headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
 
         return this._http.post(this.url + '/login', params, {headers: headers}).map(res => res.json());
@@ -50,18 +50,18 @@ export class UserService{
 
     register(user_to_register) {
         let json = JSON.stringify(user_to_register);
-        let params = "json="+json;
-        let headers = new Headers({'Content-Type':"application/x-www-form-urlencoded"});
+        let params = "json=" + json;
+        let headers = new Headers({'Content-Type': "application/x-www-form-urlencoded"});
 
-        return this._http.post(this.url+'/user/new', params, {headers: headers}).map(res => res.json());
+        return this._http.post(this.url + '/user/new', params, {headers: headers}).map(res => res.json());
     }
 
     update_user(user_to_update) {
         let json = JSON.stringify(user_to_update);
-        let params = "json="+json+'&authorization='+this.getToken();
-        let headers = new Headers({'Content-Type':"application/x-www-form-urlencoded"});
+        let params = "json=" + json + '&authorization=' + this.getToken();
+        let headers = new Headers({'Content-Type': "application/x-www-form-urlencoded"});
         headers.append('Authorization', this.getToken());
 
-        return this._http.patch(this.url+'/user/edit', params, {headers: headers}).map(res => res.json());
+        return this._http.patch(this.url + '/user/edit', params, {headers: headers}).map(res => res.json());
     }
 }
