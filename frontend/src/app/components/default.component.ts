@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
-import { UserService } from '../services/user.service';
-import { TaskService } from '../services/task.service';
-import { Task } from '../models/task';
+import {Component, OnInit} from '@angular/core';
+import {Router, ActivatedRoute, Params} from '@angular/router';
+import {UserService} from '../services/user.service';
+import {TaskService} from '../services/task.service';
+import {Task} from '../models/task';
 
 @Component({
     selector: 'default',
@@ -21,7 +21,7 @@ export class DefaultComponent implements OnInit {
     public pagesNext;
     public loading;
 
-    constructor (
+    constructor(
         private _route: ActivatedRoute,
         private _router: Router,
         private _userService: UserService,
@@ -77,7 +77,7 @@ export class DefaultComponent implements OnInit {
                     }
                 },
                 error => {
-                    console.log(<any>error);
+                    console.log(<any> error);
                 }
             );
         });
@@ -108,7 +108,7 @@ export class DefaultComponent implements OnInit {
                 }
             },
             error => {
-                console.log(<any>error);
+                console.log(<any> error);
             }
         );
     }

@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
-import { User } from '../models/user';
-import { UserService } from '../services/user.service';
+import {Component, OnInit} from '@angular/core';
+import {Router, ActivatedRoute, Params} from '@angular/router';
+import {User} from '../models/user';
+import {UserService} from '../services/user.service';
 
 @Component({
     selector: 'user-edit',
@@ -16,7 +16,7 @@ export class UserEditComponent implements OnInit {
     public identity;
     public token;
 
-    constructor (
+    constructor(
         private _route: ActivatedRoute,
         private _router: Router,
         private _userService: UserService
@@ -54,7 +54,7 @@ export class UserEditComponent implements OnInit {
                 }
             },
             error => {
-                console.log(<any>error);
+                console.log(<any> error);
             }
         );
     }

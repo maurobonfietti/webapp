@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
-import { UserService } from '../services/user.service';
-import { TaskService } from '../services/task.service';
-import { Task } from '../models/task';
+import {Component, OnInit} from '@angular/core';
+import {Router, ActivatedRoute, Params} from '@angular/router';
+import {UserService} from '../services/user.service';
+import {TaskService} from '../services/task.service';
+import {Task} from '../models/task';
 
 @Component({
     selector: 'task-edit',
@@ -18,7 +18,7 @@ export class TaskEditComponent implements OnInit {
     public status_task;
     public loading;
 
-    constructor (
+    constructor(
         private _route: ActivatedRoute,
         private _router: Router,
         private _userService: UserService,
@@ -41,7 +41,7 @@ export class TaskEditComponent implements OnInit {
         this.loading = 'show';
         this._route.params.forEach((params: Params) => {
             let id = +params['id'];
-    
+
             this._taskService.getTask(this.token, id).subscribe(
                 response => {
                     //this.task = response.data;
@@ -60,7 +60,7 @@ export class TaskEditComponent implements OnInit {
                     //console.log(response);
                 },
                 error => {
-                    console.log(<any>error);
+                    console.log(<any> error);
                 }
             );
         });
@@ -82,7 +82,7 @@ export class TaskEditComponent implements OnInit {
                     }
                 },
                 error => {
-                    console.log(<any>error);
+                    console.log(<any> error);
                 }
             );
         });

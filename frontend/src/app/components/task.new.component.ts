@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
-import { UserService } from '../services/user.service';
-import { TaskService } from '../services/task.service';
-import { Task } from '../models/task';
+import {Component, OnInit} from '@angular/core';
+import {Router, ActivatedRoute, Params} from '@angular/router';
+import {UserService} from '../services/user.service';
+import {TaskService} from '../services/task.service';
+import {Task} from '../models/task';
 
 @Component({
     selector: 'task-new',
@@ -17,7 +17,7 @@ export class TaskNewComponent implements OnInit {
     public task: Task;
     public status_task;
 
-    constructor (
+    constructor(
         private _route: ActivatedRoute,
         private _router: Router,
         private _userService: UserService,
@@ -50,7 +50,7 @@ export class TaskNewComponent implements OnInit {
                 }
             },
             error => {
-                console.log(<any>error);
+                console.log(<any> error);
             }
         );
     }
