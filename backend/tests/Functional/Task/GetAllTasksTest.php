@@ -15,7 +15,7 @@ class GetAllTasksTest extends BaseTest
         $this->assertTrue($client->getResponse()->isSuccessful());
         $this->assertContains('success', $client->getResponse()->getContent());
         $this->assertNotContains('error', $client->getResponse()->getContent());
-        $this->assertNotContains('Sin Autorizacion', $client->getResponse()->getContent());
+        $this->assertNotContains('not authorized', $client->getResponse()->getContent());
     }
 
     public function testGetAllTasksError()
@@ -24,7 +24,7 @@ class GetAllTasksTest extends BaseTest
         $client->request('GET', '/task/list');
 
         $this->assertEquals(403, $client->getResponse()->getStatusCode());
-        $this->assertContains('Sin Autorizacion', $client->getResponse()->getContent());
+        $this->assertContains('not authorized', $client->getResponse()->getContent());
         $this->assertNotContains('success', $client->getResponse()->getContent());
     }
 }

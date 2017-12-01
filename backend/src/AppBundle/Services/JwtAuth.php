@@ -50,7 +50,7 @@ class JwtAuth
         }
 
         if ($auth === false) {
-            throw new \Exception('error: Sin Autorizacion.', 403);
+            throw new \Exception('error: Forbidden, not authorized.', 403);
         }
 
         return $decoded;

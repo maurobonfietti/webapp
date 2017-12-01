@@ -18,7 +18,7 @@ class SearchTasksTest extends BaseTest
         $this->assertTrue($client->getResponse()->isSuccessful());
         $this->assertContains('success', $result);
         $this->assertNotContains('error', $result);
-        $this->assertNotContains('Sin Autorizacion', $result);
+        $this->assertNotContains('not authorized', $result);
     }
 
     public function testSearchTasksFilter1()
@@ -36,7 +36,7 @@ class SearchTasksTest extends BaseTest
         $this->assertContains('success', $result);
         $this->assertContains('new', $result);
         $this->assertNotContains('error', $result);
-        $this->assertNotContains('Sin Autorizacion', $result);
+        $this->assertNotContains('not authorized', $result);
     }
 
     public function testSearchTasksFilter2()
@@ -54,7 +54,7 @@ class SearchTasksTest extends BaseTest
         $this->assertContains('success', $result);
         $this->assertContains('todo', $result);
         $this->assertNotContains('error', $result);
-        $this->assertNotContains('Sin Autorizacion', $result);
+        $this->assertNotContains('not authorized', $result);
     }
 
     public function testSearchTasksFilter3()
@@ -72,7 +72,7 @@ class SearchTasksTest extends BaseTest
         $this->assertContains('success', $result);
         $this->assertContains('finished', $result);
         $this->assertNotContains('error', $result);
-        $this->assertNotContains('Sin Autorizacion', $result);
+        $this->assertNotContains('not authorized', $result);
     }
 
     public function testSearchTasks()
@@ -88,7 +88,7 @@ class SearchTasksTest extends BaseTest
         $this->assertTrue($client->getResponse()->isSuccessful());
         $this->assertContains('success', $result);
         $this->assertNotContains('error', $result);
-        $this->assertNotContains('Sin Autorizacion', $result);
+        $this->assertNotContains('not authorized', $result);
     }
 
     public function testSearchTasksError()
@@ -97,7 +97,7 @@ class SearchTasksTest extends BaseTest
         $client->request('POST', '/task/search');
 
         $this->assertEquals(403, $client->getResponse()->getStatusCode());
-        $this->assertContains('Sin Autorizacion', $client->getResponse()->getContent());
+        $this->assertContains('not authorized', $client->getResponse()->getContent());
         $this->assertNotContains('success', $client->getResponse()->getContent());
     }
 }

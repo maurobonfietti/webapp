@@ -20,7 +20,7 @@ class CreateTaskTest extends BaseTest
         $this->assertContains('success', $client->getResponse()->getContent());
         $this->assertContains('Tarea creada.', $client->getResponse()->getContent());
         $this->assertNotContains('error', $client->getResponse()->getContent());
-        $this->assertNotContains('Sin Autorizacion', $client->getResponse()->getContent());
+        $this->assertNotContains('not authorized', $client->getResponse()->getContent());
     }
 
     public function testCreateTaskError()
@@ -29,7 +29,7 @@ class CreateTaskTest extends BaseTest
         $client->request('POST', '/task/new');
 
         $this->assertEquals(403, $client->getResponse()->getStatusCode());
-        $this->assertContains('Sin Autorizacion', $client->getResponse()->getContent());
+        $this->assertContains('not authorized', $client->getResponse()->getContent());
         $this->assertNotContains('success', $client->getResponse()->getContent());
     }
 }

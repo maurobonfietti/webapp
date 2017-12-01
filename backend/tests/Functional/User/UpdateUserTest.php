@@ -16,7 +16,7 @@ class UpdateUserTest extends BaseTest
         $this->assertContains('success', $client->getResponse()->getContent());
         $this->assertContains('Usuario actualizado.', $client->getResponse()->getContent());
         $this->assertNotContains('error', $client->getResponse()->getContent());
-        $this->assertNotContains('Sin Autorizacion', $client->getResponse()->getContent());
+        $this->assertNotContains('not authorized', $client->getResponse()->getContent());
     }
 
     public function testUpdateUserError()
@@ -25,7 +25,7 @@ class UpdateUserTest extends BaseTest
         $client->request('PATCH', '/user/edit');
 
         $this->assertEquals(403, $client->getResponse()->getStatusCode());
-        $this->assertContains('Sin Autorizacion', $client->getResponse()->getContent());
+        $this->assertContains('not authorized', $client->getResponse()->getContent());
         $this->assertNotContains('success', $client->getResponse()->getContent());
     }
 

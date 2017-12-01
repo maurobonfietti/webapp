@@ -14,7 +14,7 @@ class DeleteTaskTest extends BaseTest
         $this->assertEquals(204, $client->getResponse()->getStatusCode());
         $this->assertTrue($client->getResponse()->isSuccessful());
         $this->assertNotContains('error', $client->getResponse()->getContent());
-        $this->assertNotContains('Sin Autorizacion', $client->getResponse()->getContent());
+        $this->assertNotContains('not authorized', $client->getResponse()->getContent());
     }
 
     public function testDeleteTaskError()
@@ -23,7 +23,7 @@ class DeleteTaskTest extends BaseTest
         $client->request('DELETE', '/task/remove/200');
 
         $this->assertEquals(403, $client->getResponse()->getStatusCode());
-        $this->assertContains('Sin Autorizacion', $client->getResponse()->getContent());
+        $this->assertContains('not authorized', $client->getResponse()->getContent());
         $this->assertNotContains('success', $client->getResponse()->getContent());
     }
 
