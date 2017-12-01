@@ -30,7 +30,7 @@ class UserRepository
         $data = [
             'status' => 'success',
             'code' => 201,
-            'msg' => 'Usuario creado.',
+            'msg' => 'The user was created.',
             'user' => $user,
         ];
 
@@ -51,7 +51,7 @@ class UserRepository
         $data = [
             'status' => 'success',
             'code' => 200,
-            'msg' => 'Usuario actualizado.',
+            'msg' => 'The user was updated.',
             'user' => $user,
         ];
 

@@ -13,7 +13,7 @@ class CreateUserTest extends BaseTest
 
         $this->assertEquals(201, $client->getResponse()->getStatusCode());
         $this->assertTrue($client->getResponse()->isSuccessful());
-        $this->assertContains('Usuario creado.', $client->getResponse()->getContent());
+        $this->assertContains('The user was created.', $client->getResponse()->getContent());
         $this->assertNotContains('error', $client->getResponse()->getContent());
     }
 
@@ -25,7 +25,7 @@ class CreateUserTest extends BaseTest
         ]);
 
         $this->assertEquals(400, $client->getResponse()->getStatusCode());
-        $this->assertContains('Usuario no creado.', $client->getResponse()->getContent());
+        $this->assertContains('The user was NOT created.', $client->getResponse()->getContent());
         $this->assertContains('error', $client->getResponse()->getContent());
         $this->assertNotContains('success', $client->getResponse()->getContent());
     }
@@ -38,7 +38,7 @@ class CreateUserTest extends BaseTest
         ]);
 
         $this->assertEquals(400, $client->getResponse()->getStatusCode());
-        $this->assertContains('Usuario existente.', $client->getResponse()->getContent());
+        $this->assertContains('The user already exists.', $client->getResponse()->getContent());
         $this->assertContains('error', $client->getResponse()->getContent());
         $this->assertNotContains('success', $client->getResponse()->getContent());
     }

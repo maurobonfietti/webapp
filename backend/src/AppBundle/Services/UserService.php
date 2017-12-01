@@ -45,11 +45,11 @@ class UserService
     {
         $validateEmail = $this->validator->validate($email, new Assert\Email());
         if ($email === null || $name === null || $surname === null || $password === null || $validateEmail->count() > 0) {
-            throw new \Exception('error: Los datos no son validos. Usuario no creado.', 400);
+            throw new \Exception('error: The data is invalid. The user was NOT created.', 400);
         }
         $checkUserExist = $this->em->getRepository('AppBundle:Users')->findBy(["email" => $email]);
         if ($checkUserExist) {
-            throw new \Exception('error: Usuario existente.', 400);
+            throw new \Exception('error: The user already exists.', 400);
         }
     }
 
@@ -73,11 +73,11 @@ class UserService
     {
         $validateEmail = $this->validator->validate($email, new Assert\Email());
         if ($email === null || $name === null || $surname === null || $validateEmail->count() > 0) {
-            throw new \Exception('error: Los datos no son validos. Usuario no actualizado.', 400);
+            throw new \Exception('error: The data is invalid. The user was NOT updated.', 400);
         }
         $checkUserExist = $this->em->getRepository('AppBundle:Users')->findOneBy(["email" => $email]);
         if ($checkUserExist && $identity->email !== $email) {
-            throw new \Exception('error: Usuario existente.', 400);
+            throw new \Exception('error: The user already exists.', 400);
         }
 
         return $this->em->getRepository('AppBundle:Users')->findOneBy(["id" => $identity->sub]);

@@ -14,7 +14,7 @@ class UpdateUserTest extends BaseTest
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertTrue($client->getResponse()->isSuccessful());
         $this->assertContains('success', $client->getResponse()->getContent());
-        $this->assertContains('Usuario actualizado.', $client->getResponse()->getContent());
+        $this->assertContains('The user was updated.', $client->getResponse()->getContent());
         $this->assertNotContains('error', $client->getResponse()->getContent());
         $this->assertNotContains('not authorized', $client->getResponse()->getContent());
     }
@@ -36,7 +36,7 @@ class UpdateUserTest extends BaseTest
         $client->request('PATCH', '/user/edit', [], [], ['HTTP_authorization' => $this->getAuthToken()]);
 
         $this->assertEquals(400, $client->getResponse()->getStatusCode());
-        $this->assertContains('Usuario no actualizado.', $client->getResponse()->getContent());
+        $this->assertContains('The user was NOT updated.', $client->getResponse()->getContent());
         $this->assertNotContains('success', $client->getResponse()->getContent());
     }
 
@@ -48,7 +48,7 @@ class UpdateUserTest extends BaseTest
         ], [], ['HTTP_authorization' => $this->getAuthToken()]);
 
         $this->assertEquals(400, $client->getResponse()->getStatusCode());
-        $this->assertContains('Usuario existente.', $client->getResponse()->getContent());
+        $this->assertContains('The user already exists.', $client->getResponse()->getContent());
         $this->assertNotContains('success', $client->getResponse()->getContent());
     }
 }
