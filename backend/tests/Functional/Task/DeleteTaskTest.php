@@ -35,6 +35,7 @@ class DeleteTaskTest extends BaseTest
         ]);
 
         $this->assertEquals(404, $client->getResponse()->getStatusCode());
+        $this->assertContains('error', $client->getResponse()->getContent());
         $this->assertContains('Task not found', $client->getResponse()->getContent());
         $this->assertNotContains('success', $client->getResponse()->getContent());
     }
