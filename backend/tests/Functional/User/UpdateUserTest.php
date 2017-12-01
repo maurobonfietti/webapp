@@ -25,6 +25,7 @@ class UpdateUserTest extends BaseTest
         $client->request('PATCH', '/user/edit');
 
         $this->assertEquals(403, $client->getResponse()->getStatusCode());
+        $this->assertContains('error', $client->getResponse()->getContent());
         $this->assertContains('not authorized', $client->getResponse()->getContent());
         $this->assertNotContains('success', $client->getResponse()->getContent());
     }

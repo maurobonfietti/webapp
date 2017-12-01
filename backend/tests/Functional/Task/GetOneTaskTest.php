@@ -37,6 +37,7 @@ class GetOneTaskTest extends BaseTest
         $client->request('GET', '/task/detail/1');
 
         $this->assertEquals(403, $client->getResponse()->getStatusCode());
+        $this->assertContains('error', $client->getResponse()->getContent());
         $this->assertContains('not authorized', $client->getResponse()->getContent());
         $this->assertNotContains('success', $client->getResponse()->getContent());
     }
