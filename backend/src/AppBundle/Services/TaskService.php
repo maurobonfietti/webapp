@@ -38,6 +38,7 @@ class TaskService
         if ($id === null) {
             $data = $this->createTask($user, $title, $description, $status);
         } else {
+            $this->getOne($token, $id);
             $data = $this->updateTask($id, $identity, $title, $description, $status);
         }
 
