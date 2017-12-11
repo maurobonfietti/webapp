@@ -1,17 +1,12 @@
 import {Injectable} from '@angular/core';
-import {Http, Response, Headers, RequestOptions} from '@angular/http';
+import {Http, Headers} from '@angular/http';
 import "rxjs/add/operator/map";
-import {Observable} from 'rxjs/observable';
-//import { GLOBAL } from 'global';
 
 @Injectable()
 export class TaskService {
     public url: string;
-    //public identity;
-    //public token;
 
     constructor(private _http: Http) {
-        //this.url = GLOBAL.url;
         this.url = "http://localhost/webapp/backend/web/app_dev.php";
     }
 
