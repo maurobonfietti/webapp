@@ -49,7 +49,7 @@ export class DefaultComponent implements OnInit {
             this._taskService.getTasks(this.token, page).subscribe(
                 response => {
                     this.status_task = response.status;
-                    console.log(response);
+                    //console.log(response);
                     if (this.status_task == 'success') {
                         this.tasks = response.tasks;
                         this.loading = 'hide';
@@ -81,10 +81,6 @@ export class DefaultComponent implements OnInit {
     public searchString;
 
     search() {
-//        console.log(this.filter);
-//        console.log(this.order);
-//        console.log(this.searchString);
-
         this.loading == 'show';
 
         if (!this.searchString || this.searchString.trim().length == 0) {
@@ -96,8 +92,6 @@ export class DefaultComponent implements OnInit {
                 if (response.status == 'success') {
                     this.tasks = response.data;
                     this.loading == 'hide';
-//                    console.log('debug...');
-//                    console.log(this.tasks.length);
                 } else {
                     this._router.navigate(['/index']);
                 }

@@ -46,7 +46,7 @@ export class TaskDetailComponent implements OnInit {
                         if (response.task.user.id == this.identity.sub) {
                             this.task = response.task;
                             this.loading = 'hide';
-                            console.log(this.task);
+                            //console.log(this.task);
                         } else {
                             this._router.navigate(['/']);
                         }
