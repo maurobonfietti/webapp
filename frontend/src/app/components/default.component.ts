@@ -81,9 +81,9 @@ export class DefaultComponent implements OnInit {
     public searchString;
 
     search() {
-        console.log(this.filter);
-        console.log(this.order);
-        console.log(this.searchString);
+//        console.log(this.filter);
+//        console.log(this.order);
+//        console.log(this.searchString);
 
         this.loading == 'show';
 
@@ -96,6 +96,8 @@ export class DefaultComponent implements OnInit {
                 if (response.status == 'success') {
                     this.tasks = response.data;
                     this.loading == 'hide';
+//                    console.log('debug...');
+//                    console.log(this.tasks.length);
                 } else {
                     this._router.navigate(['/index']);
                 }
