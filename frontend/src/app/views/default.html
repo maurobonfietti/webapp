@@ -10,7 +10,7 @@
         <form class="col-md-12" role="search">
             <div class="form-group col-md-6">
                 <label>Mostrar sólo</label>
-                <select class="form-control" name="filter" [(ngModel)]="filter">
+                <select class="form-control" name="filter" [(ngModel)]="filter" (change)="search();">
                     <option value="0" selected="selected">Sin Filtro</option>
                     <option value="1">Nuevas</option>
                     <option value="2">Para Hacer</option>
@@ -19,7 +19,7 @@
             </div>
             <div class="form-group col-md-6">
                 <label>Ordenar por</label>
-                <select class="form-control" name="order" [(ngModel)]="order">
+                <select class="form-control" name="order" [(ngModel)]="order" (change)="search();">
                     <option value="0" selected="selected">Por defecto</option>
                     <option value="1">Fecha ascendente</option>
                     <option value="2">Fecha descendente</option>
