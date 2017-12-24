@@ -101,4 +101,32 @@ export class DefaultComponent implements OnInit {
             }
         );
     }
+
+    public page_title: string;
+    public task: Task;
+
+    asd(a) {
+//        console.log(a);
+//        console.log(this.tasks);
+//        console.log(this.tasks[0]);
+//        console.log(this.tasks[0].id);
+        this.task = this.tasks[0];
+        this._route.params.forEach((params: Params) => {
+            let id = a;
+            this._taskService.update(this.token, this.task, id).subscribe(
+                response => {
+                    this.status_task = response.status;
+                    if (this.status_task != "success") {
+                        this.status_task = 'error';
+                    } else {
+                        this.task = response.data;
+                        this._router.navigate(['/']);
+                    }
+                },
+                error => {
+                    console.log(<any> error);
+                }
+            );
+        });
+    }
 }

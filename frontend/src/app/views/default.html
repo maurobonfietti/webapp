@@ -43,11 +43,17 @@
             
             <table class="table table-hover table-stripped" id="tasks-list" *ngIf="tasks && tasks.length > 0">
                 <tr>
+                    <!--<th></th>-->
                     <th>Estado</th>
                     <th>Título</th>
                     <th>Acciones</th>
                 </tr>
                 <tr *ngFor="let task of tasks" class="task-item" >
+<!--                    <td>
+                        <h4>
+                            <input type="checkbox" name="sss" value="sss" (change)="asd(task.id);">
+                        </h4>
+                    </td>-->
                     <td>
                         <h4>
                             <span class='label lg-label label-success' *ngIf="task.status == 'finished'">
