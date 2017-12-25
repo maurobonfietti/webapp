@@ -45,14 +45,14 @@ export class DefaultComponent implements OnInit {
                 page = 1;
             }
 
-            this.loading = 'show';
+//            this.loading = 'show';
             this._taskService.getTasks(this.token, page).subscribe(
                 response => {
                     this.status_task = response.status;
                     //console.log(response);
                     if (this.status_task == 'success') {
                         this.tasks = response.tasks;
-                        this.loading = 'hide';
+//                        this.loading = 'hide';
                         this.pages = [];
                         for (let i = 0; i < response.totalPages; i++) {
                             this.pages.push(i);
@@ -106,20 +106,16 @@ export class DefaultComponent implements OnInit {
     public task: Task;
 
     asd(a) {
-//        console.log(a);
-//        console.log(this.tasks);
-//        console.log(this.tasks[0]);
-//        console.log(this.tasks[0].id);
-        this.task = this.tasks[0];
         this._route.params.forEach((params: Params) => {
             let id = a;
-            this._taskService.updateStatus(this.token, this.task, id).subscribe(
+            this._taskService.updateStatus(this.token, id).subscribe(
                 response => {
                     this.status_task = response.status;
                     if (this.status_task != "success") {
                         this.status_task = 'error';
                     } else {
                         this.task = response.data;
+//                        this.tasks = response.data;
                         this._router.navigate(['/']);
                     }
                 },
@@ -127,6 +123,8 @@ export class DefaultComponent implements OnInit {
                     console.log(<any> error);
                 }
             );
+            this.getAllTasks();
+//            this.getTask(a);
         });
     }
 }

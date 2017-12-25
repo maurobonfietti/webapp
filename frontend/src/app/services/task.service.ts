@@ -43,9 +43,8 @@ export class TaskService {
         return this._http.patch(this.url + '/task/edit/' + id, params, {headers: headers}).map(res => res.json());
     }
 
-    updateStatus(token, task, id) {
-        let json = JSON.stringify(task);
-        let params = "json=" + json + '&authorization=' + token;
+    updateStatus(token, id) {
+        let params = '&authorization=' + token;
         let headers = new Headers({'Content-Type': "application/x-www-form-urlencoded"});
         headers.append('Authorization', token);
 
