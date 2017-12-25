@@ -8,6 +8,11 @@ task_edit:
     defaults: { _controller: "AppBundle:Task:update", id: null }
     methods: PATCH
 
+task_update_status:
+    path: /update-status/{id}
+    defaults: { _controller: "AppBundle:Task:updateStatus", id: null }
+    methods: PATCH
+
 task_list:
     path: /list
     defaults: { _controller: "AppBundle:Task:getAll" }

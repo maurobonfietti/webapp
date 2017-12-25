@@ -32,6 +32,19 @@ class TaskController extends BaseController
         }
     }
 
+    public function updateStatusAction(Request $request, $id = null)
+    {
+        try {
+            $json = $request->get('json', null);
+            $token = $request->headers->get('Authorization');
+            $task = $this->getTaskService()->updateStatus($token, $json, $id);
+
+            return $this->response($task);
+        } catch (\Exception $e) {
+            return $this->responseError($e);
+        }
+    }
+
     public function getAllAction(Request $request)
     {
         try {
