@@ -88,42 +88,16 @@ class TaskService
         return $data;
     }
 
-    public function updateStatus($token, $json, $id = null)
+    public function updateStatus($token, $id)
     {
         $identity = $this->jwtAuth->checkToken($token);
-        if ($json === null) {
-            throw new \Exception('error: Sin datos para actualizar la tarea.', 400);
-        }
-        $params = json_decode($json);
-        $userId = ($identity->sub != null) ? $identity->sub : null;
-        $title = isset($params->title) ? $params->title : null;
-        $description = isset($params->description) ? $params->description : null;
-        $status = isset($params->status) ? $params->status : null;
-        if ($userId === null || $title === null) {
-            throw new \Exception('error: Los datos de la tarea no son validos.', 400);
-        }
-//        $user = $this->em->getRepository('AppBundle:Users')->findOneBy(['id' => $userId]);
-//        if ($id === null) {
-//            $data = $this->createTask($user, $title, $description, $status);
-//        } else {
-            $task = $this->getOne($token, $id);
-            $data = $this->changeStatus($id, $identity, $title, $description, $status, $task);
-//        }
-
-        return $data;
-    }
-
-    private function changeStatus($id, $identity, $title, $description, $status, $task2)
-    {
+        $this->getOne($token, $id);
         $task = $this->em->getRepository('AppBundle:Tasks')->findOneBy(['id' => $id]);
         if (!isset($identity->sub) || $identity->sub != $task->getUser()->getId()) {
             throw new \Exception('error: Los datos de la tarea no son validos. [Owner task error]', 400);
         }
-        $status2 = 'finished';
-        if ($task->getStatus() === 'finished') {
-            $status2 = 'todo';
-        }
-        $task->setStatus($status2);
+        $status = $task->getStatus() === 'finished' ? 'todo' : 'finished';
+        $task->setStatus($status);
         $task->setUpdatedAt(new \DateTime("now"));
         $this->em->persist($task);
         $this->em->flush();
