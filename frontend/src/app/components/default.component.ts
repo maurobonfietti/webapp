@@ -113,7 +113,7 @@ export class DefaultComponent implements OnInit {
         this.task = this.tasks[0];
         this._route.params.forEach((params: Params) => {
             let id = a;
-            this._taskService.update(this.token, this.task, id).subscribe(
+            this._taskService.updateStatus(this.token, this.task, id).subscribe(
                 response => {
                     this.status_task = response.status;
                     if (this.status_task != "success") {

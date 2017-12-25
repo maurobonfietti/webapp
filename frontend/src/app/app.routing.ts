@@ -22,6 +22,8 @@ const appRoutes: Routes = [
     {path: 'index/:page/task/:id', component: TaskDetailComponent},
     {path: 'task-edit/:id', component: TaskEditComponent},
     {path: 'index/:page/task-edit/:id', component: TaskEditComponent},
+//    {path: 'task-edit/:id', component: TaskEditComponent},
+//    {path: 'index/:page/task-edit/:id', component: TaskEditComponent},
     {path: '**', component: LoginComponent}
 ];
 
