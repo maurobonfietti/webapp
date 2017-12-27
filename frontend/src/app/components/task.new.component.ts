@@ -31,7 +31,7 @@ export class TaskNewComponent implements OnInit {
         if (this.identity == null && !this.identity.sub) {
             this._router.navigate(['/login']);
         } else {
-            this.task = new Task(1, '', '', 'new', 'null', 'null');
+            this.task = new Task(1, '', '', 'todo', 'null', 'null');
         }
     }
 

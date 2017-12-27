@@ -105,7 +105,7 @@ export class DefaultComponent implements OnInit {
     public page_title: string;
     public task: Task;
 
-    asd(a) {
+    updateStatus(a) {
         this._route.params.forEach((params: Params) => {
             let id = a;
             this._taskService.updateStatus(this.token, id).subscribe(
