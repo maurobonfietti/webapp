@@ -52,7 +52,7 @@ export class DefaultComponent implements OnInit {
                     //console.log(response);
                     if (this.status_task == 'success') {
                         this.tasks = response.tasks;
-//                        this.loading = 'hide';
+                        this.loading = 'hide';
                         this.pages = [];
                         for (let i = 0; i < response.totalPages; i++) {
                             this.pages.push(i);
@@ -78,7 +78,7 @@ export class DefaultComponent implements OnInit {
 
     public filter = 0;
     public order = 0;
-    public searchString;
+    public searchString: string;
 
     search() {
         this.loading == 'show';
@@ -92,6 +92,7 @@ export class DefaultComponent implements OnInit {
                 if (response.status == 'success') {
                     this.tasks = response.data;
                     this.loading == 'hide';
+//                    console.log(this.tasks.length);
                 } else {
                     this._router.navigate(['/index']);
                 }
@@ -102,20 +103,14 @@ export class DefaultComponent implements OnInit {
         );
     }
 
-    public page_title: string;
-    public task: Task;
-
-    updateStatus(a) {
-        this._route.params.forEach((params: Params) => {
-            let id = a;
+    updateStatus(id: string) {
+        this._route.params.forEach(() => {
             this._taskService.updateStatus(this.token, id).subscribe(
                 response => {
                     this.status_task = response.status;
                     if (this.status_task != "success") {
                         this.status_task = 'error';
                     } else {
-                        this.task = response.data;
-//                        this.tasks = response.data;
                         this._router.navigate(['/']);
                     }
                 },
@@ -124,7 +119,6 @@ export class DefaultComponent implements OnInit {
                 }
             );
             this.getAllTasks();
-//            this.getTask(a);
         });
     }
 }
