@@ -63,8 +63,11 @@
                     </td>
                     <td>
                         <h4>
-                            <a [routerLink]="['task', task.id]">
-                               {{task.title}} 
+                            <a class="strike-through" [routerLink]="['task', task.id]" *ngIf="task.status == 'finished'">
+                               {{task.title}}
+                            </a>
+                            <a [routerLink]="['task', task.id]" *ngIf="task.status == 'todo'">
+                               {{task.title}}
                             </a>
                         </h4>
                     </td>
@@ -78,7 +81,7 @@
                 <div class='clearfix'></div>
                 <div class="alert alert-warning" >
                     No se han encontrado tareas. Crealas, haciendo <a [routerLink]="['/task-new']">click aquí</a>
-                </div>           
+                </div>
             </div>
 
             <ul class="pagination" *ngIf="tasks && tasks.length >= 1 && !searchString && !filter && !order" >

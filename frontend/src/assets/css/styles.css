@@ -1,5 +1,5 @@
 body {
-    /*background: #fcf8e3 !important;*/
+
 }
 
 #logo {
@@ -23,5 +23,9 @@ body {
 }
 
 .btn-search {
-    padding: 6px 4px !important;;
+    padding: 6px 4px !important;
+}
+
+.strike-through {
+    text-decoration: line-through;
 }
