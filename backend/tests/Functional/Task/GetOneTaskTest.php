@@ -7,7 +7,7 @@ class GetOneTaskTest extends BaseTest
     public function testGetOneTaskOk()
     {
         $client = self::createClient();
-        $client->request('GET', '/task/detail/18', [], [], [
+        $client->request('GET', '/task/detail/845', [], [], [
             'HTTP_authorization' => $this->getAuthToken(),
         ]);
 
