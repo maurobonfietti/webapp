@@ -34,7 +34,8 @@ export class DefaultComponent implements OnInit {
 
     ngOnInit() {
         console.log('default.component [OK]');
-        this.getAllTasks();
+//        this.getAllTasks();
+        this.search();
     }
 
     getAllTasks() {
@@ -74,7 +75,7 @@ export class DefaultComponent implements OnInit {
         });
     }
 
-    public filter = 0;
+    public filter = 2;
     public order = 1;
     public searchString: string;
 
@@ -114,8 +115,6 @@ export class DefaultComponent implements OnInit {
                     console.log(<any> error);
                 }
             );
-//            this.getAllTasks();
-//            this.search();
         });
     }
 }
