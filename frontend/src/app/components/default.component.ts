@@ -79,12 +79,10 @@ export class DefaultComponent implements OnInit {
     public searchString: string;
 
     search() {
-        this.loading == 'show';
-
+//        this.loading == 'show';
         if (!this.searchString || this.searchString.trim().length == 0) {
             this.searchString = null;
         }
-
         this._taskService.search(this.token, this.searchString, this.filter, this.order).subscribe(
             response => {
                 if (response.status == 'success') {
@@ -108,14 +106,16 @@ export class DefaultComponent implements OnInit {
                     if (this.status_task != "success") {
                         this.status_task = 'error';
                     } else {
-                        this._router.navigate(['/']);
+                        this.search();
+//                        this._router.navigate(['/']);
                     }
                 },
                 error => {
                     console.log(<any> error);
                 }
             );
-            this.getAllTasks();
+//            this.getAllTasks();
+//            this.search();
         });
     }
 }
