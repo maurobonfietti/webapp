@@ -18,11 +18,9 @@
                 {{task.description}}
             </div>
         </div>
-        
-        <!-- Button HTML (to Trigger Modal) -->
+
         <a href="#myModal" role="button" class="btn btn-large btn-danger" data-toggle="modal">Borrar</a>
  
-        <!-- Modal HTML -->
         <div id="myModal" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -35,7 +33,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="deleteTask(task.id)">Sí, quiero borrarla.</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteTask(task.id)">Sí, quiero borrarla.</button>
                     </div>
                 </div>
             </div>
