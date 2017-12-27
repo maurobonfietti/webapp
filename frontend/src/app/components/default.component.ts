@@ -75,7 +75,7 @@ export class DefaultComponent implements OnInit {
     }
 
     public filter = 0;
-    public order = 0;
+    public order = 1;
     public searchString: string;
 
     search() {

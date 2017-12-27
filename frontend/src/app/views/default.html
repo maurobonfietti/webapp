@@ -3,16 +3,14 @@
     <div *ngIf="!identity || identity == null">
         Inicia sesión para acceder a más opciones.
     </div>
-    
+
     <div class="col-md-12" *ngIf="identity && identity.sub">
-        <!--MOSTRAR BUSCADOR-->
 
         <form class="col-md-12" role="search">
             <div class="form-group col-md-6">
                 <label>Mostrar</label>
                 <select class="form-control" name="filter" [(ngModel)]="filter" (change)="search();">
                     <option value="0" selected="selected">Todas</option>
-                    <!--<option value="1">Nuevas</option>-->
                     <option value="2">Para Hacer</option>
                     <option value="3">Finalizadas</option>
                 </select>
@@ -20,7 +18,6 @@
             <div class="form-group col-md-6">
                 <label>Ordenar por</label>
                 <select class="form-control" name="order" [(ngModel)]="order" (change)="search();">
-                    <!--<option value="0" selected="selected">Por defecto</option>-->
                     <option value="1" selected="selected">Fecha ascendente</option>
                     <option value="2">Fecha descendente</option>
                 </select>
@@ -34,13 +31,13 @@
                 Buscar
             </button>
         </form>
-        
+
         <div class="all-tasks">
-            
+
             <div class="loader" *ngIf="loading == 'show'">
                 <img src='assets/img/loader.gif' />
             </div>
-            
+
             <table class="table table-hover table-stripped" id="tasks-list" *ngIf="tasks && tasks.length > 0">
                 <tr>
                     <th></th>
@@ -79,14 +76,14 @@
                     </td>
                 </tr>
             </table>
-            
+
             <div class='col-md-12' *ngIf="loading == 'hide' && (!tasks || tasks.length == 0)">
                 <div class='clearfix'></div>
                 <div class="alert alert-warning" >
                     No se han encontrado tareas. Crealas, haciendo <a [routerLink]="['/task-new']">click aquí</a>
                 </div>           
             </div>
-            
+
             <ul class="pagination" *ngIf="tasks && tasks.length >= 1 && !searchString && !filter && !order" >
                 <li>
                     <a [routerLink]="['/index', pagesPrev]" aria-label="Previous">
@@ -104,8 +101,8 @@
                     </a>
                 </li>
             </ul>    
-            
+
         </div>
     </div>
-    
+
 </div>
