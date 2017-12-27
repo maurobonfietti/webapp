@@ -1,6 +1,4 @@
-WebApp:
-=======
+Web App: ToDo List
+==================
 
 Online Demo: Coming Soon ;-)
-
-Version 0.1.0
