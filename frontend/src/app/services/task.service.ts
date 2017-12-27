@@ -61,7 +61,6 @@ export class TaskService {
         } else {
             url = this.url + '/task/search/' + search;
         }
-        //console.log(url);
 
         return this._http.post(url, params, {headers: headers}).map(res => res.json());
     }

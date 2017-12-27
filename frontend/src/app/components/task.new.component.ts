@@ -36,7 +36,6 @@ export class TaskNewComponent implements OnInit {
     }
 
     onSubmit() {
-        console.log(this.task);
         this._taskService.create(this.token, this.task).subscribe(
             response => {
                 this.status_task = response.status;

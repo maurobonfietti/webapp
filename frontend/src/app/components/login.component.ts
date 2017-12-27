@@ -57,7 +57,6 @@ export class LoginComponent implements OnInit {
     }
 
     onSubmit() {
-        //console.log(this.user);
         this._userService.signUp(this.user).subscribe(
             response => {
                 this.identity = response;

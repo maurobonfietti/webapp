@@ -46,7 +46,6 @@ export class TaskDetailComponent implements OnInit {
                         if (response.task.user.id == this.identity.sub) {
                             this.task = response.task;
                             this.loading = 'hide';
-                            //console.log(this.task);
                         } else {
                             this._router.navigate(['/']);
                         }
@@ -61,7 +60,7 @@ export class TaskDetailComponent implements OnInit {
         });
     }
 
-    deleteTask(id) {
+    deleteTask(id: string) {
         this._taskService.deleteTask(this.token, id).subscribe(
             response => {
                 this._router.navigate(['/']);

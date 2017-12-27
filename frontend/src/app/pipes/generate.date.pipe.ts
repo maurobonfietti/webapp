@@ -3,7 +3,7 @@ import {Pipe, PipeTransform } from '@angular/core';
 @Pipe({name: 'generateDate'})
 
 export class GenerateDatePipe implements PipeTransform {
-    transform(value):string {
+    transform(value: number):string {
         let date = new Date(value * 1000);
         let day = date.getDate();
         let final_day = day.toString();

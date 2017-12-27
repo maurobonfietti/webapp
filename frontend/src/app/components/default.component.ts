@@ -45,11 +45,9 @@ export class DefaultComponent implements OnInit {
                 page = 1;
             }
 
-//            this.loading = 'show';
             this._taskService.getTasks(this.token, page).subscribe(
                 response => {
                     this.status_task = response.status;
-                    //console.log(response);
                     if (this.status_task == 'success') {
                         this.tasks = response.tasks;
                         this.loading = 'hide';
@@ -92,7 +90,6 @@ export class DefaultComponent implements OnInit {
                 if (response.status == 'success') {
                     this.tasks = response.data;
                     this.loading == 'hide';
-//                    console.log(this.tasks.length);
                 } else {
                     this._router.navigate(['/index']);
                 }

@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Http, Headers} from '@angular/http';
+import {User} from '../models/user';
 import "rxjs/add/operator/map";
 
 @Injectable()
@@ -13,7 +14,7 @@ export class UserService {
         this.url = "http://localhost/webapp/backend/web/app_dev.php";
     }
 
-    signUp(user_to_login) {
+    signUp(user_to_login: string) {
         let json = JSON.stringify(user_to_login);
         let params = "json=" + json;
         let headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
@@ -53,7 +54,7 @@ export class UserService {
         return this._http.post(this.url + '/user/new', params, {headers: headers}).map(res => res.json());
     }
 
-    update_user(user_to_update) {
+    update_user(user_to_update: User) {
         let json = JSON.stringify(user_to_update);
         let params = "json=" + json + '&authorization=' + this.getToken();
         let headers = new Headers({'Content-Type': "application/x-www-form-urlencoded"});

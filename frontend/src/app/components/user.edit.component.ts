@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
+import {Router} from '@angular/router';
 import {User} from '../models/user';
 import {UserService} from '../services/user.service';
 
@@ -41,7 +41,6 @@ export class UserEditComponent implements OnInit {
     }
 
     onSubmit() {
-        //console.log(this.user);
         this._userService.update_user(this.user).subscribe(
             response => {
                 this.status = response.status;
