@@ -17,22 +17,14 @@
 
         <form #taskNewForm="ngForm" (ngSubmit)="onSubmit()" class="col-md-7 no-padding">
             <p>
-                <label>Título</label>
+                <label>Tarea</label>
                 <input type="text" class="form-control" name="title" #title="ngModel" [(ngModel)]="task.title" required />
                 <span *ngIf="!title.valid && title.touched">El título no es correcto.</span>
             </p>
             <p>
                 <label>Descripción</label>
-                <textarea class="form-control" name="description" #description="ngModel" [(ngModel)]="task.description" ></textarea>
+                <textarea class="form-control" rows="5" name="description" #description="ngModel" [(ngModel)]="task.description" ></textarea>
             </p>
-<!--            <p>
-                <label>Estado</label>
-                <select class="form-control" name="status" #status="ngModel" [(ngModel)]="task.status" required>
-                    <option value="new">Nueva</option>
-                    <option value="todo">Para Hacer</option>
-                    <option value="finished">Finalizada</option>
-                </select>
-            </p>-->
 
             <input type="submit" value="{{page_title}}" class="btn btn-success" [disabled]="!taskNewForm.form.valid" />
         </form>

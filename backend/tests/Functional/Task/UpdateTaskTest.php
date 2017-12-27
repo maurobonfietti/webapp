@@ -8,7 +8,7 @@ class UpdateTaskTest extends BaseTest
     {
         $client = self::createClient();
         $client->request('PATCH', '/task/edit/845', [
-            'json' => '{"title":"PHPUnit Test", "description":"Do not remove this task ;-)", "status":"todo"}',
+            'json' => '{"title":"PHPUnit Test", "description":"Do not remove this task ;-)", "status":"finished"}',
         ], [], ['HTTP_authorization' => $this->getAuthToken()]);
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
