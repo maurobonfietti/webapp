@@ -25,14 +25,14 @@
                 <label>Descripción</label>
                 <textarea class="form-control" name="description" #description="ngModel" [(ngModel)]="task.description" ></textarea>
             </p>
-            <p>
+<!--            <p>
                 <label>Estado</label>
                 <select class="form-control" name="status" #status="ngModel" [(ngModel)]="task.status" required>
-                    <!--<option value="new">Nueva</option>-->
+                    <option value="new">Nueva</option>
                     <option value="todo">Para Hacer</option>
                     <option value="finished">Finalizada</option>
                 </select>
-            </p>
+            </p>-->
 
             <input type="submit" value="{{page_title}}" class="btn btn-success" [disabled]="!taskNewForm.form.valid" />
         </form>

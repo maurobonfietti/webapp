@@ -21,24 +21,6 @@ class SearchTasksTest extends BaseTest
         $this->assertNotContains('not authorized', $result);
     }
 
-    public function testSearchTasksFilter1()
-    {
-        $client = self::createClient();
-        $client->request('POST', '/task/search', [
-            'authorization' => $this->getAuthToken(),
-            'filter' => '1',
-        ]);
-
-        $result = $client->getResponse()->getContent();
-
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertTrue($client->getResponse()->isSuccessful());
-        $this->assertContains('success', $result);
-        $this->assertContains('new', $result);
-        $this->assertNotContains('error', $result);
-        $this->assertNotContains('not authorized', $result);
-    }
-
     public function testSearchTasksFilter2()
     {
         $client = self::createClient();

@@ -7,7 +7,7 @@ class UpdateTaskTest extends BaseTest
     public function testUpdateTaskOk()
     {
         $client = self::createClient();
-        $client->request('PATCH', '/task/edit/773', [
+        $client->request('PATCH', '/task/edit/845', [
             'json' => '{"name":"Mau","surname":"B","email": "m@b.com.ar", "password": "123", "title":"test.", "description":"Mi test 1...", "status":"todo"}',
         ], [], ['HTTP_authorization' => $this->getAuthToken()]);
 
@@ -21,7 +21,7 @@ class UpdateTaskTest extends BaseTest
     public function testUpdateTaskError()
     {
         $client = self::createClient();
-        $client->request('PATCH', '/task/edit/773');
+        $client->request('PATCH', '/task/edit/845');
 
         $this->assertEquals(403, $client->getResponse()->getStatusCode());
         $this->assertContains('error', $client->getResponse()->getContent());

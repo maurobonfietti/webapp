@@ -8,7 +8,7 @@ class UpdateStatusTaskTest extends BaseTest
     {
         $client = self::createClient();
         $client->request(
-            'PATCH', '/task/update-status/773', 
+            'PATCH', '/task/update-status/845', 
             [], 
             [], 
             ['HTTP_authorization' => $this->getAuthToken()]
