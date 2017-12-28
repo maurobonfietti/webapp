@@ -12,7 +12,6 @@ import {RegisterComponent} from './components/register.component';
 import {DefaultComponent} from './components/default.component';
 import {UserEditComponent} from './components/user.edit.component';
 import {TaskNewComponent} from './components/task.new.component';
-import {TaskDetailComponent} from './components/task.detail.component';
 import {TaskEditComponent} from './components/task.edit.component';
 import {GenerateDatePipe} from './pipes/generate.date.pipe';
 
@@ -24,7 +23,6 @@ import {GenerateDatePipe} from './pipes/generate.date.pipe';
         DefaultComponent,
         UserEditComponent,
         TaskNewComponent,
-        TaskDetailComponent,
         TaskEditComponent,
         GenerateDatePipe,
     ],
