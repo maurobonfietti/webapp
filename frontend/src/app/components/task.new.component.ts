@@ -12,6 +12,7 @@ import {Task} from '../models/task';
 
 export class TaskNewComponent implements OnInit {
     public page_title: string;
+    public btn_title: string;
     public identity;
     public token;
     public task: Task;
@@ -22,7 +23,8 @@ export class TaskNewComponent implements OnInit {
         private _userService: UserService,
         private _taskService: TaskService
     ) {
-        this.page_title = 'Crear nueva tarea';
+        this.page_title = 'Crear tarea';
+        this.btn_title = 'Crear tarea';
         this.identity = this._userService.getIdentity();
         this.token = this._userService.getToken();
     }
@@ -36,7 +38,6 @@ export class TaskNewComponent implements OnInit {
     }
 
     onSubmit() {
-//        console.log(this.task);
         this._taskService.create(this.token, this.task).subscribe(
             response => {
                 this.status_task = response.status;

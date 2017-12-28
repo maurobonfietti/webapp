@@ -12,6 +12,7 @@ import {Task} from '../models/task';
 
 export class TaskEditComponent implements OnInit {
     public page_title: string;
+    public btn_title: string;
     public identity;
     public token;
     public task: Task;
@@ -24,7 +25,8 @@ export class TaskEditComponent implements OnInit {
         private _userService: UserService,
         private _taskService: TaskService
     ) {
-        this.page_title = 'Guardar';
+        this.page_title = 'Editar tarea';
+        this.btn_title = 'Guardar';
         this.identity = this._userService.getIdentity();
         this.token = this._userService.getToken();
     }
@@ -47,7 +49,6 @@ export class TaskEditComponent implements OnInit {
                         if (response.task.user.id == this.identity.sub) {
                             this.task = response.task;
                             this.loading = 'hide';
-                            console.log(this.task);
                         } else {
                             this._router.navigate(['/']);
                         }
@@ -63,7 +64,6 @@ export class TaskEditComponent implements OnInit {
     }
 
     onSubmit() {
-        //console.log(this.task);
         this._route.params.forEach((params: Params) => {
             let id = +params['id'];
             this._taskService.update(this.token, this.task, id).subscribe(

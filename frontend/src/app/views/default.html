@@ -63,10 +63,10 @@
                     </td>
                     <td>
                         <h4>
-                            <a class="strike-through" [routerLink]="['task', task.id]" *ngIf="task.status == 'finished'">
+                            <a class="strike-through" [routerLink]="['task-edit', task.id]" *ngIf="task.status == 'finished'">
                                {{task.title}}
                             </a>
-                            <a [routerLink]="['task', task.id]" *ngIf="task.status == 'todo'">
+                            <a [routerLink]="['task-edit', task.id]" *ngIf="task.status == 'todo'">
                                {{task.title}}
                             </a>
                         </h4>
