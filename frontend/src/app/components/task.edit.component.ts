@@ -24,7 +24,7 @@ export class TaskEditComponent implements OnInit {
         private _userService: UserService,
         private _taskService: TaskService
     ) {
-        this.page_title = 'Modificar tarea';
+        this.page_title = 'Guardar';
         this.identity = this._userService.getIdentity();
         this.token = this._userService.getToken();
     }

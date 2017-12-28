@@ -1,5 +1,5 @@
 <div class="col-md-12">
-    
+
     <div class="loader" *ngIf="loading == 'show'">
         <img src='assets/img/loader.gif' />
     </div>
@@ -13,7 +13,7 @@
 
         <div class="alert alert-danger" *ngIf="status_task == 'error'">
             Error al crear la tarea.
-        </div>     
+        </div>
 
         <form #taskNewForm="ngForm" (ngSubmit)="onSubmit()" class="col-md-7 no-padding">
             <p>
@@ -25,6 +25,17 @@
                 <label>Descripción</label>
                 <textarea class="form-control" rows="5" name="description" #description="ngModel" [(ngModel)]="task.description" ></textarea>
             </p>
+
+            <!--<br />-->
+
+            <div class='panel panel-default task-data' *ngIf='task.id != 0'>
+                <div class='panel-heading'>
+                    <h3 class='panel-title'>
+                        Tarea creada por <strong>{{task.user.name + ' ' + task.user.surname}}</strong>
+                        el {{task.createdAt.timestamp | generateDate }}
+                    </h3>
+                </div>
+            </div>
 
             <input type="submit" value="{{page_title}}" class="btn btn-success" [disabled]="!taskNewForm.form.valid" />
 
@@ -47,19 +58,6 @@
                     </div>
                 </div>
             </div>
-
-<!--        <div class='panel panel-default task-data'>
-            <div class='panel-heading'>
-                <h3 class='panel-title'>
-                    Tarea creada por <strong>{{task.user.name + ' ' + task.user.surname}}</strong>
-                    el {{task.createdAt.timestamp | generateDate }}
-                </h3>
-            </div>
-            <div class='panel-body'>
-                {{task.description}}
-            </div>
-        </div>-->
-
 
         </form>
     </div>
