@@ -31,11 +31,12 @@ export class TaskNewComponent implements OnInit {
         if (this.identity == null && !this.identity.sub) {
             this._router.navigate(['/login']);
         } else {
-            this.task = new Task(1, '', '', 'todo', 'null', 'null');
+            this.task = new Task(0, '', '', 'todo', 'null', 'null');
         }
     }
 
     onSubmit() {
+        console.log(this.task);
         this._taskService.create(this.token, this.task).subscribe(
             response => {
                 this.status_task = response.status;

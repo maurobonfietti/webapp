@@ -63,7 +63,7 @@ export class TaskEditComponent implements OnInit {
     }
 
     onSubmit() {
-        console.log(this.task);
+        //console.log(this.task);
         this._route.params.forEach((params: Params) => {
             let id = +params['id'];
             this._taskService.update(this.token, this.task, id).subscribe(
@@ -81,5 +81,16 @@ export class TaskEditComponent implements OnInit {
                 }
             );
         });
+    }
+
+    deleteTask(id: string) {
+        this._taskService.deleteTask(this.token, id).subscribe(
+            response => {
+                this._router.navigate(['/']);
+            },
+            error => {
+                console.log(<any> error);
+            }
+        );
     }
 }
