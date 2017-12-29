@@ -8,9 +8,8 @@ class CreateTaskTest extends BaseTest
     {
         $client = self::createClient();
         $client->request('POST', '/task/new', [
-            'authorization' => $this->getAuthToken(),
             'json' => '{"title":"test.", "description":"Mi test 1...", "status":"todo"}',
-        ]);
+        ], [], ['HTTP_authorization' => $this->getAuthToken()]);
 
         $result = json_decode($client->getResponse()->getContent());
         self::$id = $result->task->id;
