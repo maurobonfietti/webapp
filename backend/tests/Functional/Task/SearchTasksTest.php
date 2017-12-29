@@ -10,7 +10,7 @@ class SearchTasksTest extends BaseTest
         $client->request('POST', '/task/search', [
             'authorization' => $this->getAuthToken(),
             'order' => '1',
-        ]);
+        ], [], ['HTTP_authorization' => $this->getAuthToken()]);
 
         $result = $client->getResponse()->getContent();
 
@@ -27,7 +27,7 @@ class SearchTasksTest extends BaseTest
         $client->request('POST', '/task/search', [
             'authorization' => $this->getAuthToken(),
             'filter' => '2',
-        ]);
+        ], [], ['HTTP_authorization' => $this->getAuthToken()]);
 
         $result = $client->getResponse()->getContent();
 
@@ -45,7 +45,7 @@ class SearchTasksTest extends BaseTest
         $client->request('POST', '/task/search', [
             'authorization' => $this->getAuthToken(),
             'filter' => '3',
-        ]);
+        ], [], ['HTTP_authorization' => $this->getAuthToken()]);
 
         $result = $client->getResponse()->getContent();
 
@@ -62,7 +62,7 @@ class SearchTasksTest extends BaseTest
         $client = self::createClient();
         $client->request('POST', '/task/search/t', [
             'authorization' => $this->getAuthToken(),
-        ]);
+        ], [], ['HTTP_authorization' => $this->getAuthToken()]);
 
         $result = $client->getResponse()->getContent();
 

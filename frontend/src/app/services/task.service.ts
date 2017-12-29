@@ -53,9 +53,10 @@ export class TaskService {
     }
 
     search(token, search = null, filter = null, order = null) {
+        let url: string;
         let params = 'authorization=' + token + '&filter=' + filter + '&order=' + order;
         let headers = new Headers({'Content-Type': "application/x-www-form-urlencoded"});
-        let url: string;
+        headers.append('Authorization', token);
 
         if (search == null) {
             url = this.url + '/task/search';
