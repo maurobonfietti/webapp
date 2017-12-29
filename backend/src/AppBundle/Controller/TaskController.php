@@ -10,7 +10,7 @@ class TaskController extends BaseController
     {
         try {
             $json = $request->get('json', null);
-            $token = $request->get('authorization', null);
+            $token = $request->headers->get('Authorization');
             $task = $this->getTaskService()->create($token, $json);
 
             return $this->response($task, 201);

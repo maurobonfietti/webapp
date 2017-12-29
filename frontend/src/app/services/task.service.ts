@@ -12,8 +12,9 @@ export class TaskService {
 
     create(token, task) {
         let json = JSON.stringify(task);
-        let params = "json=" + json + '&authorization=' + token;
+        let params = "json=" + json;
         let headers = new Headers({'Content-Type': "application/x-www-form-urlencoded"});
+        headers.append('Authorization', token);
 
         return this._http.post(this.url + '/task/new', params, {headers: headers}).map(res => res.json());
     }
