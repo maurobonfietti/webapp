@@ -74,9 +74,10 @@ class TaskController extends BaseController
         try {
             $filter = $request->get('filter', null);
             $order = $request->get('order', null);
-            $page = $request->query->getInt('page', 1);
+//            $page = $request->query->getInt('page', 1);
+            $page = $request->get('page', 1);
             $token = $request->headers->get('Authorization');
-            $tasks = $this->getTaskService()->search($token, $filter, $order, $search, $page);
+            $tasks = $this->getTaskService()->search($token, $filter, $order, $search, (int) $page);
 
             return $this->response($tasks);
         } catch (\Exception $e) {

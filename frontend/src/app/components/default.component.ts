@@ -79,12 +79,15 @@ export class DefaultComponent implements OnInit {
     public order = 1;
     public searchString: string;
 
+    public page = 1;
+
     search() {
         this._route.params.forEach((params: Params) => {
             if (!this.searchString || this.searchString.trim().length == 0) {
                 this.searchString = null;
             }
-            let page = +params['page'];
+//            let page = +params['page'];
+            let page = this.page;
             if (!page) {
                 page = 1;
             }
