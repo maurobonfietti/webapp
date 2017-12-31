@@ -86,7 +86,7 @@
 
             <!--<ul class="pagination" *ngIf="tasks && tasks.length >= 1 && !searchString && !filter && !order" >-->
             <ul class="pagination" *ngIf="tasks && tasks.length >= 1" >
-<!--                <li>
+                <li>
                     <a [routerLink]="['/index', pagesPrev]" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
@@ -100,17 +100,19 @@
                     <a [routerLink]="['/index', pagesNext]" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
-                </li>-->
+                </li>
+
 <!--                <li *ngFor="let p of pages" ng-model="page" (click)="search();">
                     <a  ng-init="3">
                         {{p+1}}
                     </a>
                 </li>-->
-                <select class="form-control" name="filter" [(ngModel)]="page" (change)="search();">
+
+<!--                <select [(ngModel)]="page" (change)="search();">
                     <option *ngFor="let p of pages" value="{{p+1}}">{{p+1}}</option>
-                </select>
+                </select>-->
+
             </ul>
         </div>
     </div>
-
 </div>

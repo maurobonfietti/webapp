@@ -86,8 +86,8 @@ export class DefaultComponent implements OnInit {
             if (!this.searchString || this.searchString.trim().length == 0) {
                 this.searchString = null;
             }
-//            let page = +params['page'];
-            let page = this.page;
+            let page = +params['page'];
+//            let page = this.page;
             if (!page) {
                 page = 1;
             }

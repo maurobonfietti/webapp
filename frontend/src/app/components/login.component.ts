@@ -75,7 +75,7 @@ export class LoginComponent implements OnInit {
                                 } {
                                     if (!this.token.status) {
                                         localStorage.setItem('token', JSON.stringify(this.token));
-                                        window.location.href = '/';
+                                        window.location.href = '/index/1';
                                     }
                                 }
                             },
