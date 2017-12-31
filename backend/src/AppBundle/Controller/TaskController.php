@@ -47,8 +47,6 @@ class TaskController extends BaseController
     public function getAllAction(Request $request)
     {
         try {
-            $paginator = $this->get('knp_paginator');
-//            $paginator = '';
             $page = $request->query->getInt('page', 1);
             $token = $request->headers->get('Authorization');
             $tasks = $this->getTaskService()->getAll($token, $page);
