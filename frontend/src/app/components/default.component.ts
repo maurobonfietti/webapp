@@ -85,23 +85,18 @@ export class DefaultComponent implements OnInit {
                 this.searchString = null;
             }
             let page = +params['page'];
-//            let page = 1;
             if (!page) {
                 page = 1;
             }
-
             this._taskService.search(this.token, this.searchString, this.filter, this.order, page).subscribe(
                 response => {
                     if (response.status == 'success') {
-    //                    this.tasks = response.data;
-    //                    this.loading == 'hide';
                         this.tasks = response.data;
                         this.loading = 'hide';
                         this.pages = [];
                         for (let i = 0; i < response.totalPages; i++) {
                             this.pages.push(i);
                         }
-    //                    let page = 1;
                         if (page >= 2) {
                             this.pagesPrev = (page - 1);
                         } else {
@@ -121,7 +116,6 @@ export class DefaultComponent implements OnInit {
                 }
             ); 
         });
-
     }
 
     updateStatus(id: string) {

@@ -34,11 +34,9 @@ export class TaskService {
         let params = 'authorization=' + token + '&filter=' + filter + '&order=' + order;
         let headers = new Headers({'Content-Type': "application/x-www-form-urlencoded"});
         headers.append('Authorization', token);
-
         if (page == null) {
             page = 1;
         }
-
         if (search == null) {
             url = this.url + '/task/search?page=' + page;
         } else {
