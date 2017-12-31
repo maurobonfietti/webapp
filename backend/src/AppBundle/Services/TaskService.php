@@ -5,6 +5,7 @@ namespace AppBundle\Services;
 use AppBundle\Entity\Tasks;
 use AppBundle\Services\JwtAuth;
 use Doctrine\ORM\EntityManager;
+use Knp\Component\Pager\Paginator;
 
 class TaskService
 {
@@ -14,10 +15,14 @@ class TaskService
     /** @var JwtAuth */
     public $jwtAuth;
 
-    public function __construct($manager, $jwtAuth)
+    /** @var Paginator */
+    public $paginator;
+
+    public function __construct($manager, $jwtAuth, $paginator)
     {
         $this->em = $manager;
         $this->jwtAuth = $jwtAuth;
+        $this->paginator = $paginator;
     }
 
     public function create($token, $json, $id = null)
@@ -111,13 +116,13 @@ class TaskService
         return $data;
     }
 
-    public function getAll($token, $paginator, $page)
+    public function getAll($token, $page)
     {
         $identity = $this->jwtAuth->checkToken($token);
         $dql = "SELECT t FROM AppBundle:Tasks t WHERE t.user = $identity->sub ORDER BY t.id ASC";
         $query = $this->em->createQuery($dql);
         $itemsPerPage = 10;
-        $pagination = $paginator->paginate($query, $page, $itemsPerPage);
+        $pagination = $this->paginator->paginate($query, $page, $itemsPerPage);
         $totalItemsCount = $pagination->getTotalItemCount();
         $data = [
             'status' => 'success',

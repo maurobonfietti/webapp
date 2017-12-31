@@ -48,9 +48,10 @@ class TaskController extends BaseController
     {
         try {
             $paginator = $this->get('knp_paginator');
+//            $paginator = '';
             $page = $request->query->getInt('page', 1);
             $token = $request->headers->get('Authorization');
-            $tasks = $this->getTaskService()->getAll($token, $paginator, $page);
+            $tasks = $this->getTaskService()->getAll($token, $page);
 
             return $this->response($tasks);
         } catch (\Exception $e) {

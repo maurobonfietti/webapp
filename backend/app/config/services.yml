@@ -52,6 +52,7 @@ services:
         arguments:
             $manager: '@doctrine.orm.entity_manager'
             $jwtAuth: '@AppBundle\Services\JwtAuth'
+            $paginator: '@knp_paginator'
 
     AppBundle\Repository\UserRepository:
         public: true
