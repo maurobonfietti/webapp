@@ -44,6 +44,18 @@ class TaskController extends BaseController
         }
     }
 
+    public function getOneAction(Request $request, $id = null)
+    {
+        try {
+            $token = $request->headers->get('Authorization');
+            $task = $this->getTaskService()->getOne($token, $id);
+
+            return $this->response($task);
+        } catch (\Exception $e) {
+            return $this->responseError($e);
+        }
+    }
+
     public function getAllAction(Request $request)
     {
         try {
@@ -57,25 +69,14 @@ class TaskController extends BaseController
         }
     }
 
-    public function getOneAction(Request $request, $id = null)
-    {
-        try {
-            $token = $request->headers->get('Authorization');
-            $task = $this->getTaskService()->getOne($token, $id);
-
-            return $this->response($task);
-        } catch (\Exception $e) {
-            return $this->responseError($e);
-        }
-    }
-
     public function searchAction(Request $request, $search = null)
     {
         try {
             $filter = $request->get('filter', null);
             $order = $request->get('order', null);
+            $page = $request->query->getInt('page', 1);
             $token = $request->headers->get('Authorization');
-            $tasks = $this->getTaskService()->search($token, $filter, $order, $search);
+            $tasks = $this->getTaskService()->search($token, $filter, $order, $search, $page);
 
             return $this->response($tasks);
         } catch (\Exception $e) {

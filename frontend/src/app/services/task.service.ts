@@ -29,6 +29,25 @@ export class TaskService {
         return this._http.get(this.url + '/task/list?page=' + page, {headers: headers}).map(res => res.json());
     }
 
+    search(token, search = null, filter = null, order = null, page = null) {
+        let url: string;
+        let params = 'authorization=' + token + '&filter=' + filter + '&order=' + order;
+        let headers = new Headers({'Content-Type': "application/x-www-form-urlencoded"});
+        headers.append('Authorization', token);
+
+        if (page == null) {
+            page = 1;
+        }
+
+        if (search == null) {
+            url = this.url + '/task/search?page=' + page;
+        } else {
+            url = this.url + '/task/search/' + search + '?page=' + page;
+        }
+
+        return this._http.post(url, params, {headers: headers}).map(res => res.json());
+    }
+
     getTask(token, id) {
         let headers = new Headers({'Authorization': token});
 
@@ -50,21 +69,6 @@ export class TaskService {
         headers.append('Authorization', token);
 
         return this._http.patch(this.url + '/task/update-status/' + id, params, {headers: headers}).map(res => res.json());
-    }
-
-    search(token, search = null, filter = null, order = null) {
-        let url: string;
-        let params = 'authorization=' + token + '&filter=' + filter + '&order=' + order;
-        let headers = new Headers({'Content-Type': "application/x-www-form-urlencoded"});
-        headers.append('Authorization', token);
-
-        if (search == null) {
-            url = this.url + '/task/search';
-        } else {
-            url = this.url + '/task/search/' + search;
-        }
-
-        return this._http.post(url, params, {headers: headers}).map(res => res.json());
     }
 
     deleteTask(token, id) {

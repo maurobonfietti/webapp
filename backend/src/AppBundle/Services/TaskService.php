@@ -116,6 +116,23 @@ class TaskService
         return $data;
     }
 
+    public function getOne($token, $id)
+    {
+        $identity = $this->jwtAuth->checkToken($token);
+        $task = $this->em->getRepository('AppBundle:Tasks')->findOneBy(['id' => $id]);
+        if ($task && is_object($task) && $identity->sub == $task->getUser()->getId()) {
+            $data = [
+                'status' => 'success',
+                'code' => 200,
+                'task' => $task,
+            ];
+        } else {
+            throw new \Exception('error: Task not found.', 404);
+        }
+
+        return $data;
+    }
+
     public function getAll($token, $page)
     {
         $identity = $this->jwtAuth->checkToken($token);
@@ -137,24 +154,7 @@ class TaskService
         return $data;
     }
 
-    public function getOne($token, $id)
-    {
-        $identity = $this->jwtAuth->checkToken($token);
-        $task = $this->em->getRepository('AppBundle:Tasks')->findOneBy(['id' => $id]);
-        if ($task && is_object($task) && $identity->sub == $task->getUser()->getId()) {
-            $data = [
-                'status' => 'success',
-                'code' => 200,
-                'task' => $task,
-            ];
-        } else {
-            throw new \Exception('error: Task not found.', 404);
-        }
-
-        return $data;
-    }
-
-    public function search($token, $filter, $order, $search)
+    public function search($token, $filter, $order, $search, $page)
     {
         $identity = $this->jwtAuth->checkToken($token);
         $filter = $this->getFilter($filter);
@@ -174,10 +174,18 @@ class TaskService
         if ($filter !== null) {
             $query->setParameter('filter', "$filter");
         }
-        $task = $query->getResult();
+//        $task = $query->getResult();
+//        $page = 1;
+        $itemsPerPage = 5;
+        $task = $this->paginator->paginate($query, $page, $itemsPerPage);
+        $totalItemsCount = $task->getTotalItemCount();
         $data = [
             'status' => 'success',
             'code' => 200,
+            'totalItemsCount' => $totalItemsCount,
+            'actual_page' => $page,
+            'itemsPerPage' => $itemsPerPage,
+            'totalPages' => ceil($totalItemsCount / $itemsPerPage),
             'data' => $task,
         ];
 

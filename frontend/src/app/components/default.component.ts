@@ -34,8 +34,8 @@ export class DefaultComponent implements OnInit {
 
     ngOnInit() {
         console.log('default.component [OK]');
-//        this.getAllTasks();
         this.search();
+//        this.getAllTasks();
     }
 
     getAllTasks() {
@@ -80,23 +80,48 @@ export class DefaultComponent implements OnInit {
     public searchString: string;
 
     search() {
-//        this.loading == 'show';
-        if (!this.searchString || this.searchString.trim().length == 0) {
-            this.searchString = null;
-        }
-        this._taskService.search(this.token, this.searchString, this.filter, this.order).subscribe(
-            response => {
-                if (response.status == 'success') {
-                    this.tasks = response.data;
-                    this.loading == 'hide';
-                } else {
-                    this._router.navigate(['/index']);
-                }
-            },
-            error => {
-                console.log(<any> error);
+        this._route.params.forEach((params: Params) => {
+            if (!this.searchString || this.searchString.trim().length == 0) {
+                this.searchString = null;
             }
-        );
+            let page = +params['page'];
+//            let page = 1;
+            if (!page) {
+                page = 1;
+            }
+
+            this._taskService.search(this.token, this.searchString, this.filter, this.order, page).subscribe(
+                response => {
+                    if (response.status == 'success') {
+    //                    this.tasks = response.data;
+    //                    this.loading == 'hide';
+                        this.tasks = response.data;
+                        this.loading = 'hide';
+                        this.pages = [];
+                        for (let i = 0; i < response.totalPages; i++) {
+                            this.pages.push(i);
+                        }
+    //                    let page = 1;
+                        if (page >= 2) {
+                            this.pagesPrev = (page - 1);
+                        } else {
+                            this.pagesPrev = page;
+                        }
+                        if (page < response.totalPages || page == 1) {
+                            this.pagesNext = (page + 1);
+                        } else {
+                            this.pagesNext = page;
+                        }
+                    } else {
+                        this._router.navigate(['/index']);
+                    }
+                },
+                error => {
+                    console.log(<any> error);
+                }
+            ); 
+        });
+
     }
 
     updateStatus(id: string) {
@@ -108,7 +133,6 @@ export class DefaultComponent implements OnInit {
                         this.status_task = 'error';
                     } else {
                         this.search();
-//                        this._router.navigate(['/']);
                     }
                 },
                 error => {
