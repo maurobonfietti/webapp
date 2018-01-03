@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
     redirectIfIdentity() {
         let identity = this._userService.getIdentity();
         if (identity != null && identity.sub) {
-            this._router.navigate(["/"]);
+            this._router.navigate(["/index/1"]);
         }
     }
 

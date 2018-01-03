@@ -50,7 +50,7 @@ export class TaskEditComponent implements OnInit {
                             this.task = response.task;
                             this.loading = 'hide';
                         } else {
-                            this._router.navigate(['/']);
+                            this._router.navigate(['/index/1']);
                         }
                     } else {
                         this._router.navigate(['/login']);
@@ -73,7 +73,7 @@ export class TaskEditComponent implements OnInit {
                         this.status_task = 'error';
                     } else {
                         this.task = response.data;
-                        this._router.navigate(['/']);
+                        this._router.navigate(['/index/1']);
                     }
                 },
                 error => {
@@ -86,7 +86,7 @@ export class TaskEditComponent implements OnInit {
     deleteTask(id: string) {
         this._taskService.deleteTask(this.token, id).subscribe(
             response => {
-                this._router.navigate(['/']);
+                this._router.navigate(['/index/1']);
             },
             error => {
                 console.log(<any> error);

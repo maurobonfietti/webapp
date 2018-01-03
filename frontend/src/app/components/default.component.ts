@@ -111,7 +111,7 @@ export class DefaultComponent implements OnInit {
                             this.pagesNext = page;
                         }
                     } else {
-                        this._router.navigate(['/index']);
+                        this._router.navigate(['/index/1']);
                     }
                 },
                 error => {
