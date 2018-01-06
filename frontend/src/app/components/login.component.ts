@@ -22,6 +22,14 @@ export class SnackBarComponentExample {
 }
 
 @Component({
+  selector: 'snack-bar-component-example',
+  templateUrl: '../views/login.error.html',
+})
+export class SnackBarComponentExampleError {
+  constructor(public snackBar: MatSnackBar) {}
+}
+
+@Component({
     selector: 'login',
     templateUrl: '../views/login.html',
     providers: [UserService]
@@ -62,6 +70,12 @@ export class LoginComponent implements OnInit {
         });
     }
 
+    openSnackBarError() {
+        this.snackBar.openFromComponent(SnackBarComponentExampleError, {
+          duration: 3000,
+        });
+    }
+
     ngOnInit() {
         console.log('login.component [OK]');
         this.logout();
@@ -92,9 +106,11 @@ export class LoginComponent implements OnInit {
         this._userService.signUp(this.user).subscribe(
             response => {
                 this.identity = response;
+//                console.log(this.identity);
                 if (this.identity.lenght <= 1) {
                     console.log('Server Error...');
                 } {
+                    console.log(this.identity);
                     if (!this.identity.status) {
                         localStorage.setItem('identity', JSON.stringify(this.identity));
                         // Get Token.
@@ -120,7 +136,9 @@ export class LoginComponent implements OnInit {
                 }
             },
             error => {
+//                console.log('asd');
                 console.log(<any> error);
+                this.openSnackBarError();
             }
         );
     }
