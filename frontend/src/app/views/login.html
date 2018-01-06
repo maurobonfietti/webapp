@@ -1,28 +1,22 @@
 <div class='col-md-12'>
-<!--    <div class="identity-alert alert alert-success" *ngIf="identity && identity.sub">
-         Te has identificado correctamente. Bienvenido {{identity.email}}
-    </div>-->
-    <div class="identity-alert alert alert-danger" *ngIf="identity && identity.data">
-         No te has identificado correctamente.
-    </div>
     <form #loginForm="ngForm" (ngSubmit)="onSubmit()" class="col-md-7 no-padding">
         <legend>{{title}}</legend>
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="Tu email" name="email" [(ngModel)]="user.email" [formControl]="emailFormControl"
+          <input matInput matTooltip="Ingresa tu dirección de email" placeholder="Tu email" name="email" [(ngModel)]="user.email" [formControl]="emailFormControl"
                  [errorStateMatcher]="matcher">
           <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-            Please enter a valid email address
+            Ingrese un email válido.
           </mat-error>
           <mat-error *ngIf="emailFormControl.hasError('required')">
-            Email is <strong>required</strong>
+            El email es <strong>requerido</strong>.
           </mat-error>
         </mat-form-field>
         <br />
         <mat-form-field class="example-full-width">
-            <input matInput placeholder="Tu password" type="password" name="password" #password="ngModel" [(ngModel)]="user.password">
+            <input matInput  matTooltip="Ingresa tu contraseña" placeholder="Tu password" type="password" name="password" #password="ngModel" [(ngModel)]="user.password">
         </mat-form-field>
         <br />
-        <button mat-raised-button color="primary">Entrar</button>
+        <button mat-raised-button color="primary" matTooltip="Presiona aquí para iniciar sesión">Entrar</button>
     </form>
 </div>
 
