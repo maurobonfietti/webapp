@@ -1,11 +1,10 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {HttpModule} from '@angular/http';
 import {NgModule} from '@angular/core';
-
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatButtonModule, MatCheckboxModule} from '@angular/material';
 
 import {routing, appRoutingProviders} from './app.routing';
-
 import {AppComponent} from './app.component';
 import {LoginComponent} from './components/login.component';
 import {RegisterComponent} from './components/register.component';
@@ -31,6 +30,8 @@ import {GenerateDatePipe} from './pipes/generate.date.pipe';
         BrowserModule,
         HttpModule,
         FormsModule,
+        MatButtonModule,
+        MatCheckboxModule,
         ReactiveFormsModule
     ],
     providers: [

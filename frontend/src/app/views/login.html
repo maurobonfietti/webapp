@@ -21,6 +21,10 @@
             <span *ngIf="!password.valid && password.touched">El password no es válido.</span>
         </p>
         <br />
-        <input type="submit" value="Entrar" class="btn btn-primary" name="password" [disabled]="!loginForm.form.valid" />
+        <!--<input type="submit" value="Entrar" class="btn btn-primary" name="password" [disabled]="!loginForm.form.valid" />-->
+        <button mat-raised-button color="primary">Entrar</button>
     </form>
 </div>
+
+<!--<mat-checkbox>-->
+<!--<button mat-raised-button color="primary">Primary</button>-->

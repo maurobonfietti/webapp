@@ -2,10 +2,20 @@ import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute, Params} from '@angular/router';
 import {UserService} from '../services/user.service';
 
+import {BrowserModule} from '@angular/platform-browser';
+import {HttpModule} from '@angular/http';
+import {NgModule} from '@angular/core';
+import {MatButtonModule, MatCheckboxModule} from '@angular/material';
+
 @Component({
     selector: 'login',
     templateUrl: '../views/login.html',
     providers: [UserService]
+})
+
+@NgModule({
+  imports: [MatButtonModule, MatCheckboxModule],
+  exports: [MatButtonModule, MatCheckboxModule],
 })
 
 export class LoginComponent implements OnInit {
