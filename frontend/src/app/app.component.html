@@ -1,3 +1,31 @@
+<mat-toolbar color="primary">
+    <!--<h3>Basic Buttons</h3>-->
+    <div class="button-row">
+      <!--<button mat-button>Basic</button>-->
+      <!--<a mat-button [routerLink]="['/index/1']">Inicio</a>-->
+<!--      <button mat-button color="primary">Primary</button>-->
+      <!--<button mat-button color="accent">Accent</button>-->
+      <!--<button mat-button color="warn">Warn</button>-->
+      <!--<button mat-button disabled>Disabled</button>-->
+      <!--<a mat-button routerLink=".">Link</a>-->
+        <ul class="nav navbar-nav">
+            <li>
+                <a mat-button [routerLink]="['/index/1']">Inicio</a>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right" *ngIf="!identity">
+            <li>
+                <a mat-button [routerLink]="['/login']">Acceder</a>
+            </li>
+            <li>
+                <a mat-button [routerLink]="['/register']">Registrar</a>
+            </li>
+        </ul>
+    </div>
+    <!--<button mat-raised-button color="primary" matTooltip="Presiona aquí para iniciar sesión">Entrar</button>-->
+    <!--ToDo List ;-)-->
+</mat-toolbar>
+<br />
 <header id="header">
     <div class="navbar navbar-default">
         <div class="navbar-header">

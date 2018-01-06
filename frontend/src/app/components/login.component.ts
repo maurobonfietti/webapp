@@ -73,7 +73,6 @@ export class LoginComponent implements OnInit {
     openSnackBarError() {
         this.snackBar.openFromComponent(SnackBarComponentExampleError, {
           duration: 3000,
-//          data:  { message: 'asd', action: 'dsa', },
         });
     }
 

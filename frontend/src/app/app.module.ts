@@ -2,7 +2,10 @@ import {BrowserModule} from '@angular/platform-browser';
 import {HttpModule} from '@angular/http';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, MatSnackBarModule, MatTooltipModule} from '@angular/material';
+import {
+MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule,
+MatSnackBarModule, MatTooltipModule, MatToolbarModule,
+} from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {routing, appRoutingProviders} from './app.routing';
@@ -39,6 +42,7 @@ import {GenerateDatePipe} from './pipes/generate.date.pipe';
         MatInputModule,
         MatSnackBarModule,
         MatTooltipModule,
+        MatToolbarModule,
         BrowserAnimationsModule,
         ReactiveFormsModule
     ],
