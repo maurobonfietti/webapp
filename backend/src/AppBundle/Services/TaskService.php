@@ -174,7 +174,7 @@ class TaskService
         if ($filter !== null) {
             $query->setParameter('filter', "$filter");
         }
-        $itemsPerPage = 5;
+        $itemsPerPage = 10;
         $task = $this->paginator->paginate($query, $page, $itemsPerPage);
         $totalItemsCount = $task->getTotalItemCount();
         $data = [
