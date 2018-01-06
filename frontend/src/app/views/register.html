@@ -4,11 +4,11 @@
     <div class="alert alert-success" *ngIf="status == 'success'">
         Te has registrado correctamente. Inicia sesión <a [routerLink]="['/login']">aquí</a>
     </div>
-  
+
     <div class="alert alert-danger" *ngIf="status == 'error'">
         Error en la registración. No te has registrado correctamente.
     </div>
-    
+
     <form #registerForm="ngForm" (ngSubmit)="onSubmit(); registerForm.reset();" class="col-md-7 no-padding">
         <p>
             <label>Nombre</label>
@@ -31,7 +31,7 @@
             <span *ngIf="!password.valid && password.touched">El password no es válido.</span>
         </p>
         <br />
-        <input type="submit" value="Registrarse" class="btn- btn-success" [disabled]="!registerForm.form.valid">
+        <input type="submit" value="Registrarme" class="btn btn-success" [disabled]="!registerForm.form.valid">
     </form>
 </div>
 
