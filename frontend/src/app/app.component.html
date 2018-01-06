@@ -1,45 +1,31 @@
 <mat-toolbar color="primary">
-    <!--<h3>Basic Buttons</h3>-->
-    <!--<div class="button-row">-->
-      <!--<button mat-button>Basic</button>-->
-      <!--<a mat-button [routerLink]="['/index/1']">Inicio</a>-->
-<!--      <button mat-button color="primary">Primary</button>-->
-      <!--<button mat-button color="accent">Accent</button>-->
-      <!--<button mat-button color="warn">Warn</button>-->
-      <!--<button mat-button disabled>Disabled</button>-->
-      <!--<a mat-button routerLink=".">Link</a>-->
-      <!--<button mat-button><mat-icon>home</mat-icon></button>-->
-      <!--<a mat-button matTooltip="Inicio" [routerLink]="['/index/1']"><mat-icon>home</mat-icon></a>-->
-        <ul class="nav navbar-nav">
-            <li>
-                <a mat-button matTooltip="Inicio" [routerLink]="['/index/1']"><mat-icon>home</mat-icon></a>
-            </li>
-            <li>
-                <a mat-button matTooltip="Crear tarea" [routerLink]="['/task-new']" *ngIf="identity && identity.sub"><mat-icon>add circle outline</mat-icon></a>
-            </li>
-        </ul>
-        <ul class="nav navbar-nav" *ngIf="identity && identity.sub">
-            <li>
-                <a mat-button matTooltip="Configurar mi cuenta" [routerLink]="['/user-edit']"><mat-icon>settings</mat-icon></a>
-            </li>
-            <li>
-                <a mat-button matTooltip="Cerrar sesión" [routerLink]="['/login/1']"><mat-icon>redo</mat-icon></a>
-            </li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right" *ngIf="!identity">
-            <li>
-                <a mat-button [routerLink]="['/login']">Acceder</a>
-            </li>
-            <li>
-                <a mat-button [routerLink]="['/register']">Registrar</a>
-            </li>
-        </ul>
-    <!--</div>-->
-    <!--<button mat-raised-button color="primary" matTooltip="Presiona aquí para iniciar sesión">Entrar</button>-->
-    <!--ToDo List ;-)-->
+    <ul class="nav navbar-nav">
+        <li>
+            <a mat-button matTooltip="Inicio" [routerLink]="['/index/1']"><mat-icon>home</mat-icon></a>
+        </li>
+        <li>
+            <a mat-button matTooltip="Crear tarea" [routerLink]="['/task-new']" *ngIf="identity && identity.sub"><mat-icon>add circle outline</mat-icon></a>
+        </li>
+    </ul>
+    <ul class="nav navbar-nav" *ngIf="identity && identity.sub">
+        <li>
+            <a mat-button matTooltip="Configurar mi cuenta" [routerLink]="['/user-edit']"><mat-icon>settings</mat-icon></a>
+        </li>
+        <li>
+            <a mat-button matTooltip="Cerrar sesión" [routerLink]="['/login/1']"><mat-icon>redo</mat-icon></a>
+        </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right" *ngIf="!identity">
+        <li>
+            <a mat-button [routerLink]="['/login']">Acceder</a>
+        </li>
+        <li>
+            <a mat-button [routerLink]="['/register']">Registrar</a>
+        </li>
+    </ul>
 </mat-toolbar>
 <br />
-<header id="header" style="display: none;">
+<!--<header id="header" style="display: none;">
     <div class="navbar navbar-default">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu" aria-extended="false">
@@ -48,12 +34,12 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            
+
             <a class="navbar-brand" [routerLink]="['/index/1']">
                <img id="logo" src="assets/img/todo.png" alt="ToDo"/>
             </a>
         </div>
-        
+
         <div id="menu" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li>
@@ -91,6 +77,6 @@
             </ul>
         </div>
     </div>
-</header>
+</header>-->
 
 <router-outlet></router-outlet>
