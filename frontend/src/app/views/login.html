@@ -1,6 +1,6 @@
 <div class='col-md-12'>
-    <h3>{{title}}</h3>
-    <br />
+    <!--<h3>{{title}}</h3>-->
+    <!--<br />-->
 
     <div class="identity-alert alert alert-success" *ngIf="identity && identity.sub">
          Te has identificado correctamente. Bienvenido {{identity.email}}
@@ -10,7 +10,7 @@
     </div>
 
     <form #loginForm="ngForm" (ngSubmit)="onSubmit()" class="col-md-7 no-padding">
-        <p>
+<!--        <p>
             <label>Tu email</label>
             <input type="email" class="form-control" name="email" #email="ngModel" [(ngModel)]="user.email" required />
             <span *ngIf="!email.valid && email.touched">El email no es válido.</span>
@@ -21,12 +21,12 @@
             <span *ngIf="!password.valid && password.touched">El password no es válido.</span>
         </p>
         <br />
-        <input type="submit" value="Entrar" class="btn btn-primary" name="password" [disabled]="!loginForm.form.valid" />
-<!--        <legend>{{title}}</legend>
+        <input type="submit" value="Entrar" class="btn btn-primary" name="password" [disabled]="!loginForm.form.valid" />-->
+        <legend>{{title}}</legend>
         <mat-form-field class="example-full-width">
           <input matInput placeholder="Tu email" name="email" [(ngModel)]="user.email" [formControl]="emailFormControl"
                  [errorStateMatcher]="matcher">
-          <mat-hint>Errors appear instantly!</mat-hint>
+          <!--<mat-hint>Errors appear instantly!</mat-hint>-->
           <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
             Please enter a valid email address
           </mat-error>
@@ -39,7 +39,7 @@
             <input matInput placeholder="Tu password" value="Password123" type="password" name="password" #password="ngModel" [(ngModel)]="user.password">
         </mat-form-field>
         <br />
-        <button mat-raised-button color="primary">Entrar</button>-->
+        <button mat-raised-button color="primary">Entrar</button>
     </form>
 </div>
 

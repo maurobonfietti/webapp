@@ -119,7 +119,7 @@ export class LoginComponent implements OnInit {
                                 } {
                                     if (!this.token.status) {
                                         localStorage.setItem('token', JSON.stringify(this.token));
-//                                        this.openSnackBar();
+                                        this.openSnackBar();
                                         window.location.href = '/index/1';
                                     }
                                 }
