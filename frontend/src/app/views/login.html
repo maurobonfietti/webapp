@@ -26,7 +26,6 @@
         <mat-form-field class="example-full-width">
           <input matInput placeholder="Tu email" name="email" [(ngModel)]="user.email" [formControl]="emailFormControl"
                  [errorStateMatcher]="matcher">
-          <!--<mat-hint>Errors appear instantly!</mat-hint>-->
           <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
             Please enter a valid email address
           </mat-error>
@@ -42,7 +41,6 @@
         <button mat-raised-button color="primary">Entrar</button>
     </form>
 </div>
-
 
 <!--<button mat-button (click)="openSnackBar()" aria-label="Show an example snack-bar">
   Pizza party

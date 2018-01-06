@@ -40,7 +40,7 @@ import {GenerateDatePipe} from './pipes/generate.date.pipe';
         BrowserAnimationsModule,
         ReactiveFormsModule
     ],
-//    entryComponents: [SnackBarComponentExample],
+    entryComponents: [SnackBarComponentExample],
     providers: [
         appRoutingProviders
     ],

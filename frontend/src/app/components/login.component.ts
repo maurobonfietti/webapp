@@ -4,7 +4,7 @@ import {UserService} from '../services/user.service';
 
 import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
-import {MatSnackBar} from '@angular/material';
+import {MatSnackBar, MatSnackBarVerticalPosition} from '@angular/material';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -13,22 +13,12 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   }
 }
 
-
-/**
- * @title Snack-bar with a custom component
- */
 @Component({
   selector: 'snack-bar-component-example',
   templateUrl: '../views/login_1.html',
 })
 export class SnackBarComponentExample {
   constructor(public snackBar: MatSnackBar) {}
-
-  asd() {
-    this.snackBar.openFromComponent(LoginComponent, {
-      duration: 500,
-    });
-  }
 }
 
 @Component({
@@ -67,7 +57,8 @@ export class LoginComponent implements OnInit {
 
     openSnackBar() {
       this.snackBar.openFromComponent(SnackBarComponentExample, {
-        duration: 1500,
+        duration: 3000,
+//        verticalPosition: 'top',
       });
     }
 
@@ -100,6 +91,15 @@ export class LoginComponent implements OnInit {
         }
     }
 
+sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
+}
+
     onSubmit() {
         this._userService.signUp(this.user).subscribe(
             response => {
@@ -118,9 +118,13 @@ export class LoginComponent implements OnInit {
                                     console.log('Server Error...');
                                 } {
                                     if (!this.token.status) {
+//                                        this.openSnackBar();
                                         localStorage.setItem('token', JSON.stringify(this.token));
                                         this.openSnackBar();
+//                                        this.sleep(1000);
                                         window.location.href = '/index/1';
+//                                        this.openSnackBar();
+//                                        this._router.navigate(["/index/1"]);
                                     }
                                 }
                             },
