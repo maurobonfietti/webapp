@@ -15,7 +15,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 
 @Component({
   selector: 'snack-bar-component-example',
-  templateUrl: '../views/login_1.html',
+  templateUrl: '../views/login.ok.html',
 })
 export class SnackBarComponentExample {
   constructor(public snackBar: MatSnackBar) {}
@@ -71,7 +71,6 @@ export class LoginComponent implements OnInit {
     logout() {
         this._route.params.forEach((params: Params) => {
             let logout = +params['id'];
-
             if (logout == 1) {
                 localStorage.removeItem('identity');
                 localStorage.removeItem('token');
@@ -91,15 +90,6 @@ export class LoginComponent implements OnInit {
         }
     }
 
-sleep(milliseconds) {
-  var start = new Date().getTime();
-  for (var i = 0; i < 1e7; i++) {
-    if ((new Date().getTime() - start) > milliseconds){
-      break;
-    }
-  }
-}
-
     onSubmit() {
         this._userService.signUp(this.user).subscribe(
             response => {
@@ -118,13 +108,9 @@ sleep(milliseconds) {
                                     console.log('Server Error...');
                                 } {
                                     if (!this.token.status) {
-//                                        this.openSnackBar();
                                         localStorage.setItem('token', JSON.stringify(this.token));
                                         this.openSnackBar();
-//                                        this.sleep(1000);
                                         window.location.href = '/index/1';
-//                                        this.openSnackBar();
-//                                        this._router.navigate(["/index/1"]);
                                     }
                                 }
                             },
