@@ -2,10 +2,15 @@ import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute, Params} from '@angular/router';
 import {UserService} from '../services/user.service';
 
-import {BrowserModule} from '@angular/platform-browser';
-import {HttpModule} from '@angular/http';
-import {NgModule} from '@angular/core';
-import {MatButtonModule, MatCheckboxModule} from '@angular/material';
+import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
+import {ErrorStateMatcher} from '@angular/material/core';
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 
 @Component({
     selector: 'login',
@@ -13,12 +18,20 @@ import {MatButtonModule, MatCheckboxModule} from '@angular/material';
     providers: [UserService]
 })
 
-@NgModule({
-  imports: [MatButtonModule, MatCheckboxModule],
-  exports: [MatButtonModule, MatCheckboxModule],
-})
+//@NgModule({
+//  imports: [MatButtonModule, MatCheckboxModule],
+//  exports: [MatButtonModule, MatCheckboxModule],
+//})
 
 export class LoginComponent implements OnInit {
+
+    emailFormControl = new FormControl('', [
+      Validators.required,
+      Validators.email,
+    ]);
+
+    matcher = new MyErrorStateMatcher();
+
     public title: string;
     public user;
     public identity;
