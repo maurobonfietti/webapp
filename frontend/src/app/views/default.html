@@ -84,7 +84,7 @@
                 </div>
             </div>
 
-            <ul class="pagination" *ngIf="tasks && tasks.length >= 10" >
+            <ul class="pagination" *ngIf="tasks && totalItemsCount > 10" >
                 <li>
                     <a [routerLink]="['/index', pagesPrev]" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>

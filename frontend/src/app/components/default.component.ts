@@ -24,6 +24,7 @@ export class DefaultComponent implements OnInit {
     public filter = 2;
     public order = 1;
     public searchString: string;
+    public totalItemsCount = 0;
 
     constructor(
         private _route: ActivatedRoute,
@@ -54,7 +55,7 @@ export class DefaultComponent implements OnInit {
                 response => {
                     if (response.status == 'success') {
                         this.tasks = response.data;
-                        console.log(this.tasks);
+                        this.totalItemsCount = response.totalItemsCount;
                         this.loading = 'hide';
                         this.pages = [];
                         for (let i = 0; i < response.totalPages; i++) {
