@@ -12,6 +12,17 @@
             <li>
                 <a mat-button [routerLink]="['/index/1']">Inicio</a>
             </li>
+            <li>
+                <a mat-button [routerLink]="['/task-new']" *ngIf="identity && identity.sub">Crear Tarea</a>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right" *ngIf="identity && identity.sub">
+            <li>
+                <a mat-button [routerLink]="['/user-edit']">Ajustes</a>
+            </li>
+            <li>
+                <a mat-button [routerLink]="['/login/1']">Salir</a>
+            </li>
         </ul>
         <ul class="nav navbar-nav navbar-right" *ngIf="!identity">
             <li>
@@ -26,7 +37,7 @@
     <!--ToDo List ;-)-->
 </mat-toolbar>
 <br />
-<header id="header">
+<header id="header" style="display: none;">
     <div class="navbar navbar-default">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu" aria-extended="false">
@@ -54,7 +65,7 @@
                     </a>
                 </li>
             </ul>
-            
+
             <ul class="nav navbar-nav navbar-right" *ngIf="!identity">
                 <li>
                     <a [routerLink]="['/login']">Acceder</a>
@@ -63,7 +74,7 @@
                     <a [routerLink]="['/register']">Registrar</a>
                 </li>
             </ul>
-            
+
             <ul class="nav navbar-nav navbar-right" *ngIf="identity && identity.sub">
                 <li>
                     <a [routerLink]="'/user-edit'">
