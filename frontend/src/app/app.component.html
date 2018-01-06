@@ -1,6 +1,6 @@
 <mat-toolbar color="primary">
     <!--<h3>Basic Buttons</h3>-->
-    <div class="button-row">
+    <!--<div class="button-row">-->
       <!--<button mat-button>Basic</button>-->
       <!--<a mat-button [routerLink]="['/index/1']">Inicio</a>-->
 <!--      <button mat-button color="primary">Primary</button>-->
@@ -8,20 +8,22 @@
       <!--<button mat-button color="warn">Warn</button>-->
       <!--<button mat-button disabled>Disabled</button>-->
       <!--<a mat-button routerLink=".">Link</a>-->
+      <!--<button mat-button><mat-icon>home</mat-icon></button>-->
+      <!--<a mat-button matTooltip="Inicio" [routerLink]="['/index/1']"><mat-icon>home</mat-icon></a>-->
         <ul class="nav navbar-nav">
             <li>
-                <a mat-button [routerLink]="['/index/1']">Inicio</a>
+                <a mat-button matTooltip="Inicio" [routerLink]="['/index/1']"><mat-icon>home</mat-icon></a>
             </li>
             <li>
-                <a mat-button [routerLink]="['/task-new']" *ngIf="identity && identity.sub">Crear Tarea</a>
+                <a mat-button matTooltip="Crear tarea" [routerLink]="['/task-new']" *ngIf="identity && identity.sub"><mat-icon>add circle outline</mat-icon></a>
             </li>
         </ul>
-        <ul class="nav navbar-nav navbar-right" *ngIf="identity && identity.sub">
+        <ul class="nav navbar-nav" *ngIf="identity && identity.sub">
             <li>
-                <a mat-button [routerLink]="['/user-edit']">Ajustes</a>
+                <a mat-button matTooltip="Configurar mi cuenta" [routerLink]="['/user-edit']"><mat-icon>settings</mat-icon></a>
             </li>
             <li>
-                <a mat-button [routerLink]="['/login/1']">Salir</a>
+                <a mat-button matTooltip="Cerrar sesión" [routerLink]="['/login/1']"><mat-icon>redo</mat-icon></a>
             </li>
         </ul>
         <ul class="nav navbar-nav navbar-right" *ngIf="!identity">
@@ -32,7 +34,7 @@
                 <a mat-button [routerLink]="['/register']">Registrar</a>
             </li>
         </ul>
-    </div>
+    <!--</div>-->
     <!--<button mat-raised-button color="primary" matTooltip="Presiona aquí para iniciar sesión">Entrar</button>-->
     <!--ToDo List ;-)-->
 </mat-toolbar>
