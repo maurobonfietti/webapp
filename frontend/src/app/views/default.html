@@ -39,12 +39,12 @@
             </div>
 
             <table class="table table-hover table-stripped" id="tasks-list" *ngIf="tasks && tasks.length > 0">
-                <tr>
+<!--                <tr>
                     <th></th>
                     <th>Estado</th>
                     <th>Tarea</th>
                     <th>Acciones</th>
-                </tr>
+                </tr>-->
                 <tr *ngFor="let task of tasks" class="task-item" >
                     <td>
                         <h4>
@@ -57,7 +57,7 @@
                                 Finalizada
                             </span>
                             <span class='label lg-label label-warning' *ngIf="task.status == 'todo'">
-                                ToDo
+                                Pendiente
                             </span>
                         </h4>
                     </td>
