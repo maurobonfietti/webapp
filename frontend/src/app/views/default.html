@@ -1,11 +1,8 @@
 <div class="col-md-12">
-
     <div *ngIf="!identity || identity == null">
         Inicia sesión para acceder a más opciones.
     </div>
-
     <div class="col-md-12" *ngIf="identity && identity.sub">
-
         <form class="col-md-12" role="searchz">
             <div class="form-group col-md-6">
                 <label>Mostrar</label>
@@ -31,15 +28,11 @@
                 Buscar
             </button>
         </form>
-
         <div class="all-tasks">
-
             <div class="loader" *ngIf="loading == 'show'">
                 <img src='assets/img/loader.gif' />
             </div>
-
             <table class="table table-hover table-stripped" id="tasks-list" *ngIf="tasks && tasks.length > 0">
-
                 <tr *ngFor="let task of tasks" class="task-item" >
                     <td>
                         <h4>
@@ -64,6 +57,9 @@
                             <a [routerLink]="['task-edit', task.id]" *ngIf="task.status == 'todo'">
                                {{task.title}}
                             </a>
+<!--                            <mat-nav-list>
+                               <a class="strike-through" mat-list-item [routerLink]="['task-edit', task.id]" > {{task.title}} </a>
+                            </mat-nav-list>-->
                         </h4>
                     </td>
                     <td>
@@ -71,14 +67,12 @@
                     </td>
                 </tr>
             </table>
-
             <div class='col-md-12' *ngIf="loading == 'hide' && (!tasks || tasks.length == 0)">
                 <div class='clearfix'></div>
                 <div class="alert alert-warning" >
                     No se han encontrado tareas. Crealas, haciendo <a [routerLink]="['/task-new']">click aquí</a>
                 </div>
             </div>
-
             <ul class="pagination" *ngIf="tasks && totalItemsCount > 10" >
                 <li>
                     <a [routerLink]="['/index', pagesPrev]" aria-label="Previous">
@@ -95,7 +89,6 @@
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>
-
             </ul>
         </div>
     </div>
