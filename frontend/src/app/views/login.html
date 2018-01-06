@@ -1,6 +1,6 @@
 <div class='col-md-12'>
-    <h3>{{title}}</h3>
-    <br />
+    <!--<h3>{{title}}</h3>-->
+    <!--<br />-->
 
     <div class="identity-alert alert alert-success" *ngIf="identity && identity.sub">
          Te has identificado correctamente. Bienvenido {{identity.email}}
@@ -22,8 +22,9 @@
         </p>-->
         <!--<br />-->
         <!--<input type="submit" value="Entrar" class="btn btn-primary" name="password" [disabled]="!loginForm.form.valid" />-->
+        <legend>{{title}}</legend>
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="Email" name="email" [(ngModel)]="user.email" [formControl]="emailFormControl"
+          <input matInput placeholder="Tu email" name="email" [(ngModel)]="user.email" [formControl]="emailFormControl"
                  [errorStateMatcher]="matcher">
           <!--<mat-hint>Errors appear instantly!</mat-hint>-->
           <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
@@ -33,35 +34,11 @@
             Email is <strong>required</strong>
           </mat-error>
         </mat-form-field>
+        <br />
         <mat-form-field class="example-full-width">
             <input matInput placeholder="Tu password" value="Password123" type="password" name="password" #password="ngModel" [(ngModel)]="user.password">
         </mat-form-field>
+        <br />
         <button mat-raised-button color="primary">Entrar</button>
     </form>
 </div>
-
-<!--<mat-checkbox>-->
-<!--<button mat-raised-button color="primary">Primary</button>-->
-<!--<mat-form-field>qasd</mat-form-field>-->
-
-<!--<div class="example-container">
-  <mat-form-field>
-    <input matInput placeholder="Input">
-  </mat-form-field>
-
-  <mat-form-field>
-    <textarea matInput placeholder="Textarea"></textarea>
-  </mat-form-field>
-
-</div>-->
-
-
-<!--<form class="example-form">
-  <mat-form-field class="example-full-width">
-    <input matInput placeholder="Favorite food" value="Sushi">
-  </mat-form-field>
-
-  <mat-form-field class="example-full-width">
-    <textarea matInput placeholder="Leave a comment"></textarea>
-  </mat-form-field>
-</form>-->

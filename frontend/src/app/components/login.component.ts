@@ -18,11 +18,6 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     providers: [UserService]
 })
 
-//@NgModule({
-//  imports: [MatButtonModule, MatCheckboxModule],
-//  exports: [MatButtonModule, MatCheckboxModule],
-//})
-
 export class LoginComponent implements OnInit {
 
     emailFormControl = new FormControl('', [
@@ -42,7 +37,7 @@ export class LoginComponent implements OnInit {
         private _router: Router,
         private _userService: UserService
     ) {
-        this.title = 'Inicia sesión';
+        this.title = 'Iniciar sesión';
         this.user = {
             "email": "",
             "password": "",
