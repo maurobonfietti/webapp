@@ -21,6 +21,10 @@ export class DefaultComponent implements OnInit {
     public pagesNext;
     public loading;
 
+    public filter = 2;
+    public order = 1;
+    public searchString: string;
+
     constructor(
         private _route: ActivatedRoute,
         private _router: Router,
@@ -35,51 +39,7 @@ export class DefaultComponent implements OnInit {
     ngOnInit() {
         console.log('default.component [OK]');
         this.search();
-//        this.getAllTasks();
     }
-
-    getAllTasks() {
-        this._route.params.forEach((params: Params) => {
-            let page = +params['page'];
-
-            if (!page) {
-                page = 1;
-            }
-
-            this._taskService.getTasks(this.token, page).subscribe(
-                response => {
-                    this.status_task = response.status;
-                    if (this.status_task == 'success') {
-                        this.tasks = response.tasks;
-                        this.loading = 'hide';
-                        this.pages = [];
-                        for (let i = 0; i < response.totalPages; i++) {
-                            this.pages.push(i);
-                        }
-                        if (page >= 2) {
-                            this.pagesPrev = (page - 1);
-                        } else {
-                            this.pagesPrev = page;
-                        }
-                        if (page < response.totalPages || page == 1) {
-                            this.pagesNext = (page + 1);
-                        } else {
-                            this.pagesNext = page;
-                        }
-                    }
-                },
-                error => {
-                    console.log(<any> error);
-                }
-            );
-        });
-    }
-
-    public filter = 2;
-    public order = 1;
-    public searchString: string;
-
-    public page = 1;
 
     search() {
         this._route.params.forEach((params: Params) => {
@@ -87,7 +47,6 @@ export class DefaultComponent implements OnInit {
                 this.searchString = null;
             }
             let page = +params['page'];
-//            let page = this.page;
             if (!page) {
                 page = 1;
             }
@@ -95,6 +54,7 @@ export class DefaultComponent implements OnInit {
                 response => {
                     if (response.status == 'success') {
                         this.tasks = response.data;
+                        console.log(this.tasks);
                         this.loading = 'hide';
                         this.pages = [];
                         for (let i = 0; i < response.totalPages; i++) {

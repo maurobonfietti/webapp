@@ -19,16 +19,6 @@ export class TaskService {
         return this._http.post(this.url + '/task/new', params, {headers: headers}).map(res => res.json());
     }
 
-    getTasks(token, page = null) {
-        let headers = new Headers({'Authorization': token});
-
-        if (page == null) {
-            page = 1;
-        }
-
-        return this._http.get(this.url + '/task/list?page=' + page, {headers: headers}).map(res => res.json());
-    }
-
     search(token, search = null, filter = null, order = null, page = null) {
         let url: string;
         let params = 'authorization=' + token + '&filter=' + filter + '&order=' + order;
