@@ -43,3 +43,7 @@ body {
 .example-full-width {
   width: 100%;
 }
+
+.mat-snack-bar-container.mat-snack-bar-center {
+    margin: 50px !important;
+}

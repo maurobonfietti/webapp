@@ -4,7 +4,7 @@ import {UserService} from '../services/user.service';
 
 import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
-import {MatSnackBar, MatSnackBarVerticalPosition} from '@angular/material';
+import {MatSnackBar} from '@angular/material';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -56,10 +56,10 @@ export class LoginComponent implements OnInit {
     }
 
     openSnackBar() {
-      this.snackBar.openFromComponent(SnackBarComponentExample, {
-        duration: 3000,
-//        verticalPosition: 'top',
-      });
+        this.snackBar.openFromComponent(SnackBarComponentExample, {
+          duration: 3000,
+//          verticalPosition: 'top',
+        });
     }
 
     ngOnInit() {
@@ -74,10 +74,8 @@ export class LoginComponent implements OnInit {
             if (logout == 1) {
                 localStorage.removeItem('identity');
                 localStorage.removeItem('token');
-
                 this.identity = null;
                 this.token = null;
-
                 window.location.href = '/login';
             }
         });
