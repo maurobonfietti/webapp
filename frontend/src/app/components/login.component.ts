@@ -4,11 +4,30 @@ import {UserService} from '../services/user.service';
 
 import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
+import {MatSnackBar} from '@angular/material';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
+
+
+/**
+ * @title Snack-bar with a custom component
+ */
+@Component({
+  selector: 'snack-bar-component-example',
+  templateUrl: '../views/login_1.html',
+})
+export class SnackBarComponentExample {
+  constructor(public snackBar: MatSnackBar) {}
+
+  asd() {
+    this.snackBar.openFromComponent(LoginComponent, {
+      duration: 500,
+    });
   }
 }
 
@@ -35,7 +54,8 @@ export class LoginComponent implements OnInit {
     constructor(
         private _route: ActivatedRoute,
         private _router: Router,
-        private _userService: UserService
+        private _userService: UserService,
+        public snackBar: MatSnackBar
     ) {
         this.title = 'Iniciar sesión';
         this.user = {
@@ -43,6 +63,12 @@ export class LoginComponent implements OnInit {
             "password": "",
             "getData": true
         };
+    }
+
+    openSnackBar() {
+      this.snackBar.openFromComponent(SnackBarComponentExample, {
+        duration: 1500,
+      });
     }
 
     ngOnInit() {
@@ -93,6 +119,7 @@ export class LoginComponent implements OnInit {
                                 } {
                                     if (!this.token.status) {
                                         localStorage.setItem('token', JSON.stringify(this.token));
+                                        this.openSnackBar();
                                         window.location.href = '/index/1';
                                     }
                                 }
