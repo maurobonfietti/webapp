@@ -6,7 +6,7 @@
 
     <div class="col-md-12" *ngIf="!loading || task">
         <h3>{{page_title}}</h3>
-
+        <br />
         <div class="alert alert-success" *ngIf="status_task == 'success'">
             Tarea creada correctamente.
         </div>
@@ -17,7 +17,7 @@
 
         <form #taskNewForm="ngForm" (ngSubmit)="onSubmit()" class="col-md-7 no-padding">
             <p>
-                <label>Tarea</label>
+                <label>Nombre de la tarea</label>
                 <input type="text" class="form-control" name="title" #title="ngModel" [(ngModel)]="task.title" required />
                 <span *ngIf="!title.valid && title.touched">El título no es correcto.</span>
             </p>
@@ -29,8 +29,10 @@
             <div class='panel panel-default task-data' *ngIf='task.id != 0'>
                 <div class='panel-heading'>
                     <h3 class='panel-title'>
-                        Tarea creada por <strong>{{task.user.name + ' ' + task.user.surname}}</strong>
-                        el {{task.createdAt.timestamp | generateDate }}
+                        <strong>Tarea creada por:</strong> {{task.user.name + ' ' + task.user.surname}}.
+                    </h3>
+                    <h3 class='panel-title'>
+                        <strong>Fecha creación:</strong> {{task.createdAt.timestamp | generateDate }}.
                     </h3>
                 </div>
             </div>
@@ -50,8 +52,8 @@
                             <p class="text-warning">Eliminar definitivamente la tarea?</p>
                         </div>
                         <div class="modal-body">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteTask(task.id)">Sí, quiero borrarla</button>
                             <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                            <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteTask(task.id)">Sí, quiero borrarla.</button>
                         </div>
                     </div>
                 </div>
