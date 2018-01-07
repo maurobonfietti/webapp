@@ -13,22 +13,20 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   }
 }
 
-
-/**
- * @title Snack-bar with a custom component
- */
 @Component({
   selector: 'snack-bar-component-example',
-  templateUrl: '../views/login_1.html',
+  templateUrl: '../views/login.ok.html',
 })
 export class SnackBarComponentExample {
   constructor(public snackBar: MatSnackBar) {}
+}
 
-  asd() {
-    this.snackBar.openFromComponent(LoginComponent, {
-      duration: 500,
-    });
-  }
+@Component({
+  selector: 'snack-bar-component-example',
+  templateUrl: '../views/login.error.html',
+})
+export class SnackBarComponentExampleError {
+  constructor(public snackBar: MatSnackBar) {}
 }
 
 @Component({
@@ -66,9 +64,16 @@ export class LoginComponent implements OnInit {
     }
 
     openSnackBar() {
-      this.snackBar.openFromComponent(SnackBarComponentExample, {
-        duration: 1500,
-      });
+        this.snackBar.openFromComponent(SnackBarComponentExample, {
+          duration: 3000,
+//          verticalPosition: 'top',
+        });
+    }
+
+    openSnackBarError() {
+        this.snackBar.openFromComponent(SnackBarComponentExampleError, {
+          duration: 3000,
+        });
     }
 
     ngOnInit() {
@@ -80,14 +85,11 @@ export class LoginComponent implements OnInit {
     logout() {
         this._route.params.forEach((params: Params) => {
             let logout = +params['id'];
-
             if (logout == 1) {
                 localStorage.removeItem('identity');
                 localStorage.removeItem('token');
-
                 this.identity = null;
                 this.token = null;
-
                 window.location.href = '/login';
             }
         });
@@ -104,9 +106,11 @@ export class LoginComponent implements OnInit {
         this._userService.signUp(this.user).subscribe(
             response => {
                 this.identity = response;
+//                console.log(this.identity);
                 if (this.identity.lenght <= 1) {
                     console.log('Server Error...');
                 } {
+                    console.log(this.identity);
                     if (!this.identity.status) {
                         localStorage.setItem('identity', JSON.stringify(this.identity));
                         // Get Token.
@@ -119,7 +123,7 @@ export class LoginComponent implements OnInit {
                                 } {
                                     if (!this.token.status) {
                                         localStorage.setItem('token', JSON.stringify(this.token));
-//                                        this.openSnackBar();
+                                        this.openSnackBar();
                                         window.location.href = '/index/1';
                                     }
                                 }
@@ -132,7 +136,9 @@ export class LoginComponent implements OnInit {
                 }
             },
             error => {
+//                console.log('asd');
                 console.log(<any> error);
+                this.openSnackBarError();
             }
         );
     }

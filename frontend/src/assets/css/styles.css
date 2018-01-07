@@ -34,12 +34,10 @@ body {
     width: 300px !important;
 }
 
-.example-form {
-  min-width: 150px;
-  max-width: 500px;
+.full-width {
   width: 100%;
 }
 
-.example-full-width {
-  width: 100%;
+.mat-snack-bar-container.mat-snack-bar-center {
+    margin: 50px !important;
 }
