@@ -36,7 +36,7 @@ class TaskService
         $title = isset($params->title) ? $params->title : null;
         $description = isset($params->description) ? $params->description : null;
         $status = isset($params->status) ? $params->status : null;
-        if ($userId === null || $title === null) {
+        if ($userId === null || empty($title)) {
             throw new \Exception('error: Los datos de la tarea no son validos.', 400);
         }
         $user = $this->em->getRepository('AppBundle:Users')->findOneBy(['id' => $userId]);

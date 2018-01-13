@@ -32,4 +32,17 @@ class CreateTaskTest extends BaseTest
         $this->assertContains('not authorized', $client->getResponse()->getContent());
         $this->assertNotContains('success', $client->getResponse()->getContent());
     }
+
+    public function testCreateTaskWithoutTitle()
+    {
+        $client = self::createClient();
+        $client->request('POST', '/task/new', [
+            'json' => '{"title":"", "description":"Mi test 1...", "status":"todo"}',
+        ], [], ['HTTP_authorization' => $this->getAuthToken()]);
+
+        $this->assertEquals(400, $client->getResponse()->getStatusCode());
+        $this->assertContains('error', $client->getResponse()->getContent());
+        $this->assertContains('Los datos de la tarea no son validos', $client->getResponse()->getContent());
+        $this->assertNotContains('success', $client->getResponse()->getContent());
+    }
 }
