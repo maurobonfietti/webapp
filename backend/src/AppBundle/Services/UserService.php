@@ -44,7 +44,7 @@ class UserService
     private function validateCreateUser($email, $name, $surname, $password)
     {
         $validateEmail = $this->validator->validate($email, new Assert\Email());
-        if ($email === null || $name === null || $surname === null || $password === null || $validateEmail->count() > 0) {
+        if (empty($email) || empty($name) || empty($surname) || empty($password) || $validateEmail->count() > 0) {
             throw new \Exception('error: The data is invalid. The user was NOT created.', 400);
         }
         $checkUserExist = $this->em->getRepository('AppBundle:Users')->findBy(["email" => $email]);
@@ -72,7 +72,7 @@ class UserService
     private function getAndValidateUser($email, $name, $surname, $identity)
     {
         $validateEmail = $this->validator->validate($email, new Assert\Email());
-        if ($email === null || $name === null || $surname === null || $validateEmail->count() > 0) {
+        if (empty($email) || empty($name) || empty($surname) || $validateEmail->count() > 0) {
             throw new \Exception('error: The data is invalid. The user was NOT updated.', 400);
         }
         $checkUserExist = $this->em->getRepository('AppBundle:Users')->findOneBy(["email" => $email]);
