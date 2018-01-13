@@ -5,7 +5,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {
 MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule,
 MatSnackBarModule, MatTooltipModule, MatToolbarModule, MatIconModule,
-MatListModule,
+MatListModule, MatDialogModule
 } from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
@@ -16,7 +16,7 @@ import {RegisterComponent} from './components/register.component';
 import {DefaultComponent} from './components/default.component';
 import {UserEditComponent} from './components/user.edit.component';
 import {TaskNewComponent} from './components/task.new.component';
-import {TaskEditComponent} from './components/task.edit.component';
+import {TaskEditComponent, DialogContentExample} from './components/task.edit.component';
 import {GenerateDatePipe} from './pipes/generate.date.pipe';
 
 @NgModule({
@@ -31,6 +31,7 @@ import {GenerateDatePipe} from './pipes/generate.date.pipe';
         GenerateDatePipe,
         SnackBarComponentExample,
         SnackBarComponentExampleError,
+        DialogContentExample,
     ],
     imports: [
         routing,
@@ -46,12 +47,14 @@ import {GenerateDatePipe} from './pipes/generate.date.pipe';
         MatToolbarModule,
         MatIconModule,
         MatListModule,
+        MatDialogModule,
         BrowserAnimationsModule,
         ReactiveFormsModule
     ],
     entryComponents: [
         SnackBarComponentExample,
         SnackBarComponentExampleError,
+        DialogContentExample,
     ],
     providers: [
         appRoutingProviders
