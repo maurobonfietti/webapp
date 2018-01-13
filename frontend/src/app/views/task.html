@@ -3,8 +3,6 @@
         <img src='assets/img/loader.gif' />
     </div>
     <div class="col-md-12" *ngIf="!loading || task">
-        <!--<h3>{{page_title}}</h3>-->
-        <!--<br />-->
         <legend>{{page_title}}</legend>
         <div class="alert alert-success" *ngIf="status_task == 'success'">
             Tarea creada correctamente.
@@ -36,66 +34,7 @@
             </div>
             <br />
             <button mat-raised-button color="primary" matTooltip="Presiona aquí para guardar la tarea" [disabled]="!taskNewForm.form.valid">{{btn_title}}</button>
-            <!--<a href="#myModal" role="button" class="btn btn-large btn-danger" data-toggle="modal" *ngIf='task.id != 0'>Borrar</a>-->
             <button mat-raised-button color="secundary" matTooltip="Presiona aquí para borrar la tarea" *ngIf='task.id != 0' (click)="deleteTask(task.id)">Borrar</button>
-            <div id="myModal" class="modal fade">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title">Borrar Tarea</h4>
-                        </div>
-                        <div class="modal-body">
-                            <p class="text-warning">¿Desea eliminar definitivamente la tarea?</p>
-                        </div>
-                        <div class="modal-body">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteTask(task.id)">Sí, quiero borrarla</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </form>
-<!--        <form #taskNewForm="ngForm" (ngSubmit)="onSubmit()" class="col-md-7 no-padding">
-            <p>
-                <label>Nombre de la tarea</label>
-                <input type="text" class="form-control" name="title" #title="ngModel" [(ngModel)]="task.title" required />
-                <span *ngIf="!title.valid && title.touched">El título no es correcto.</span>
-            </p>
-            <p>
-                <label>Descripción</label>
-                <textarea class="form-control" rows="5" name="description" #description="ngModel" [(ngModel)]="task.description" ></textarea>
-            </p>
-            <div class='panel panel-default task-data' *ngIf='task.id != 0'>
-                <div class='panel-heading'>
-                    <h3 class='panel-title'>
-                        <strong>Tarea creada por:</strong> {{task.user.name + ' ' + task.user.surname}}.
-                    </h3>
-                    <h3 class='panel-title'>
-                        <strong>Fecha creación:</strong> {{task.createdAt.timestamp | generateDate }}.
-                    </h3>
-                </div>
-            </div>
-            <br />
-            <input type="submit" value="{{btn_title}}" class="btn btn-success" [disabled]="!taskNewForm.form.valid" />
-            <a href="#myModal" role="button" class="btn btn-large btn-danger" data-toggle="modal" *ngIf='task.id != 0'>Borrar</a>
-            <div id="myModal" class="modal fade">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title">Borrar Tarea</h4>
-                        </div>
-                        <div class="modal-body">
-                            <p class="text-warning">¿Desea eliminar definitivamente la tarea?</p>
-                        </div>
-                        <div class="modal-body">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteTask(task.id)">Sí, quiero borrarla</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>-->
     </div>
 </div>
