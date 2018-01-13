@@ -1,6 +1,6 @@
 <div class='col-md-12'>
+    <legend>{{title}}</legend>
     <form #loginForm="ngForm" (ngSubmit)="onSubmit()" class="col-md-7 no-padding">
-        <legend>{{title}}</legend>
         <mat-form-field class="full-width">
           <input matInput matTooltip="Ingresa tu dirección de email" placeholder="Tu email" name="email" [(ngModel)]="user.email" [formControl]="emailFormControl"
                  [errorStateMatcher]="matcher">

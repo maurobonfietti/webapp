@@ -1,16 +1,12 @@
 <div class="col-md-12">
-    <!--<h3>{{title}}</h3>-->
     <legend>{{title}}</legend>
-    <br />
     <div class="alert alert-success" *ngIf="status == 'success'">
         Datos actualizados correctamente.
     </div>
-
     <div class="alert alert-danger" *ngIf="status == 'error'">
         Error al guardar los cambios.
     </div>
     <form #updateForm="ngForm" (ngSubmit)="onSubmit()" class="col-md-7 no-padding" >
-<!--        <legend>{{title}}</legend>-->
         <mat-form-field class="full-width">
           <input matInput matTooltip="Ingresa tu nombre" placeholder="Tu nombre" name="name" #name="ngModel" [(ngModel)]="user.name" required>
           <mat-error *ngIf="!name.valid && name.touched">
@@ -42,29 +38,4 @@
         <br />
         <button mat-raised-button color="primary" matTooltip="Presiona aquí para guardar tus datos">Guardar</button>
     </form>
-<!--    <form #updateForm="ngForm" (ngSubmit)="onSubmit()" class="col-md-7 no-padding" >
-        <p>
-            <label>Nombre</label>
-            <input type="text" class="form-control" name="name" #name="ngModel" [(ngModel)]="user.name" required />
-            <span *ngIf="!name.valid && name.touched">El nombre es obligatorio.</span>
-        </p>
-        <p>
-            <label>Apellido</label>
-            <input type="text" class="form-control" name="surname" #surname="ngModel" [(ngModel)]="user.surname" required />
-            <span *ngIf="!surname.valid && surname.touched">El apellido es obligatorio.</span>
-        </p>
-        <p>
-            <label>Email</label>
-            <input type="email" class="form-control" name="email" #email="ngModel" [(ngModel)]="user.email" required />
-            <span *ngIf="!email.valid && email.touched">El email es obligatorio.</span>
-        </p>
-        <p>
-            <label>Contraseña</label>
-            <input type="password" class="form-control" name="password" #password="ngModel" [(ngModel)]="user.password" />
-            <span *ngIf="!password.valid && password.touched">El password es obligatorio.</span>
-        </p>
-        <br />
-        <input type="submit" value="Guardar" class="btn btn-success" [disabled]="!updateForm.form.valid" />
-    </form>-->
-
 </div>
