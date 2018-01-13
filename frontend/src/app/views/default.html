@@ -1,6 +1,6 @@
 <div class="col-md-12">
     <div *ngIf="!identity || identity == null">
-        Inicia sesión para acceder a más opciones.
+        <legend>Inicia sesión para acceder a más opciones.</legend>
     </div>
     <div class="col-md-12" *ngIf="identity && identity.sub">
         <form class="col-md-12" role="searchz">
