@@ -36,10 +36,8 @@
             </div>
             <br />
             <button mat-raised-button color="primary" matTooltip="Presiona aquí para guardar la tarea" [disabled]="!taskNewForm.form.valid">{{btn_title}}</button>
-            <a href="#myModal" role="button" class="btn btn-large btn-danger" data-toggle="modal" *ngIf='task.id != 0'>Borrar</a>
+            <!--<a href="#myModal" role="button" class="btn btn-large btn-danger" data-toggle="modal" *ngIf='task.id != 0'>Borrar</a>-->
             <button mat-raised-button color="secundary" matTooltip="Presiona aquí para borrar la tarea" *ngIf='task.id != 0'>Borrar</button>
-<!--            <button mat-button (click)="openDialog()">Open dialog</button>-->
-            <button mat-button (click)="openDialog(); preventDefault();">Open dialog</button>
             <div id="myModal" class="modal fade">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -58,7 +56,6 @@
                 </div>
             </div>
         </form>
-        <button mat-button (click)="openDialog()">Open dialog 2</button>
 <!--        <form #taskNewForm="ngForm" (ngSubmit)="onSubmit()" class="col-md-7 no-padding">
             <p>
                 <label>Nombre de la tarea</label>

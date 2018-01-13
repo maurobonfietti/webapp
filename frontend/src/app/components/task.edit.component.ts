@@ -4,14 +4,6 @@ import {UserService} from '../services/user.service';
 import {TaskService} from '../services/task.service';
 import {Task} from '../models/task';
 
-import {MatDialog} from '@angular/material';
-
-@Component({
-  selector: 'dialog-content-example',
-  templateUrl: '../views/task.delete.html',
-})
-export class DialogContentExample {}
-
 @Component({
     selector: 'task-edit',
     templateUrl: '../views/task.html',
@@ -31,23 +23,12 @@ export class TaskEditComponent implements OnInit {
         private _route: ActivatedRoute,
         private _router: Router,
         private _userService: UserService,
-        private _taskService: TaskService,
-        public dialog: MatDialog
+        private _taskService: TaskService
     ) {
         this.page_title = 'Editar tarea';
         this.btn_title = 'Guardar';
         this.identity = this._userService.getIdentity();
         this.token = this._userService.getToken();
-    }
-
-    openDialog() {
-        const dialogRef = this.dialog.open(DialogContentExample, {
-            height: '350px'
-        });
-
-        dialogRef.afterClosed().subscribe(result => {
-          console.log(`Dialog result: ${result}`);
-        });
     }
 
     ngOnInit() {
