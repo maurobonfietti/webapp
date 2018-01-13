@@ -136,7 +136,6 @@ export class LoginComponent implements OnInit {
                 }
             },
             error => {
-//                console.log('asd');
                 console.log(<any> error);
                 this.openSnackBarError();
             }

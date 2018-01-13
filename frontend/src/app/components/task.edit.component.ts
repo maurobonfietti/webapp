@@ -6,7 +6,7 @@ import {Task} from '../models/task';
 
 @Component({
     selector: 'task-edit',
-    templateUrl: '../views/task.new.html',
+    templateUrl: '../views/task.html',
     providers: [UserService, TaskService]
 })
 
