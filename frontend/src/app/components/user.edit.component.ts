@@ -3,6 +3,16 @@ import {Router} from '@angular/router';
 import {User} from '../models/user';
 import {UserService} from '../services/user.service';
 
+import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
+import {ErrorStateMatcher} from '@angular/material/core';
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
+
 @Component({
     selector: 'user-edit',
     templateUrl: '../views/user.edit.html',
@@ -15,6 +25,13 @@ export class UserEditComponent implements OnInit {
     public status;
     public identity;
     public token;
+
+    emailFormControl = new FormControl('', [
+      Validators.required,
+      Validators.email,
+    ]);
+
+    matcher = new MyErrorStateMatcher();
 
     constructor(
         private _router: Router,
