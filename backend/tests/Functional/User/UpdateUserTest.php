@@ -33,6 +33,18 @@ class UpdateUserTest extends BaseTest
     public function testUpdateUserNotEdited()
     {
         $client = self::createClient();
+        $client->request('PATCH', '/user/edit', [
+            'json' => '{"name":"","surname":"","email": "", "password": ""}',
+        ], [], ['HTTP_authorization' => $this->getAuthToken()]);
+
+        $this->assertEquals(400, $client->getResponse()->getStatusCode());
+        $this->assertContains('The user was NOT updated.', $client->getResponse()->getContent());
+        $this->assertNotContains('success', $client->getResponse()->getContent());
+    }
+
+    public function testUpdateUserWithoutData()
+    {
+        $client = self::createClient();
         $client->request('PATCH', '/user/edit', [], [], ['HTTP_authorization' => $this->getAuthToken()]);
 
         $this->assertEquals(400, $client->getResponse()->getStatusCode());

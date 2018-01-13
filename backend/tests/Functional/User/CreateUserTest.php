@@ -30,6 +30,19 @@ class CreateUserTest extends BaseTest
         $this->assertNotContains('success', $client->getResponse()->getContent());
     }
 
+    public function testCreateUserWithoutData()
+    {
+        $client = self::createClient();
+        $client->request('POST', '/user/new', [
+            'json' => '{"name":"","surname":"","email": "", "password": ""}',
+        ]);
+
+        $this->assertEquals(400, $client->getResponse()->getStatusCode());
+        $this->assertContains('The user was NOT created.', $client->getResponse()->getContent());
+        $this->assertContains('error', $client->getResponse()->getContent());
+        $this->assertNotContains('success', $client->getResponse()->getContent());
+    }
+
     public function testCreateUserExists()
     {
         $client = self::createClient();
