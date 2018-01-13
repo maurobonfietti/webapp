@@ -21,7 +21,7 @@
             </mat-form-field>
             <br />
             <mat-form-field class="full-width">
-              <input matInput matTooltip="Descripcion adicional sobre la tarea" placeholder="Notas adicionales" name="description" #description="ngModel" [(ngModel)]="task.description">
+              <textarea matInput matTooltip="Descripcion adicional sobre la tarea" placeholder="Notas adicionales" name="description" #description="ngModel" [(ngModel)]="task.description"></textarea>
             </mat-form-field>
             <br />
             <div class='panel panel-default task-data' *ngIf='task.id != 0'>
@@ -35,8 +35,7 @@
                 </div>
             </div>
             <br />
-            <!--<input type="submit" value="{{btn_title}}" class="btn btn-success" [disabled]="!taskNewForm.form.valid" />-->
-            <button mat-raised-button color="primary" matTooltip="Presiona aquí para guardar la tarea">{{btn_title}}</button>
+            <button mat-raised-button color="primary" matTooltip="Presiona aquí para guardar la tarea" [disabled]="!taskNewForm.form.valid">{{btn_title}}</button>
             <!--<a href="#myModal" role="button" class="btn btn-large btn-danger" data-toggle="modal" *ngIf='task.id != 0'>Borrar</a>-->
             <button mat-raised-button color="secundary" matTooltip="Presiona aquí para borrar la tarea" *ngIf='task.id != 0'>Borrar</button>
             <div id="myModal" class="modal fade">
