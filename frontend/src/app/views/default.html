@@ -59,8 +59,8 @@
                     </td>
                     <td>
                         <h4>
-                            <a class="strike-through" [routerLink]="['task-edit', task.id]" *ngIf="task.status == 'finished'">{{task.title}}</a>
-                            <a [routerLink]="['task-edit', task.id]" *ngIf="task.status == 'todo'">{{task.title}}</a>
+                            <a class="task strike-through" [routerLink]="['task-edit', task.id]" *ngIf="task.status == 'finished'">{{task.title}}</a>
+                            <a class="task" [routerLink]="['task-edit', task.id]" *ngIf="task.status == 'todo'">{{task.title}}</a>
                         </h4>
                     </td>
                     <td>
