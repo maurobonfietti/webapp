@@ -2,22 +2,28 @@
       <header class="demo-header mdl-layout__header mdl-layout__header--scroll mdl-color--grey-100 mdl-color-text--grey-800">
         <div class="mdl-layout__header-row">
           <!--<span class="mdl-layout-title">Material Design Lite</span>-->
-          <button class="mdl-button mdl-js-button mdl-js-ripple-effect" [routerLink]="['/index/1']">
+<!--          <button class="mdl-button mdl-js-button mdl-js-ripple-effect" [routerLink]="['/index/1']">
             Inicio
-          </button>
-          <button class="mdl-button mdl-js-button mdl-js-ripple-effect" [routerLink]="['/task-new']" *ngIf="identity && identity.sub">
+          </button>-->
+<!--        <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" [routerLink]="['/index/1']">
+          <i class="material-icons">home</i>
+        </button>-->
+        <button class="mdl-button mdl-js-button mdl-button--primary" [routerLink]="['/index/1']">
+          <i class="material-icons">home</i>
+        </button>
+          <button class="mdl-button mdl-js-button" [routerLink]="['/task-new']" *ngIf="identity && identity.sub">
             Crear tarea
           </button>
-          <button class="mdl-button mdl-js-button mdl-js-ripple-effect" [routerLink]="['/user-edit']" *ngIf="identity && identity.sub">
+          <button class="mdl-button mdl-js-button" [routerLink]="['/user-edit']" *ngIf="identity && identity.sub">
             Mis datos
           </button>
-          <button class="mdl-button mdl-js-button mdl-js-ripple-effect" [routerLink]="['/login/1']" *ngIf="identity && identity.sub">
+          <button class="mdl-button mdl-js-button" [routerLink]="['/login/1']" *ngIf="identity && identity.sub">
             Salir
           </button>
-          <button class="mdl-button mdl-js-button mdl-js-ripple-effect" [routerLink]="['/login']" *ngIf="!identity">
+          <button class="mdl-button mdl-js-button mdl-button--primary" [routerLink]="['/login']" *ngIf="!identity">
             Acceder
           </button>
-          <button class="mdl-button mdl-js-button mdl-js-ripple-effect" [routerLink]="['/register']" *ngIf="!identity">
+          <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" [routerLink]="['/register']" *ngIf="!identity">
             Registrar
           </button>
           <div class="mdl-layout-spacer"></div>
@@ -70,12 +76,12 @@
         </li>
     </ul>
 </mat-toolbar>-->
-<br />
+<!--<br />-->
 <router-outlet></router-outlet>
 
           </div>
         </div>
-        <footer class="demo-footer mdl-mini-footer">
+<!--        <footer class="demo-footer mdl-mini-footer">
           <div class="mdl-mini-footer--left-section">
             <ul class="mdl-mini-footer--link-list">
               <li><a href="#">Help</a></li>
@@ -83,6 +89,6 @@
               <li><a href="#">User Agreement</a></li>
             </ul>
           </div>
-        </footer>
+        </footer>-->
       </main>
     </div>
