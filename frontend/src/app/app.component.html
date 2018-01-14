@@ -14,7 +14,7 @@
        <button class="mdl-button mdl-js-button mdl-button--primary" [routerLink]="['/task-new']" *ngIf="identity && identity.sub">
          Crear tarea
        </button>
-        <!--<div class="mdl-layout-spacer"></div>-->
+        <div class="mdl-layout-spacer"></div>
        <button class="mdl-button mdl-js-button mdl-button--primary" [routerLink]="['/user-edit']" *ngIf="identity && identity.sub">
          Mis datos
        </button>
@@ -33,7 +33,7 @@
            <i class="material-icons">search</i>
          </label>
          <div class="mdl-textfield__expandable-holder">
-           <input class="mdl-textfield__input" type="text" id="search" (change)="search();">
+           <input class="mdl-textfield__input" type="text" id="search">
            <label class="mdl-textfield__label" for="search">Enter your query...</label>
          </div>
        </div>-->

@@ -21,6 +21,8 @@
                   </mat-select>
                 </mat-form-field>
             </div>
+            <!--<div class="mdl-layout-spacer"></div>-->
+            <!--<div class="clearfix"></div>-->
             <div class="form-group col-md-4">
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
                   <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
@@ -32,6 +34,7 @@
                   </div>
                 </div>
             </div>
+            <div class="clearfix"></div>
 <!--            <div class="form-group col-md-6">
                 <label>Mostrar</label>
                 <select class="form-control" name="filter" [(ngModel)]="filter" (change)="search();">
@@ -47,7 +50,10 @@
                     <option value="2">Fecha descendente</option>
                 </select>
             </div>-->
-            <div class="clearfix"></div>
+<!--            <div class="form-group col-md-6 center-block" *ngIf="loading == 'show'">
+                <div class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active"></div>    
+            </div>-->
+<!--            <div class="clearfix"></div>-->
 <!--            <div class="form-group col-md-10">
                 <input type="text" class="form-control" placeholder="¿Que tarea estás buscando?" name="searchString" [(ngModel)]="searchString" />
             </div>-->
@@ -72,9 +78,12 @@
           </div>
         </div>-->
         <div class="all-tasks">
-            <div class="loader" *ngIf="loading == 'show'">
+<!--            <div class="loader" *ngIf="loading == 'show'">
                 <img src='assets/img/loader.gif' />
-            </div>
+            </div>-->
+<!--            <div class="loader" *ngIf="loading == 'show'">
+                <div class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active" *ngIf="loading == 'show'"></div>
+            </div>-->
             <table class="table table-hover table-stripped" id="tasks-list" *ngIf="tasks && tasks.length > 0">
                 <tr class="task-item" *ngFor="let task of tasks">
                     <td>
@@ -109,8 +118,47 @@
                     <td>
                         <button mat-raised-button color="primary" matTooltip="Presiona aquí para editar la tarea" [routerLink]="['task-edit', task.id]">Editar</button>
                     </td>
+<!--                    <td>
+<button id="demo-menu-lower-right"
+        class="mdl-button mdl-js-button mdl-button--icon">
+  <i class="material-icons">more_vert</i>
+</button>
+
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+    for="demo-menu-lower-right">
+  <li class="mdl-menu__item" [routerLink]="['task-edit', task.id]">Edit Action...</li>
+  <li class="mdl-menu__item">Another Action</li>
+  <li disabled class="mdl-menu__item">Disabled Action</li>
+  <li class="mdl-menu__item">Yet Another Action</li>
+</ul>
+                    </td>-->
                 </tr>
             </table>
+<!--<button id="demo-menu-lower-right"
+        class="mdl-button mdl-js-button mdl-button--icon">
+  <i class="material-icons">more_vert</i>
+</button>
+
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+    for="demo-menu-lower-right">
+  <li class="mdl-menu__item">Some Action</li>
+  <li class="mdl-menu__item">Another Action</li>
+  <li disabled class="mdl-menu__item">Disabled Action</li>
+  <li class="mdl-menu__item">Yet Another Action</li>
+</ul>
+
+<button id="demo-menu-lower-right2"
+        class="mdl-button mdl-js-button mdl-button--icon">
+  <i class="material-icons">more_vert</i>
+</button>
+
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+    for="demo-menu-lower-right2">
+  <li class="mdl-menu__item">Some Action2</li>
+  <li class="mdl-menu__item">Another Action2</li>
+  <li disabled class="mdl-menu__item">Disabled Action2</li>
+  <li class="mdl-menu__item">Yet Another Action2</li>
+</ul>-->
             <div class='col-md-12' *ngIf="loading == 'hide' && (!tasks || tasks.length == 0)">
                 <div class='clearfix'></div>
                 <div class="alert alert-warning" >

@@ -19,7 +19,7 @@ export class DefaultComponent implements OnInit {
     public pages;
     public pagesPrev;
     public pagesNext;
-    public loading;
+    public loading = 'show';
 
     public filter = 2;
     public order = 1;
@@ -35,6 +35,7 @@ export class DefaultComponent implements OnInit {
         this.title = 'Home Page';
         this.identity = this._userService.getIdentity();
         this.token = this._userService.getToken();
+        this.loading = 'show';
     }
 
     ngOnInit() {
@@ -43,6 +44,7 @@ export class DefaultComponent implements OnInit {
     }
 
     search() {
+        this.loading = 'show';
         this._route.params.forEach((params: Params) => {
             if (!this.searchString || this.searchString.trim().length == 0) {
                 this.searchString = null;
