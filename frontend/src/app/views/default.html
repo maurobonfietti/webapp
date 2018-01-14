@@ -131,7 +131,7 @@
                     No se han encontrado tareas. Crealas, haciendo <a [routerLink]="['/task-new']">click aquí</a>
                 </div>
             </div>
-            <ul class="pagination" *ngIf="tasks && totalItemsCount > 10" >
+            <ul class="pagination" *ngIf="tasks && totalItemsCount > 50" >
                 <li>
                     <a [routerLink]="['/index', pagesPrev]" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
