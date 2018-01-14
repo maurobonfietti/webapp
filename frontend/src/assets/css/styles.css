@@ -42,14 +42,21 @@ body {
     margin: 50px !important;
 }
 
-.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+/*.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
     vertical-align: middle !important;
-}
+}*/
 
 .task {
     color: currentColor !important;
-}
-
-.h4, h4 {
     font-size: 15px !important;
 }
+
+/*.status {
+    color: currentColor !important;
+    font-size: 15px !important;
+}*/
+
+/*
+.h4, h4 {
+    font-size: 15px !important;
+}*/

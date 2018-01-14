@@ -39,7 +39,7 @@
                             <mat-checkbox color="primary" name="updateStatus" (change)="updateStatus(task.id);"></mat-checkbox>
                         </h4>
                     </td>
-<!--                    <td>
+                    <td>
                         <h4>
                             <span class='label lg-label label-success' *ngIf="task.status == 'finished'">
                                 Finalizada
@@ -48,15 +48,15 @@
                                 Pendiente
                             </span>
                         </h4>
-                    </td>-->
-                    <td>
+                    </td>
+<!--                    <td>
                         <h4>
                             <mat-chip-list>
                                 <mat-chip color="primary" selected="true" *ngIf="task.status == 'finished'">Finalizada</mat-chip>
                                 <mat-chip *ngIf="task.status == 'todo'">Pendiente</mat-chip>
                             </mat-chip-list>
                         </h4>
-                    </td>
+                    </td>-->
                     <td>
                         <h4>
                             <a class="task strike-through" [routerLink]="['task-edit', task.id]" *ngIf="task.status == 'finished'">{{task.title}}</a>
