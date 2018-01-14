@@ -54,49 +54,15 @@
                             <mat-chip-list>
                                 <mat-chip color="primary" selected="true" *ngIf="task.status == 'finished'">Finalizada</mat-chip>
                                 <mat-chip *ngIf="task.status == 'todo'">Pendiente</mat-chip>
-                                <!--<mat-chip color="primary" selected="true" *ngIf="task.status == 'finished'">Finalizada</mat-chip>-->
-                                <!--<mat-chip color="accent" selected="true" *ngIf="task.status == 'todo'">Pendiente</mat-chip>-->
-                                <!--<mat-chip color="primary" selected="true">AB</mat-chip>-->
-                                <!--<mat-chip color="accent" selected="true">AB</mat-chip>-->
-                                <!--<mat-chip color="warn" selected="true">AB</mat-chip>-->
-                                <!--<mat-chip>ABC</mat-chip>-->
                             </mat-chip-list>
                         </h4>
                     </td>
-<!--                    <td>
-                        <h4>
-                            <a class="strike-through" [routerLink]="['task-edit', task.id]" *ngIf="task.status == 'finished'">
-                               {{task.title}}
-                            </a>
-                            <a [routerLink]="['task-edit', task.id]" *ngIf="task.status == 'todo'">
-                               {{task.title}}
-                            </a>
-                            <mat-nav-list>
-                               <a class="strike-through" mat-list-item [routerLink]="['task-edit', task.id]" *ngIf="task.status == 'finished'">{{task.title}}</a>
-                            </mat-nav-list>
-                            <mat-nav-list>
-                               <a mat-list-item [routerLink]="['task-edit', task.id]" *ngIf="task.status == 'todo'">{{task.title}}</a>
-                            </mat-nav-list>
-                            <p class="strike-through" [routerLink]="['task-edit', task.id]" *ngIf="task.status == 'finished'">
-                               {{task.title}}
-                            </p>
-                            <p [routerLink]="['task-edit', task.id]" *ngIf="task.status == 'todo'">
-                               {{task.title}}
-                            </p>
-                        </h4>
-                    </td>-->
                     <td>
                         <h4>
-                            <mat-list-item role="listitem" class="strike-through" *ngIf="task.status == 'finished'">{{task.title}}</mat-list-item>
-                            <mat-list-item role="listitem" *ngIf="task.status == 'todo'">{{task.title}}</mat-list-item>
+                            <a class="strike-through" [routerLink]="['task-edit', task.id]" *ngIf="task.status == 'finished'">{{task.title}}</a>
+                            <a [routerLink]="['task-edit', task.id]" *ngIf="task.status == 'todo'">{{task.title}}</a>
                         </h4>
                     </td>
-<!--                    <td class="strike-through" *ngIf="task.status == 'finished'">
-                        {{task.title}}
-                    </td>
-                    <td *ngIf="task.status == 'todo'">
-                        {{task.title}}
-                    </td>-->
                     <td>
                         <button mat-raised-button color="primary" matTooltip="Presiona aquí para editar la tarea" [routerLink]="['task-edit', task.id]">Editar</button>
                     </td>
