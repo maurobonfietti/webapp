@@ -5,20 +5,62 @@
     <div class="col-md-12" *ngIf="identity && identity.sub">
         <form class="col-md-12" role="searchz">
             <div class="form-group col-md-6">
+                <mat-form-field>
+                  <mat-select placeholder="Mostrar" name="filter" [(ngModel)]="filter"  (change)="search();">
+                    <mat-option value="0" selected="selected">Todas las tareas</mat-option>
+                    <mat-option value="2">Tareas pendientes</mat-option>
+                    <mat-option value="3">Tareas finalizadas</mat-option>
+                  </mat-select>
+                </mat-form-field>         
+            </div>
+            <div class="form-group col-md-6">
+                <mat-form-field>
+                  <mat-select placeholder="Ordenar por" name="order" [(ngModel)]="order" (change)="search();">
+                    <mat-option value="1" selected="selected">Fecha ascendente</mat-option>
+                    <mat-option value="2">Fecha descendente</mat-option>
+                  </mat-select>
+                </mat-form-field>         
+            </div>
+<!--            <div class="form-group col-md-6">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
+                    <input type="text" value="" class="mdl-textfield__input" id="filter" readonly>
+                    <input type="hidden" value="" name="filter">
+                    <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                    <label for="filter" class="mdl-textfield__label">Mostrar</label>
+                    <ul for="filter" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                        <li class="mdl-menu__item" data-val="0" value="0">Todas las tareas</li>
+                        <li class="mdl-menu__item" data-val="2" data-selected="true">Tareas pendientes</li>
+                        <li class="mdl-menu__item" data-val="3">Tareas finalizadas</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
+                    <input type="text" value="" class="mdl-textfield__input" id="sample7" readonly>
+                    <input type="hidden" value="" name="sample7">
+                    <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                    <label for="sample7" class="mdl-textfield__label">Ordenar por</label>
+                    <ul for="sample7" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                        <li class="mdl-menu__item" data-val="1" data-selected="true">Fecha ascendente</li>
+                        <li class="mdl-menu__item" data-val="2">Fecha descendente</li>
+                    </ul>
+                </div>
+            </div>-->
+<!--            <div class="form-group col-md-6">
                 <label>Mostrar</label>
                 <select class="form-control" name="filter" [(ngModel)]="filter" (change)="search();">
                     <option value="0" selected="selected">Todas</option>
                     <option value="2">Para Hacer</option>
                     <option value="3">Finalizadas</option>
                 </select>
-            </div>
-            <div class="form-group col-md-6">
+            </div>-->
+<!--            <div class="form-group col-md-6">
                 <label>Ordenar por</label>
                 <select class="form-control" name="order" [(ngModel)]="order" (change)="search();">
                     <option value="1" selected="selected">Fecha ascendente</option>
                     <option value="2">Fecha descendente</option>
                 </select>
-            </div>
+            </div>-->
             <div class="clearfix"></div>
             <div class="form-group col-md-10">
                 <input type="text" class="form-control" placeholder="¿Que tarea estás buscando?" name="searchString" [(ngModel)]="searchString" />
