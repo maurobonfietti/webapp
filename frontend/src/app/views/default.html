@@ -21,8 +21,6 @@
                   </mat-select>
                 </mat-form-field>
             </div>
-            <!--<div class="mdl-layout-spacer"></div>-->
-            <!--<div class="clearfix"></div>-->
             <div class="form-group col-md-4">
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
                   <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
@@ -35,55 +33,8 @@
                 </div>
             </div>
             <div class="clearfix"></div>
-<!--            <div class="form-group col-md-6">
-                <label>Mostrar</label>
-                <select class="form-control" name="filter" [(ngModel)]="filter" (change)="search();">
-                    <option value="0" selected="selected">Todas</option>
-                    <option value="2">Para Hacer</option>
-                    <option value="3">Finalizadas</option>
-                </select>
-            </div>-->
-<!--            <div class="form-group col-md-6">
-                <label>Ordenar por</label>
-                <select class="form-control" name="order" [(ngModel)]="order" (change)="search();">
-                    <option value="1" selected="selected">Fecha ascendente</option>
-                    <option value="2">Fecha descendente</option>
-                </select>
-            </div>-->
-<!--            <div class="form-group col-md-6 center-block" *ngIf="loading == 'show'">
-                <div class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active"></div>    
-            </div>-->
-<!--            <div class="clearfix"></div>-->
-<!--            <div class="form-group col-md-10">
-                <input type="text" class="form-control" placeholder="¿Que tarea estás buscando?" name="searchString" [(ngModel)]="searchString" />
-            </div>-->
-<!--            <button type="submit" class="btn btn-default btn-search" (click)="search();">
-                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                Buscar
-            </button>-->
-<!--            <button class="mdl-button mdl-js-button mdl-button--icon" (click)="search();">
-              <i class="material-icons">search</i>
-            </button>-->
-<!--            <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--primary" (click)="search();">
-              <i class="material-icons">search</i>
-            </button>-->
         </form>
-<!--        <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
-          <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
-            <i class="material-icons">search</i>
-          </label>
-          <div class="mdl-textfield__expandable-holder">
-            <input class="mdl-textfield__input" type="text" id="search" placeholder=" Buscar tus tareas..." name="searchString" [(ngModel)]="searchString" (change)="search();">
-            <label class="mdl-textfield__label" for="search">Enter your query...</label>
-          </div>
-        </div>-->
         <div class="all-tasks">
-<!--            <div class="loader" *ngIf="loading == 'show'">
-                <img src='assets/img/loader.gif' />
-            </div>-->
-<!--            <div class="loader" *ngIf="loading == 'show'">
-                <div class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active" *ngIf="loading == 'show'"></div>
-            </div>-->
             <table class="table table-hover table-stripped" id="tasks-list" *ngIf="tasks && tasks.length > 0">
                 <tr class="task-item" *ngFor="let task of tasks">
                     <td>
@@ -101,14 +52,6 @@
                             </span>
                         </h4>
                     </td>
-<!--                    <td>
-                        <h4>
-                            <mat-chip-list>
-                                <mat-chip color="primary" selected="true" *ngIf="task.status == 'finished'">Finalizada</mat-chip>
-                                <mat-chip *ngIf="task.status == 'todo'">Pendiente</mat-chip>
-                            </mat-chip-list>
-                        </h4>
-                    </td>-->
                     <td>
                         <h4>
                             <a class="task strike-through" [routerLink]="['task-edit', task.id]" *ngIf="task.status == 'finished'">{{task.title}}</a>
@@ -118,47 +61,8 @@
                     <td>
                         <button mat-raised-button color="primary" matTooltip="Presiona aquí para editar la tarea" [routerLink]="['task-edit', task.id]">Editar</button>
                     </td>
-<!--                    <td>
-<button id="demo-menu-lower-right"
-        class="mdl-button mdl-js-button mdl-button--icon">
-  <i class="material-icons">more_vert</i>
-</button>
-
-<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
-    for="demo-menu-lower-right">
-  <li class="mdl-menu__item" [routerLink]="['task-edit', task.id]">Edit Action...</li>
-  <li class="mdl-menu__item">Another Action</li>
-  <li disabled class="mdl-menu__item">Disabled Action</li>
-  <li class="mdl-menu__item">Yet Another Action</li>
-</ul>
-                    </td>-->
                 </tr>
             </table>
-<!--<button id="demo-menu-lower-right"
-        class="mdl-button mdl-js-button mdl-button--icon">
-  <i class="material-icons">more_vert</i>
-</button>
-
-<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
-    for="demo-menu-lower-right">
-  <li class="mdl-menu__item">Some Action</li>
-  <li class="mdl-menu__item">Another Action</li>
-  <li disabled class="mdl-menu__item">Disabled Action</li>
-  <li class="mdl-menu__item">Yet Another Action</li>
-</ul>
-
-<button id="demo-menu-lower-right2"
-        class="mdl-button mdl-js-button mdl-button--icon">
-  <i class="material-icons">more_vert</i>
-</button>
-
-<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
-    for="demo-menu-lower-right2">
-  <li class="mdl-menu__item">Some Action2</li>
-  <li class="mdl-menu__item">Another Action2</li>
-  <li disabled class="mdl-menu__item">Disabled Action2</li>
-  <li class="mdl-menu__item">Yet Another Action2</li>
-</ul>-->
             <div class='col-md-12' *ngIf="loading == 'hide' && (!tasks || tasks.length == 0)">
                 <div class='clearfix'></div>
                 <div class="alert alert-warning" >
