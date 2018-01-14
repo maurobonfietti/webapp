@@ -3,12 +3,12 @@ import {HttpModule} from '@angular/http';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {
-MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule,
-MatSnackBarModule, MatTooltipModule, MatToolbarModule, MatIconModule,
-MatListModule, MatChipsModule, MatSelectModule
+    MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule,
+    MatSnackBarModule, MatTooltipModule, MatToolbarModule, MatIconModule,
+    MatListModule, MatChipsModule, MatSelectModule
 } from '@angular/material';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {routing, appRoutingProviders} from './app.routing';
 import {AppComponent} from './app.component';
 import {LoginComponent, SnackBarComponentExample, SnackBarComponentExampleError} from './components/login.component';
