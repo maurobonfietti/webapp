@@ -8,7 +8,7 @@
     </div>
     <form #updateForm="ngForm" (ngSubmit)="onSubmit()" class="col-md-7 no-padding" >
         <mat-form-field class="full-width">
-          <input matInput matTooltip="Completa con tu nombre" placeholder="Tu nombre" name="name" #name="ngModel" [(ngModel)]="user.name" required>
+          <input matInput matTooltip="Completa con tu nombre" placeholder="Tu nombre" name="name" #name="ngModel" [(ngModel)]="user.name" required autofocus>
           <mat-error *ngIf="!name.valid && name.touched">
             Tu nombre es <strong>requerido</strong>.
           </mat-error>
