@@ -1,7 +1,25 @@
    <div class="demo-layout mdl-layout mdl-layout--fixed-header mdl-js-layout mdl-color--grey-100">
       <header class="demo-header mdl-layout__header mdl-layout__header--scroll mdl-color--grey-100 mdl-color-text--grey-800">
         <div class="mdl-layout__header-row">
-          <span class="mdl-layout-title">Material Design Lite</span>
+          <!--<span class="mdl-layout-title">Material Design Lite</span>-->
+          <button class="mdl-button mdl-js-button mdl-js-ripple-effect" [routerLink]="['/index/1']">
+            Inicio
+          </button>
+          <button class="mdl-button mdl-js-button mdl-js-ripple-effect" [routerLink]="['/task-new']" *ngIf="identity && identity.sub">
+            Crear tarea
+          </button>
+          <button class="mdl-button mdl-js-button mdl-js-ripple-effect" [routerLink]="['/user-edit']" *ngIf="identity && identity.sub">
+            Mis datos
+          </button>
+          <button class="mdl-button mdl-js-button mdl-js-ripple-effect" [routerLink]="['/login/1']" *ngIf="identity && identity.sub">
+            Salir
+          </button>
+          <button class="mdl-button mdl-js-button mdl-js-ripple-effect" [routerLink]="['/login']" *ngIf="!identity">
+            Acceder
+          </button>
+          <button class="mdl-button mdl-js-button mdl-js-ripple-effect" [routerLink]="['/register']" *ngIf="!identity">
+            Registrar
+          </button>
           <div class="mdl-layout-spacer"></div>
           <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
             <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
@@ -22,24 +40,24 @@
           <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
           <div class="demo-content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col">
 
-<mat-toolbar color="primary">
+<!--<mat-toolbar color="primary">
     <ul class="nav navbar-nav">
         <li>
-            <!--<a mat-button matTooltip="Inicio" [routerLink]="['/index/1']"><mat-icon>home</mat-icon></a>-->
+            <a mat-button matTooltip="Inicio" [routerLink]="['/index/1']"><mat-icon>home</mat-icon></a>
             <a mat-button [routerLink]="['/index/1']">Inicio</a>
         </li>
         <li>
-            <!--<a mat-button matTooltip="Crear tarea" [routerLink]="['/task-new']" *ngIf="identity && identity.sub"><mat-icon>add circle outline</mat-icon></a>-->
+            <a mat-button matTooltip="Crear tarea" [routerLink]="['/task-new']" *ngIf="identity && identity.sub"><mat-icon>add circle outline</mat-icon></a>
             <a mat-button [routerLink]="['/task-new']" *ngIf="identity && identity.sub">Crear tarea</a>
         </li>
     </ul>
     <ul class="nav navbar-nav" *ngIf="identity && identity.sub">
         <li>
-            <!--<a mat-button matTooltip="Configurar mi cuenta" [routerLink]="['/user-edit']"><mat-icon>settings</mat-icon></a>-->
+            <a mat-button matTooltip="Configurar mi cuenta" [routerLink]="['/user-edit']"><mat-icon>settings</mat-icon></a>
             <a mat-button [routerLink]="['/user-edit']">Mis datos</a>
         </li>
         <li>
-            <!--<a mat-button matTooltip="Cerrar sesión" [routerLink]="['/login/1']"><mat-icon>redo</mat-icon></a>-->
+            <a mat-button matTooltip="Cerrar sesión" [routerLink]="['/login/1']"><mat-icon>redo</mat-icon></a>
             <a mat-button [routerLink]="['/login/1']">Salir</a>
         </li>
     </ul>
@@ -51,7 +69,7 @@
             <a mat-button [routerLink]="['/register']">Registrar</a>
         </li>
     </ul>
-</mat-toolbar>
+</mat-toolbar>-->
 <br />
 <router-outlet></router-outlet>
 
