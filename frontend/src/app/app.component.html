@@ -11,13 +11,29 @@
         <button class="mdl-button mdl-js-button mdl-button--primary" [routerLink]="['/index/1']">
           <i class="material-icons">home</i>
         </button>
-          <button class="mdl-button mdl-js-button" [routerLink]="['/task-new']" *ngIf="identity && identity.sub">
+<!--<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
+  <i class="material-icons">add</i>
+</button>-->
+<!--<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+  <i class="material-icons">add</i>
+</button>
+        <button class="mdl-button mdl-js-button mdl-button--primary" [routerLink]="['/task-new']" *ngIf="identity && identity.sub">
+          <i class="material-icons">add</i>
+        </button>
+        <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" [routerLink]="['/task-new']" *ngIf="identity && identity.sub">
+          <i class="material-icons">add</i>
+        </button>-->
+          <!--<a href="https://github.com/google/material-design-lite/blob/mdl-1.x/templates/article/" target="_blank" id="view-source" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast"><i class="material-icons">add</i></a>-->
+        <button id="view-source" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--primary" [routerLink]="['/task-new']" *ngIf="identity && identity.sub">
+          <i class="material-icons">add</i>
+        </button>
+          <button class="mdl-button mdl-js-button mdl-button--primary" [routerLink]="['/task-new']" *ngIf="identity && identity.sub">
             Crear tarea
           </button>
-          <button class="mdl-button mdl-js-button" [routerLink]="['/user-edit']" *ngIf="identity && identity.sub">
+          <button class="mdl-button mdl-js-button mdl-button--primary" [routerLink]="['/user-edit']" *ngIf="identity && identity.sub">
             Mis datos
           </button>
-          <button class="mdl-button mdl-js-button" [routerLink]="['/login/1']" *ngIf="identity && identity.sub">
+          <button class="mdl-button mdl-js-button mdl-button--primary" [routerLink]="['/login/1']" *ngIf="identity && identity.sub">
             Salir
           </button>
           <button class="mdl-button mdl-js-button mdl-button--primary" [routerLink]="['/login']" *ngIf="!identity">
@@ -46,38 +62,7 @@
           <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
           <div class="demo-content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col">
 
-<!--<mat-toolbar color="primary">
-    <ul class="nav navbar-nav">
-        <li>
-            <a mat-button matTooltip="Inicio" [routerLink]="['/index/1']"><mat-icon>home</mat-icon></a>
-            <a mat-button [routerLink]="['/index/1']">Inicio</a>
-        </li>
-        <li>
-            <a mat-button matTooltip="Crear tarea" [routerLink]="['/task-new']" *ngIf="identity && identity.sub"><mat-icon>add circle outline</mat-icon></a>
-            <a mat-button [routerLink]="['/task-new']" *ngIf="identity && identity.sub">Crear tarea</a>
-        </li>
-    </ul>
-    <ul class="nav navbar-nav" *ngIf="identity && identity.sub">
-        <li>
-            <a mat-button matTooltip="Configurar mi cuenta" [routerLink]="['/user-edit']"><mat-icon>settings</mat-icon></a>
-            <a mat-button [routerLink]="['/user-edit']">Mis datos</a>
-        </li>
-        <li>
-            <a mat-button matTooltip="Cerrar sesión" [routerLink]="['/login/1']"><mat-icon>redo</mat-icon></a>
-            <a mat-button [routerLink]="['/login/1']">Salir</a>
-        </li>
-    </ul>
-    <ul class="nav navbar-nav navbar-right" *ngIf="!identity">
-        <li>
-            <a mat-button [routerLink]="['/login']">Acceder</a>
-        </li>
-        <li>
-            <a mat-button [routerLink]="['/register']">Registrar</a>
-        </li>
-    </ul>
-</mat-toolbar>-->
-<!--<br />-->
-<router-outlet></router-outlet>
+            <router-outlet></router-outlet>
 
           </div>
         </div>
