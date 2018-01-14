@@ -1,79 +1,58 @@
-   <div class="demo-layout mdl-layout mdl-layout--fixed-header mdl-js-layout mdl-color--grey-100">
-      <header class="demo-header mdl-layout__header mdl-layout__header--scroll mdl-color--grey-100 mdl-color-text--grey-800">
-        <div class="mdl-layout__header-row">
-          <!--<span class="mdl-layout-title">Material Design Lite</span>-->
-<!--          <button class="mdl-button mdl-js-button mdl-js-ripple-effect" [routerLink]="['/index/1']">
-            Inicio
-          </button>-->
-<!--        <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" [routerLink]="['/index/1']">
-          <i class="material-icons">home</i>
-        </button>-->
-        <button class="mdl-button mdl-js-button mdl-button--primary" [routerLink]="['/index/1']">
-          <i class="material-icons">home</i>
-        </button>
-<!--<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
-  <i class="material-icons">add</i>
-</button>-->
-<!--<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
-  <i class="material-icons">add</i>
-</button>
-        <button class="mdl-button mdl-js-button mdl-button--primary" [routerLink]="['/task-new']" *ngIf="identity && identity.sub">
-          <i class="material-icons">add</i>
-        </button>
-        <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" [routerLink]="['/task-new']" *ngIf="identity && identity.sub">
-          <i class="material-icons">add</i>
-        </button>-->
-          <!--<a href="https://github.com/google/material-design-lite/blob/mdl-1.x/templates/article/" target="_blank" id="view-source" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast"><i class="material-icons">add</i></a>-->
-        <button id="view-source" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--primary" [routerLink]="['/task-new']" *ngIf="identity && identity.sub">
-          <i class="material-icons">add</i>
-        </button>
-          <button class="mdl-button mdl-js-button mdl-button--primary" [routerLink]="['/task-new']" *ngIf="identity && identity.sub">
-            Crear tarea
-          </button>
-          <button class="mdl-button mdl-js-button mdl-button--primary" [routerLink]="['/user-edit']" *ngIf="identity && identity.sub">
-            Mis datos
-          </button>
-          <button class="mdl-button mdl-js-button mdl-button--primary" [routerLink]="['/login/1']" *ngIf="identity && identity.sub">
-            Salir
-          </button>
-          <button class="mdl-button mdl-js-button mdl-button--primary" [routerLink]="['/login']" *ngIf="!identity">
-            Acceder
-          </button>
-          <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" [routerLink]="['/register']" *ngIf="!identity">
-            Registrar
-          </button>
-          <div class="mdl-layout-spacer"></div>
-          <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
-            <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
-              <i class="material-icons">search</i>
-            </label>
-            <div class="mdl-textfield__expandable-holder">
-              <input class="mdl-textfield__input" type="text" id="search">
-              <label class="mdl-textfield__label" for="search">Enter your query...</label>
-            </div>
-          </div>
-        </div>
-      </header>
-      <div class="demo-ribbon"></div>
-      <main class="demo-main mdl-layout__content">
+<div class="demo-layout mdl-layout mdl-layout--fixed-header mdl-js-layout mdl-color--grey-100">
+   <header class="demo-header mdl-layout__header mdl-layout__header--scroll mdl-color--grey-100 mdl-color-text--grey-800">
+     <div class="mdl-layout__header-row">
+       <!--<span class="mdl-layout-title">Material Design Lite</span>-->
+     <button class="mdl-button mdl-js-button mdl-button--primary" [routerLink]="['/index/1']">
+       <i class="material-icons">home</i>
+     </button>
+     <button id="view-source" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--primary" [routerLink]="['/task-new']" *ngIf="identity && identity.sub">
+       <i class="material-icons">add</i>
+     </button>
+       <button class="mdl-button mdl-js-button mdl-button--primary" [routerLink]="['/task-new']" *ngIf="identity && identity.sub">
+         Crear tarea
+       </button>
+       <button class="mdl-button mdl-js-button mdl-button--primary" [routerLink]="['/user-edit']" *ngIf="identity && identity.sub">
+         Mis datos
+       </button>
+       <button class="mdl-button mdl-js-button mdl-button--primary" [routerLink]="['/login/1']" *ngIf="identity && identity.sub">
+         Salir
+       </button>
+       <button class="mdl-button mdl-js-button mdl-button--primary" [routerLink]="['/login']" *ngIf="!identity">
+         Acceder
+       </button>
+       <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" [routerLink]="['/register']" *ngIf="!identity">
+         Registrar
+       </button>
+       <div class="mdl-layout-spacer"></div>
+       <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+         <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
+           <i class="material-icons">search</i>
+         </label>
+         <div class="mdl-textfield__expandable-holder">
+           <input class="mdl-textfield__input" type="text" id="search">
+           <label class="mdl-textfield__label" for="search">Enter your query...</label>
+         </div>
+       </div>
+     </div>
+   </header>
+   <div class="demo-ribbon"></div>
+   <main class="demo-main mdl-layout__content">
+     <div class="demo-container mdl-grid">
+       <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+       <div class="demo-content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col">
 
-        <div class="demo-container mdl-grid">
+         <router-outlet></router-outlet>
 
-          <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
-          <div class="demo-content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col">
-
-            <router-outlet></router-outlet>
-
-          </div>
-        </div>
+       </div>
+     </div>
 <!--        <footer class="demo-footer mdl-mini-footer">
-          <div class="mdl-mini-footer--left-section">
-            <ul class="mdl-mini-footer--link-list">
-              <li><a href="#">Help</a></li>
-              <li><a href="#">Privacy and Terms</a></li>
-              <li><a href="#">User Agreement</a></li>
-            </ul>
-          </div>
-        </footer>-->
-      </main>
-    </div>
+       <div class="mdl-mini-footer--left-section">
+         <ul class="mdl-mini-footer--link-list">
+           <li><a href="#">Help</a></li>
+           <li><a href="#">Privacy and Terms</a></li>
+           <li><a href="#">User Agreement</a></li>
+         </ul>
+       </div>
+     </footer>-->
+   </main>
+ </div>
