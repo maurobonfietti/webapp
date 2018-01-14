@@ -5,7 +5,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {
 MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule,
 MatSnackBarModule, MatTooltipModule, MatToolbarModule, MatIconModule,
-MatListModule,
+MatListModule, MatChipsModule
 } from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
@@ -46,6 +46,7 @@ import {GenerateDatePipe} from './pipes/generate.date.pipe';
         MatToolbarModule,
         MatIconModule,
         MatListModule,
+        MatChipsModule,
         BrowserAnimationsModule,
         ReactiveFormsModule
     ],
