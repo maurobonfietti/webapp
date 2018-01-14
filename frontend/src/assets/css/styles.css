@@ -41,3 +41,7 @@ body {
 .mat-snack-bar-container.mat-snack-bar-center {
     margin: 50px !important;
 }
+
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    vertical-align: middle !important;
+}
