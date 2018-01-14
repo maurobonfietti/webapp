@@ -80,7 +80,7 @@ export class DefaultComponent implements OnInit {
                 error => {
                     console.log(<any> error);
                 }
-            ); 
+            );
         });
     }
 

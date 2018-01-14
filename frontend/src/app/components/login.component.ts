@@ -7,26 +7,26 @@ import {ErrorStateMatcher} from '@angular/material/core';
 import {MatSnackBar} from '@angular/material';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-  }
+    isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+        const isSubmitted = form && form.submitted;
+        return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+    }
 }
 
 @Component({
-  selector: 'snack-bar-component-example',
-  templateUrl: '../views/login.ok.html',
+    selector: 'snack-bar-component-example',
+    templateUrl: '../views/login.ok.html',
 })
 export class SnackBarComponentExample {
-  constructor(public snackBar: MatSnackBar) {}
+    constructor(public snackBar: MatSnackBar) {}
 }
 
 @Component({
-  selector: 'snack-bar-component-example',
-  templateUrl: '../views/login.error.html',
+    selector: 'snack-bar-component-example',
+    templateUrl: '../views/login.error.html',
 })
 export class SnackBarComponentExampleError {
-  constructor(public snackBar: MatSnackBar) {}
+    constructor(public snackBar: MatSnackBar) {}
 }
 
 @Component({
@@ -38,8 +38,8 @@ export class SnackBarComponentExampleError {
 export class LoginComponent implements OnInit {
 
     emailFormControl = new FormControl('', [
-      Validators.required,
-      Validators.email,
+        Validators.required,
+        Validators.email,
     ]);
 
     matcher = new MyErrorStateMatcher();
@@ -65,14 +65,13 @@ export class LoginComponent implements OnInit {
 
     openSnackBar() {
         this.snackBar.openFromComponent(SnackBarComponentExample, {
-          duration: 3000,
-//          verticalPosition: 'top',
+            duration: 3000,
         });
     }
 
     openSnackBarError() {
         this.snackBar.openFromComponent(SnackBarComponentExampleError, {
-          duration: 3000,
+            duration: 3000,
         });
     }
 
@@ -106,14 +105,12 @@ export class LoginComponent implements OnInit {
         this._userService.signUp(this.user).subscribe(
             response => {
                 this.identity = response;
-//                console.log(this.identity);
                 if (this.identity.lenght <= 1) {
                     console.log('Server Error...');
                 } {
                     console.log(this.identity);
                     if (!this.identity.status) {
                         localStorage.setItem('identity', JSON.stringify(this.identity));
-                        // Get Token.
                         this.user.getData = false;
                         this._userService.signUp(this.user).subscribe(
                             response => {
