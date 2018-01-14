@@ -23,10 +23,16 @@
             <div class="form-group col-md-10">
                 <input type="text" class="form-control" placeholder="¿Que tarea estás buscando?" name="searchString" [(ngModel)]="searchString" />
             </div>
-            <button type="submit" class="btn btn-default btn-search" (click)="search();">
+<!--            <button type="submit" class="btn btn-default btn-search" (click)="search();">
                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                 Buscar
+            </button>-->
+            <button class="mdl-button mdl-js-button mdl-button--icon" (click)="search();">
+              <i class="material-icons">search</i>
             </button>
+<!--            <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--primary" (click)="search();">
+              <i class="material-icons">search</i>
+            </button>-->
         </form>
 <!--        <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
           <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
