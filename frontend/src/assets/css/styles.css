@@ -98,3 +98,8 @@ body {
 .center-block {
     float: none !important
 }
+
+.col-md-12 {
+    padding-right: 2px !important;
+    padding-left: 2px !important;
+}
