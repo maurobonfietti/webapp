@@ -4,12 +4,21 @@ import {UserService} from '../services/user.service';
 
 import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
+import {MatSnackBar} from '@angular/material';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
         const isSubmitted = form && form.submitted;
         return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
     }
+}
+
+@Component({
+    selector: 'snack-bar-component-example',
+    templateUrl: '../views/register.error.html',
+})
+export class SnackBarComponentExampleError2 {
+    constructor(public snackBar: MatSnackBar) {}
 }
 
 @Component({
@@ -31,10 +40,17 @@ export class RegisterComponent implements OnInit {
     matcher = new MyErrorStateMatcher();
 
     constructor(
-        private _userService: UserService
+        private _userService: UserService,
+        public snackBar: MatSnackBar
     ) {
         this.title = 'Registrate';
         this.user = new User(1, "user", "", "", "", "");
+    }
+
+    openSnackBarError() {
+        this.snackBar.openFromComponent(SnackBarComponentExampleError2, {
+            duration: 3000,
+        });
     }
 
     ngOnInit() {
@@ -46,15 +62,11 @@ export class RegisterComponent implements OnInit {
             response => {
                 this.status = response.status;
                 window.location.href = '/login';
-//                if (response.status != 'success') {
-//                    this.status = 'error';
-//                } else {
-//                    this.user = new User(1, "user", "", "", "", "");
-//                }
             },
             error => {
                 console.log(<any> error);
                 this.status = 'error';
+                this.openSnackBarError();
             }
         );
     }
