@@ -45,11 +45,12 @@ export class RegisterComponent implements OnInit {
         this._userService.register(this.user).subscribe(
             response => {
                 this.status = response.status;
-                if (response.status != 'success') {
-                    this.status = 'error';
-                } else {
-                    this.user = new User(1, "user", "", "", "", "");
-                }
+                window.location.href = '/login';
+//                if (response.status != 'success') {
+//                    this.status = 'error';
+//                } else {
+//                    this.user = new User(1, "user", "", "", "", "");
+//                }
             },
             error => {
                 console.log(<any> error);

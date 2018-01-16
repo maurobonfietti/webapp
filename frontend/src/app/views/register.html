@@ -6,7 +6,7 @@
     <div class="alert alert-danger" *ngIf="status == 'error'">
         Error en la registración. No te has registrado correctamente.
     </div>
-    <form #registerForm="ngForm" (ngSubmit)="onSubmit(); registerForm.reset();" class="col-md-7 no-padding">
+    <form #registerForm="ngForm" (ngSubmit)="onSubmit();" class="col-md-7 no-padding">
         <mat-form-field class="full-width">
             <input matInput matTooltip="Ingresa tu nombre" placeholder="Tu nombre" name="name" #name="ngModel" [(ngModel)]="user.name" required>
             <mat-error *ngIf="!name.valid && name.touched">
@@ -39,7 +39,7 @@
         </mat-form-field>
         <br />
         <br />
-        <button mat-raised-button color="primary" matTooltip="Presiona aquí para registrarte">Registrarme</button>
+        <button mat-raised-button color="primary" matTooltip="Presiona aquí para registrarte" [disabled]="!registerForm.form.valid || emailFormControl.hasError('email')">Registrarme</button>
     </form>
 </div>
 
