@@ -6,18 +6,18 @@
          <form class="col-md-12" role="searchz">
             <div class="form-group col-md-4">
                 <mat-form-field>
-                    <mat-select placeholder="Mostrar" name="filter" [(ngModel)]="filter"  (change)="search();">
-                        <mat-option value="0" selected="selected">Todas las tareas</mat-option>
-                        <mat-option value="2">Tareas pendientes</mat-option>
-                        <mat-option value="3">Tareas finalizadas</mat-option>
+                    <mat-select placeholder="Mostrar" name="filter" [(ngModel)]="filter" (change)="search();">
+                        <mat-option [value]="0">Todas las tareas</mat-option>
+                        <mat-option [value]="2">Tareas pendientes</mat-option>
+                        <mat-option [value]="3">Tareas finalizadas</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
             <div class="form-group col-md-4">
                 <mat-form-field>
                     <mat-select placeholder="Ordenar por" name="order" [(ngModel)]="order" (change)="search();">
-                        <mat-option value="1" selected="selected">Fecha ascendente</mat-option>
-                        <mat-option value="2">Fecha descendente</mat-option>
+                        <mat-option [value]="1">Fecha ascendente</mat-option>
+                        <mat-option [value]="2">Fecha descendente</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
