@@ -12,7 +12,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {routing, appRoutingProviders} from './app.routing';
 import {AppComponent} from './app.component';
 import {LoginComponent, SnackBarComponentExample, SnackBarComponentExampleError} from './components/login.component';
-import {RegisterComponent, SnackBarComponentExampleError2} from './components/register.component';
+import {RegisterComponent, SnackBarComponentExampleError2, SnackBarComponentExampleError3} from './components/register.component';
 import {DefaultComponent} from './components/default.component';
 import {UserEditComponent} from './components/user.edit.component';
 import {TaskNewComponent} from './components/task.new.component';
@@ -32,6 +32,7 @@ import {GenerateDatePipe} from './pipes/generate.date.pipe';
         SnackBarComponentExample,
         SnackBarComponentExampleError,
         SnackBarComponentExampleError2,
+        SnackBarComponentExampleError3,
     ],
     imports: [
         routing,
@@ -56,6 +57,7 @@ import {GenerateDatePipe} from './pipes/generate.date.pipe';
         SnackBarComponentExample,
         SnackBarComponentExampleError,
         SnackBarComponentExampleError2,
+        SnackBarComponentExampleError3,
     ],
     providers: [
         appRoutingProviders

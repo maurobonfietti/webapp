@@ -22,6 +22,14 @@ export class SnackBarComponentExampleError2 {
 }
 
 @Component({
+    selector: 'snack-bar-component-example',
+    templateUrl: '../views/register.ok.html',
+})
+export class SnackBarComponentExampleError3 {
+    constructor(public snackBar: MatSnackBar) {}
+}
+
+@Component({
     selector: 'register',
     templateUrl: '../views/register.html',
     providers: [UserService]
@@ -53,6 +61,12 @@ export class RegisterComponent implements OnInit {
         });
     }
 
+    openSnackBarOk() {
+        this.snackBar.openFromComponent(SnackBarComponentExampleError3, {
+            duration: 3000,
+        });
+    }
+
     ngOnInit() {
         console.log('register.component [OK]');
     }
@@ -61,6 +75,8 @@ export class RegisterComponent implements OnInit {
         this._userService.register(this.user).subscribe(
             response => {
                 this.status = response.status;
+                this.status = 'success';
+                this.openSnackBarOk();
                 window.location.href = '/login';
             },
             error => {
