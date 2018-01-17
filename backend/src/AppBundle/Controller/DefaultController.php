@@ -6,6 +6,17 @@ use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends BaseController
 {
+    public function statusAction()
+    {
+        $data = [
+            'api' => 'webapp',
+            'status' => 'OK',
+            'version' => '0.9.0',
+        ];
+
+        return $this->json($data);
+    }
+
     public function loginAction(Request $request)
     {
         try {
