@@ -22,16 +22,31 @@
                 <textarea matInput matTooltip="Descripcion adicional sobre la tarea" placeholder="Notas adicionales" name="description" #description="ngModel" [(ngModel)]="task.description"></textarea>
             </mat-form-field>
             <br />
+            <br />
             <div class='panel panel-default task-data' *ngIf='task.id != 0'>
                 <div class='panel-heading'>
-                    <h3 class='panel-title'>
+                    <!--<h3 class='panel-title'>-->
                         <strong>Tarea creada por:</strong> {{task.user.name + ' ' + task.user.surname}}.
-                    </h3>
-                    <h3 class='panel-title'>
+                    <!--</h3>-->
+                    <!--<h3 class='panel-title'>-->
+                        <!--<strong>Fecha creación:</strong> {{task.createdAt.timestamp | generateDate }}.-->
+                    <!--</h3>-->
+                </div>
+                <div class='panel-heading'>
+                    <!--<h3 class='panel-title'>-->
+                        <!--<strong>Tarea creada por:</strong> {{task.user.name + ' ' + task.user.surname}}.-->
+                    <!--</h3>-->
+                    <!--<h3 class='panel-title'>-->
                         <strong>Fecha creación:</strong> {{task.createdAt.timestamp | generateDate }}.
-                    </h3>
+                    <!--</h3>-->
                 </div>
             </div>
+            <br />
+            <mat-chip-list *ngIf='task.id != 0'>
+                <mat-chip color="primary" selected="true">Tarea creada por: {{task.user.name + ' ' + task.user.surname}}</mat-chip>
+                <mat-chip color="primary" selected="true">Fecha creación: {{task.createdAt.timestamp | generateDate }}</mat-chip>
+            </mat-chip-list>
+            <br />
             <br />
             <button mat-raised-button color="primary" matTooltip="Presiona aquí para guardar la tarea" [disabled]="!taskNewForm.form.valid">{{btn_title}}</button>
             <button mat-raised-button color="secundary" matTooltip="Presiona aquí para borrar la tarea" *ngIf='task.id != 0' (click)="deleteTask(task.id)">Borrar</button>
