@@ -6,12 +6,14 @@ use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends BaseController
 {
+    const API_VERSION = '0.9.0';
+
     public function statusAction()
     {
         $data = [
             'api' => 'webapp',
             'status' => 'OK',
-            'version' => '0.9.0',
+            'version' => self::API_VERSION,
         ];
 
         return $this->json($data);
