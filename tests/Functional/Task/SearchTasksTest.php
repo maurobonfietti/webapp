@@ -17,7 +17,6 @@ class SearchTasksTest extends BaseTest
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertTrue($client->getResponse()->isSuccessful());
         $this->assertContains('success', $result);
-        $this->assertNotContains('error', $result);
         $this->assertNotContains('not authorized', $result);
     }
 
@@ -53,7 +52,6 @@ class SearchTasksTest extends BaseTest
         $this->assertTrue($client->getResponse()->isSuccessful());
         $this->assertContains('success', $result);
         $this->assertContains('finished', $result);
-        $this->assertNotContains('error', $result);
         $this->assertNotContains('not authorized', $result);
     }
 
@@ -69,7 +67,6 @@ class SearchTasksTest extends BaseTest
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertTrue($client->getResponse()->isSuccessful());
         $this->assertContains('success', $result);
-        $this->assertNotContains('error', $result);
         $this->assertNotContains('not authorized', $result);
     }
 
