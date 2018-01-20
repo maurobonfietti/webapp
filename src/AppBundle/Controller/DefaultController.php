@@ -33,8 +33,9 @@ class DefaultController extends BaseController
 
         $data = [
             'api' => self::API_NAME,
-            'status' => 'OK',
             'version' => self::API_VERSION,
+            'status' => 'OK',
+            'database' => 'OK',
             'users:' => count($users),
             'tasks:' => count($tasks),
         ];
