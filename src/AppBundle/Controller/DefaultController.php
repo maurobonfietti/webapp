@@ -6,14 +6,37 @@ use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends BaseController
 {
+    const API_NAME = 'todo-list';
+
     const API_VERSION = '0.9.0';
 
     public function statusAction()
     {
         $data = [
-            'api' => 'webapp',
+            'api' => self::API_NAME,
             'status' => 'OK',
             'version' => self::API_VERSION,
+        ];
+
+        return $this->json($data);
+    }
+
+    public function testAction()
+    {
+        $users = $this->getDoctrine()->getManager()
+                ->getRepository('AppBundle:Users')
+                ->findAll();
+
+        $tasks = $this->getDoctrine()->getManager()
+                ->getRepository('AppBundle:Tasks')
+                ->findAll();
+
+        $data = [
+            'api' => self::API_NAME,
+            'status' => 'OK',
+            'version' => self::API_VERSION,
+            'users:' => count($users),
+            'tasks:' => count($tasks),
         ];
 
         return $this->json($data);
