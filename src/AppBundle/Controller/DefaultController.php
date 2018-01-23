@@ -8,14 +8,14 @@ class DefaultController extends BaseController
 {
     const API_NAME = 'todo-list';
 
-    const API_VERSION = '0.9.0';
+    const API_VERSION = '0.10.0';
 
     public function statusAction()
     {
         $data = [
             'api' => self::API_NAME,
-            'status' => 'OK',
             'version' => self::API_VERSION,
+            'status' => 'OK',
         ];
 
         return $this->json($data);
@@ -36,8 +36,8 @@ class DefaultController extends BaseController
             'version' => self::API_VERSION,
             'status' => 'OK',
             'database' => 'OK',
-            'users:' => count($users),
-            'tasks:' => count($tasks),
+            'users' => count($users),
+            'tasks' => count($tasks),
         ];
 
         return $this->json($data);
