@@ -50,4 +50,14 @@ class LoginTest extends BaseTest
         $this->assertContains('incorrecto', $client->getResponse()->getContent());
         $this->assertNotContains('ey', $client->getResponse()->getContent());
     }
+
+    public function testLoginErrorWithoutData()
+    {
+        $client = self::createClient();
+        $client->request('POST', '/login');
+
+        $this->assertEquals(403, $client->getResponse()->getStatusCode());
+        $this->assertContains('error', $client->getResponse()->getContent());
+        $this->assertNotContains('ey', $client->getResponse()->getContent());
+    }
 }
