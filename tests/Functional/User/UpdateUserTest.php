@@ -63,4 +63,17 @@ class UpdateUserTest extends BaseTest
         $this->assertContains('The user already exists.', $client->getResponse()->getContent());
         $this->assertNotContains('success', $client->getResponse()->getContent());
     }
+
+    public function testUpdateUserInvalidJwt()
+    {
+        $client = self::createClient();
+        $client->request('PATCH', '/user/edit', [
+            'json' => '{"name":"Mau","surname":"B","email": "test@test.com", "password": "123"}',
+        ], [], ['HTTP_authorization' => 'abc' . $this->getAuthToken()]);
+
+        $this->assertEquals(403, $client->getResponse()->getStatusCode());
+        $this->assertContains('error', $client->getResponse()->getContent());
+        $this->assertContains('not authorized', $client->getResponse()->getContent());
+        $this->assertNotContains('success', $client->getResponse()->getContent());
+    }
 }
