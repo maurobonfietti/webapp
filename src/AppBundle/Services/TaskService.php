@@ -74,9 +74,6 @@ class TaskService
     private function updateTask($id, $identity, $title, $description, $status)
     {
         $task = $this->em->getRepository('AppBundle:Tasks')->findOneBy(['id' => $id]);
-        if (!isset($identity->sub) || $identity->sub != $task->getUser()->getId()) {
-            throw new \Exception('error: Los datos de la tarea no son validos. [Owner task error]', 400);
-        }
         $task->setTitle($title);
         $task->setDescription($description);
         $task->setStatus($status);
@@ -98,9 +95,6 @@ class TaskService
         $identity = $this->jwtAuth->checkToken($token);
         $this->getOne($token, $id);
         $task = $this->em->getRepository('AppBundle:Tasks')->findOneBy(['id' => $id]);
-        if (!isset($identity->sub) || $identity->sub != $task->getUser()->getId()) {
-            throw new \Exception('error: Los datos de la tarea no son validos. [Owner task error]', 400);
-        }
         $status = $task->getStatus() === 'finished' ? 'todo' : 'finished';
         $task->setStatus($status);
         $task->setUpdatedAt(new \DateTime("now"));

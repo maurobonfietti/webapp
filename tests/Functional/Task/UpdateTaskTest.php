@@ -41,4 +41,16 @@ class UpdateTaskTest extends BaseTest
         $this->assertContains('Task not found', $client->getResponse()->getContent());
         $this->assertNotContains('success', $client->getResponse()->getContent());
     }
+
+    public function testUpdateTaskOwnerError()
+    {
+        $client = self::createClient();
+        $client->request('PATCH', '/task/edit/1', [
+            'json' => '{"title":"Abc", "description":"123..."}',
+        ], [], ['HTTP_authorization' => $this->getAuthToken()]);
+
+        $this->assertEquals(404, $client->getResponse()->getStatusCode());
+        $this->assertContains('error', $client->getResponse()->getContent());
+        $this->assertNotContains('success', $client->getResponse()->getContent());
+    }
 }
