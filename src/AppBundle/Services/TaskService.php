@@ -194,8 +194,6 @@ class TaskService
     {
         if (empty($filter)) {
             $filterStr = null;
-        } elseif ($filter == 1) {
-            $filterStr = 'new';
         } elseif ($filter == 2) {
             $filterStr = 'todo';
         } else {

@@ -45,4 +45,15 @@ class CreateTaskTest extends BaseTest
         $this->assertContains('Los datos de la tarea no son validos', $client->getResponse()->getContent());
         $this->assertNotContains('success', $client->getResponse()->getContent());
     }
+
+    public function testCreateTaskWithoutData()
+    {
+        $client = self::createClient();
+        $client->request('POST', '/task/new', [], [], ['HTTP_authorization' => $this->getAuthToken()]);
+
+        $this->assertEquals(400, $client->getResponse()->getStatusCode());
+        $this->assertContains('error', $client->getResponse()->getContent());
+        $this->assertContains('Sin datos para actualizar la tarea', $client->getResponse()->getContent());
+        $this->assertNotContains('success', $client->getResponse()->getContent());
+    }
 }
