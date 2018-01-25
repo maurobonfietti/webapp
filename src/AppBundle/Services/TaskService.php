@@ -36,27 +36,29 @@ class TaskService
         $title = isset($params->title) ? $params->title : null;
         $description = isset($params->description) ? $params->description : null;
         $status = isset($params->status) ? $params->status : null;
+        $priority = isset($params->priority) ? $params->priority : null;
         if ($userId === null || empty($title)) {
             throw new \Exception('error: Los datos de la tarea no son validos.', 400);
         }
         $user = $this->em->getRepository('AppBundle:Users')->findOneBy(['id' => $userId]);
         if ($id === null) {
-            $data = $this->createTask($user, $title, $description, $status);
+            $data = $this->createTask($user, $title, $description, $status, $priority);
         } else {
             $this->getOne($token, $id);
-            $data = $this->updateTask($id, $identity, $title, $description, $status);
+            $data = $this->updateTask($id, $title, $description, $status, $priority);
         }
 
         return $data;
     }
 
-    private function createTask($user, $title, $description, $status)
+    private function createTask($user, $title, $description, $status, $priority)
     {
         $task = new Tasks();
         $task->setUser($user);
         $task->setTitle($title);
         $task->setDescription($description);
         $task->setStatus($status);
+        $task->setPriority($priority);
         $task->setCreatedAt(new \DateTime("now"));
         $task->setUpdatedAt(new \DateTime("now"));
         $this->em->persist($task);
@@ -71,12 +73,13 @@ class TaskService
         return $data;
     }
 
-    private function updateTask($id, $identity, $title, $description, $status)
+    private function updateTask($id, $title, $description, $status, $priority)
     {
         $task = $this->em->getRepository('AppBundle:Tasks')->findOneBy(['id' => $id]);
         $task->setTitle($title);
         $task->setDescription($description);
         $task->setStatus($status);
+        $task->setPriority($priority);
         $task->setUpdatedAt(new \DateTime("now"));
         $this->em->persist($task);
         $this->em->flush();
