@@ -28,6 +28,11 @@ class Tasks
     private $status;
 
     /**
+     * @var boolean
+     */
+    private $priority;
+
+    /**
      * @var \DateTime
      */
     private $createdAt;
@@ -123,6 +128,30 @@ class Tasks
     public function getStatus()
     {
         return $this->status;
+    }
+
+    /**
+     * Set priority.
+     *
+     * @param bool|null $priority
+     *
+     * @return Tasks
+     */
+    public function setPriority($priority = null)
+    {
+        $this->priority = $priority;
+
+        return $this;
+    }
+
+    /**
+     * Get priority.
+     *
+     * @return bool|null
+     */
+    public function getPriority()
+    {
+        return $this->priority;
     }
 
     /**
