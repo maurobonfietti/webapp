@@ -6,9 +6,9 @@ use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends BaseController
 {
-    const API_NAME = 'todo-list';
+    const API_NAME = 'todo-list-back';
 
-    const API_VERSION = '0.10.0';
+    const API_VERSION = '0.11.0';
 
     public function statusAction()
     {
