@@ -10,11 +10,17 @@ class DefaultController extends BaseController
 
     const API_VERSION = '0.11.0';
 
+    public static function getTagVersion()
+    {
+        return trim(exec('git describe --tags --abbrev=0'));
+    }
+
     public function statusAction()
     {
         $data = [
             'api' => self::API_NAME,
             'version' => self::API_VERSION,
+            'tag' => self::getTagVersion(),
             'status' => 'OK',
         ];
 
