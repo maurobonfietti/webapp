@@ -7,7 +7,7 @@ class CreateUserTest extends BaseTest
     public function testCreateUserOk()
     {
         $client = self::createClient();
-        $client->request('POST', '/user/new', [
+        $client->request('POST', '/user', [
             'json' => '{"name":"test","surname":"test","email": "test-'.rand(1, 99999).'@test.com", "password": "test"}',
         ]);
 
@@ -20,7 +20,7 @@ class CreateUserTest extends BaseTest
     public function testCreateUserError()
     {
         $client = self::createClient();
-        $client->request('POST', '/user/new', [
+        $client->request('POST', '/user', [
             'json' => '{"email": "", "password": ""}',
         ]);
 
@@ -33,7 +33,7 @@ class CreateUserTest extends BaseTest
     public function testCreateUserWithoutData()
     {
         $client = self::createClient();
-        $client->request('POST', '/user/new', [
+        $client->request('POST', '/user', [
             'json' => '{"name":"","surname":"","email": "", "password": ""}',
         ]);
 
@@ -46,7 +46,7 @@ class CreateUserTest extends BaseTest
     public function testCreateUserExists()
     {
         $client = self::createClient();
-        $client->request('POST', '/user/new', [
+        $client->request('POST', '/user', [
             'json' => '{"name":"test","surname":"test","email": "test@test.com", "password": "test"}',
         ]);
 
