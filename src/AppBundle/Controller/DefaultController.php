@@ -8,7 +8,7 @@ class DefaultController extends BaseController
 {
     const API_NAME = 'todo-list-back';
 
-    const API_VERSION = '0.11.0';
+    const API_VERSION = '0.20.0';
 
     public static function getTagVersion()
     {
@@ -20,7 +20,7 @@ class DefaultController extends BaseController
         $data = [
             'api' => self::API_NAME,
             'version' => self::API_VERSION,
-            'tag' => self::getTagVersion(),
+//            'tag' => self::getTagVersion(),
             'status' => 'OK',
         ];
 
