@@ -23,8 +23,7 @@
         "symfony/swiftmailer-bundle": "^2.3.10",
         "symfony/symfony": "3.4.*",
         "firebase/php-jwt": "^3.0.0 ",
-        "knplabs/knp-paginator-bundle": "2.6.*",
-        "twig/twig": "^1.0||^2.0"
+        "knplabs/knp-paginator-bundle": "2.6.*"
     },
     "require-dev": {
         "phploc/phploc": "^4.0",

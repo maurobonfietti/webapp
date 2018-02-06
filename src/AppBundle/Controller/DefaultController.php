@@ -20,7 +20,6 @@ class DefaultController extends BaseController
         $data = [
             'api' => self::API_NAME,
             'version' => self::API_VERSION,
-            'tag' => self::getTagVersion(),
             'status' => 'OK',
         ];
 
