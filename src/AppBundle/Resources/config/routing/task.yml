@@ -13,6 +13,11 @@ task_update_status:
     defaults: { _controller: "AppBundle:Task:updateStatus", id: null }
     methods: PATCH
 
+task_update_priority:
+    path: /update-priority/{id}
+    defaults: { _controller: "AppBundle:Task:updatePriority", id: null }
+    methods: PATCH
+
 task_list:
     path: /list
     defaults: { _controller: "AppBundle:Task:getAll" }

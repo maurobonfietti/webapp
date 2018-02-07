@@ -8,7 +8,7 @@ class DefaultController extends BaseController
 {
     const API_NAME = 'todo-list-back';
 
-    const API_VERSION = '0.11.0';
+    const API_VERSION = '0.12.0';
 
     public static function getTagVersion()
     {

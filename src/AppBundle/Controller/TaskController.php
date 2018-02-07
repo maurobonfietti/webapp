@@ -44,6 +44,18 @@ class TaskController extends BaseController
         }
     }
 
+    public function updatePriorityAction(Request $request, $id)
+    {
+        try {
+            $token = $request->headers->get('Authorization');
+            $task = $this->getTaskService()->updatePriority($token, $id);
+
+            return $this->response($task);
+        } catch (\Exception $e) {
+            return $this->responseError($e);
+        }
+    }
+
     public function getOneAction(Request $request, $id = null)
     {
         try {
