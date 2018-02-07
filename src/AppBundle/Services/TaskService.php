@@ -183,10 +183,10 @@ class TaskService
         if ($filter != null) {
             $dql.= " AND t.status = :filter ";
         }
-        if ($priority == 1) {
+        if ($priority === 1) {
             $dql.= " AND t.priority = 1 ";
         }
-        if ($priority == 0) {
+        if ($priority === 0) {
             $dql.= " AND (t.priority IS NULL OR t.priority = 0)";
         }
         $dql.= " ORDER BY t.id $order ";
