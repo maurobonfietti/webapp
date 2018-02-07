@@ -84,11 +84,14 @@ class TaskController extends BaseController
     public function searchAction(Request $request, $search = null)
     {
         try {
+            $priority = $request->get('priority', null);
             $filter = $request->get('filter', null);
             $order = $request->get('order', null);
             $page = $request->get('page', 1);
             $token = $request->headers->get('Authorization');
-            $tasks = $this->getTaskService()->search($token, $filter, $order, $search, (int) $page);
+            $tasks = $this->getTaskService()->search(
+                $token, $filter, $order, $search, (int) $page, $priority
+            );
 
             return $this->response($tasks);
         } catch (\Exception $e) {
