@@ -31,7 +31,7 @@ task_detail:
 task_search:
     path: /search/{search}
     defaults: { _controller: "AppBundle:Task:search", search: null }
-    methods: POST
+    methods: GET
 
 task_remove:
     path: /remove/{id}
