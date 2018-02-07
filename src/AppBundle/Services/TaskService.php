@@ -95,11 +95,31 @@ class TaskService
 
     public function updateStatus($token, $id)
     {
-        $identity = $this->jwtAuth->checkToken($token);
+        $this->jwtAuth->checkToken($token);
         $this->getOne($token, $id);
         $task = $this->em->getRepository('AppBundle:Tasks')->findOneBy(['id' => $id]);
         $status = $task->getStatus() === 'finished' ? 'todo' : 'finished';
         $task->setStatus($status);
+        $task->setUpdatedAt(new \DateTime("now"));
+        $this->em->persist($task);
+        $this->em->flush();
+        $data = [
+            'status' => 'success',
+            'code' => 200,
+            'msg' => 'Tarea actualizada.',
+            'task' => $task,
+        ];
+
+        return $data;
+    }
+
+    public function updatePriority($token, $id)
+    {
+        $this->jwtAuth->checkToken($token);
+        $this->getOne($token, $id);
+        $task = $this->em->getRepository('AppBundle:Tasks')->findOneBy(['id' => $id]);
+        $priority = $task->getPriority() === true ? false : true;
+        $task->setPriority($priority);
         $task->setUpdatedAt(new \DateTime("now"));
         $this->em->persist($task);
         $this->em->flush();
