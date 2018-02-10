@@ -37,7 +37,6 @@ class UserService
         $this->validateCreateUser($email, $name, $surname, $password);
         $userRepository = new UserRepository($this->em);
         $user = $userRepository->create($email, $name, $surname, $password);
-        $this->sendWelcomeEmail($user);
 
         return $user;
     }
@@ -54,25 +53,6 @@ class UserService
         }
     }
 
-    public function sendWelcomeEmail($user)
-    {
-        $email = $user->getEmail();
-        $nombre = $user->getName() . ' ' . $user->getSurName();
-        $from = new \SendGrid\Email('ToDo List Web App', 'mauro.bonfietti@gmail.com');
-        $subject = '¡Bienvenido! Te registraste correctamente';
-        $to = new \SendGrid\Email($nombre, $email);
-        $content = new \SendGrid\Content('text/html', 'Te damos la bienvenida a la aplicación...');
-        $mail = new \SendGrid\Mail($from, $subject, $to, $content);
-
-        $apiKey = '...';
-        $sg = new \SendGrid($apiKey);
-
-        $response = $sg->client->mail()->send()->post($mail);
-        echo $response->statusCode();
-        print_r($response->headers());
-        echo $response->body();
-    }
-
     public function update($token, $json)
     {
         $identity = $this->jwtAuth->checkToken($token);
@@ -85,7 +65,6 @@ class UserService
         $user = $this->getAndValidateUser($email, $name, $surname, $identity);
         $userRepository = new UserRepository($this->em);
         $data = $userRepository->update($user, $email, $name, $surname, $password);
-//        $this->sendWelcomeEmail($user);
 
         return $data;
     }
