@@ -4,17 +4,17 @@ task_new:
     methods: POST
 
 task_edit:
-    path: /task/edit/{id}
+    path: /task/{id}
     defaults: { _controller: "AppBundle:Task:update", id: null }
     methods: PATCH
 
 task_update_status:
-    path: /task/update-status/{id}
+    path: /task/status/{id}
     defaults: { _controller: "AppBundle:Task:updateStatus", id: null }
     methods: PATCH
 
 task_update_priority:
-    path: /task/update-priority/{id}
+    path: /task/priority/{id}
     defaults: { _controller: "AppBundle:Task:updatePriority", id: null }
     methods: PATCH
 
@@ -23,17 +23,17 @@ task_list:
     defaults: { _controller: "AppBundle:Task:getAll" }
     methods: GET
 
-task_detail:
-    path: /task/detail/{id}
-    defaults: { _controller: "AppBundle:Task:getOne", id: null }
-    methods: GET
-
 task_search:
     path: /task/search/{search}
     defaults: { _controller: "AppBundle:Task:search", search: null }
     methods: GET
 
+task_detail:
+    path: /task/{id}
+    defaults: { _controller: "AppBundle:Task:getOne", id: null }
+    methods: GET
+
 task_remove:
-    path: /task/remove/{id}
+    path: /task/{id}
     defaults: { _controller: "AppBundle:Task:delete", id: null }
     methods: DELETE

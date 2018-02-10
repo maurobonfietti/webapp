@@ -7,7 +7,7 @@ class GetOneTaskTest extends BaseTest
     public function testGetOneTaskOk()
     {
         $client = self::createClient();
-        $client->request('GET', '/task/detail/845', [], [], [
+        $client->request('GET', '/task/845', [], [], [
             'HTTP_authorization' => $this->getAuthToken(),
         ]);
 
@@ -21,7 +21,7 @@ class GetOneTaskTest extends BaseTest
     public function testGetOneTaskNotFound()
     {
         $client = self::createClient();
-        $client->request('GET', '/task/detail/1', [], [], [
+        $client->request('GET', '/task/1', [], [], [
             'HTTP_authorization' => $this->getAuthToken(),
         ]);
 
@@ -34,7 +34,7 @@ class GetOneTaskTest extends BaseTest
     public function testGetOneTaskError()
     {
         $client = self::createClient();
-        $client->request('GET', '/task/detail/1');
+        $client->request('GET', '/task/1');
 
         $this->assertEquals(403, $client->getResponse()->getStatusCode());
         $this->assertContains('error', $client->getResponse()->getContent());
