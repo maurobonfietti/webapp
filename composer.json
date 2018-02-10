@@ -23,6 +23,7 @@
         "symfony/swiftmailer-bundle": "^2.3.10",
         "symfony/symfony": "3.4.*",
         "firebase/php-jwt": "^3.0.0 ",
+        "sendgrid/sendgrid": "~6.0",
         "knplabs/knp-paginator-bundle": "2.6.*"
     },
     "require-dev": {
