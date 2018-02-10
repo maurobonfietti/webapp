@@ -8,12 +8,7 @@ class DefaultController extends BaseController
 {
     const API_NAME = 'todo-list-back';
 
-    const API_VERSION = '0.12.0';
-
-    public static function getTagVersion()
-    {
-        return trim(exec('git describe --tags --abbrev=0'));
-    }
+    const API_VERSION = '0.12.1';
 
     public function statusAction()
     {
