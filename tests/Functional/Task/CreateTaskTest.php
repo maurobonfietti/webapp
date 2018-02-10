@@ -7,7 +7,7 @@ class CreateTaskTest extends BaseTest
     public function testCreateTaskOk()
     {
         $client = self::createClient();
-        $client->request('POST', '/task/new', [
+        $client->request('POST', '/task', [
             'json' => '{"title":"test.", "description":"Mi test 1...", "status":"todo"}',
         ], [], ['HTTP_authorization' => $this->getAuthToken()]);
 
@@ -25,7 +25,7 @@ class CreateTaskTest extends BaseTest
     public function testCreateTaskError()
     {
         $client = self::createClient();
-        $client->request('POST', '/task/new');
+        $client->request('POST', '/task');
 
         $this->assertEquals(403, $client->getResponse()->getStatusCode());
         $this->assertContains('error', $client->getResponse()->getContent());
@@ -36,7 +36,7 @@ class CreateTaskTest extends BaseTest
     public function testCreateTaskWithoutTitle()
     {
         $client = self::createClient();
-        $client->request('POST', '/task/new', [
+        $client->request('POST', '/task', [
             'json' => '{"title":"", "description":"Mi test 1...", "status":"todo"}',
         ], [], ['HTTP_authorization' => $this->getAuthToken()]);
 
@@ -49,7 +49,7 @@ class CreateTaskTest extends BaseTest
     public function testCreateTaskWithoutData()
     {
         $client = self::createClient();
-        $client->request('POST', '/task/new', [], [], ['HTTP_authorization' => $this->getAuthToken()]);
+        $client->request('POST', '/task', [], [], ['HTTP_authorization' => $this->getAuthToken()]);
 
         $this->assertEquals(400, $client->getResponse()->getStatusCode());
         $this->assertContains('error', $client->getResponse()->getContent());

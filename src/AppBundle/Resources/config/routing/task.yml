@@ -1,39 +1,39 @@
 task_new:
-    path: /new
+    path: /task
     defaults: { _controller: "AppBundle:Task:create" }
     methods: POST
 
 task_edit:
-    path: /edit/{id}
+    path: /task/edit/{id}
     defaults: { _controller: "AppBundle:Task:update", id: null }
     methods: PATCH
 
 task_update_status:
-    path: /update-status/{id}
+    path: /task/update-status/{id}
     defaults: { _controller: "AppBundle:Task:updateStatus", id: null }
     methods: PATCH
 
 task_update_priority:
-    path: /update-priority/{id}
+    path: /task/update-priority/{id}
     defaults: { _controller: "AppBundle:Task:updatePriority", id: null }
     methods: PATCH
 
 task_list:
-    path: /list
+    path: /task/list
     defaults: { _controller: "AppBundle:Task:getAll" }
     methods: GET
 
 task_detail:
-    path: /detail/{id}
+    path: /task/detail/{id}
     defaults: { _controller: "AppBundle:Task:getOne", id: null }
     methods: GET
 
 task_search:
-    path: /search/{search}
+    path: /task/search/{search}
     defaults: { _controller: "AppBundle:Task:search", search: null }
     methods: GET
 
 task_remove:
-    path: /remove/{id}
+    path: /task/remove/{id}
     defaults: { _controller: "AppBundle:Task:delete", id: null }
     methods: DELETE
