@@ -1,7 +1,6 @@
 <?php
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Dotenv\Dotenv;
 
 // Enable HTTP CORS Headers.
 header('Access-Control-Allow-Origin: *');
@@ -24,11 +23,6 @@ if (PHP_VERSION_ID < 70000) {
     $kernel->loadClassCache();
 }
 //$kernel = new AppCache($kernel);
-
-$dotenv = new Dotenv();
-if (file_exists(__DIR__.'/../.env')) {
-    $dotenv->load(__DIR__.'/../.env');
-}
 
 // When using the HttpCache, you need to call the method in your front controller instead of relying on the configuration parameter
 //Request::enableHttpMethodParameterOverride();
