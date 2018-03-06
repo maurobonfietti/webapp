@@ -15,6 +15,7 @@ class DefaultController extends BaseController
         $data = [
             'api' => self::API_NAME,
             'version' => self::API_VERSION,
+            'env' => getenv('ENV'),
             'status' => 'OK',
         ];
 
@@ -34,6 +35,7 @@ class DefaultController extends BaseController
         $data = [
             'api' => self::API_NAME,
             'version' => self::API_VERSION,
+            'env' => getenv('ENV'),
             'status' => 'OK',
             'database' => 'OK',
             'users' => count($users),
