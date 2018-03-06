@@ -8,14 +8,14 @@ class DefaultController extends BaseController
 {
     const API_NAME = 'todo-list-back';
 
-    const API_VERSION = '0.12.1';
+    const API_VERSION = '0.12.2';
 
     public function statusAction()
     {
         $data = [
             'api' => self::API_NAME,
-            'version' => self::API_VERSION,
             'env' => getenv('ENV'),
+            'version' => self::API_VERSION,
             'status' => 'OK',
         ];
 
@@ -34,8 +34,8 @@ class DefaultController extends BaseController
 
         $data = [
             'api' => self::API_NAME,
-            'version' => self::API_VERSION,
             'env' => getenv('ENV'),
+            'version' => self::API_VERSION,
             'status' => 'OK',
             'database' => 'OK',
             'users' => count($users),
