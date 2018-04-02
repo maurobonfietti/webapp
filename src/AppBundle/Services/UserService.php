@@ -82,4 +82,9 @@ class UserService
 
         return $this->em->getRepository('AppBundle:Users')->findOneBy(["id" => $identity->sub]);
     }
+
+    public function getAll()
+    {
+        return $this->em->getRepository('AppBundle:Users')->findAll();
+    }
 }

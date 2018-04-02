@@ -30,4 +30,15 @@ class UserController extends BaseController
             return $this->responseError($e);
         }
     }
+
+    public function getAllAction()
+    {
+        try {
+            $users = $this->getUserService()->getAll();
+
+            return $this->response($users);
+        } catch (\Exception $e) {
+            return $this->responseError($e);
+        }
+    }
 }
