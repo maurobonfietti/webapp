@@ -31,10 +31,11 @@ class UserController extends BaseController
         }
     }
 
-    public function getAllAction()
+    public function getAllAction(Request $request)
     {
         try {
-            $users = $this->getUserService()->getAll();
+            $token = $request->headers->get('Authorization');
+            $users = $this->getUserService()->getAll($token);
 
             return $this->response($users);
         } catch (\Exception $e) {

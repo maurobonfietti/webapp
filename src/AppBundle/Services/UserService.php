@@ -83,8 +83,11 @@ class UserService
         return $this->em->getRepository('AppBundle:Users')->findOneBy(["id" => $identity->sub]);
     }
 
-    public function getAll()
+    public function getAll($token)
     {
+        $identity = $this->jwtAuth->checkToken($token);
+        $user = $this->em->getRepository('AppBundle:Users')->findOneBy(['id' => $identity->sub]);
+        var_dump($user); exit;
         $users = $this->em->getRepository('AppBundle:Users')->findAll();
         $response = [];
         foreach ($users as $user) {
