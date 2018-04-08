@@ -87,7 +87,9 @@ class UserService
     {
         $identity = $this->jwtAuth->checkToken($token);
         $user = $this->em->getRepository('AppBundle:Users')->findOneBy(['id' => $identity->sub]);
-        var_dump($user); exit;
+        if ($user->getRole() !== 'admin') {
+            throw new \Exception('error: Forbidden. Only admin allowed.', 400);
+        }
         $users = $this->em->getRepository('AppBundle:Users')->findAll();
         $response = [];
         foreach ($users as $user) {
