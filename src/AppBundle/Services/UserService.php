@@ -88,10 +88,11 @@ class UserService
         $users = $this->em->getRepository('AppBundle:Users')->findAll();
         $response = [];
         foreach ($users as $user) {
-            var_dump($user); exit;
             $response[] = [
-                'id' => $user->id,
-                'email' => $user->email,
+                'id' => $user->getId(),
+                'email' => $user->getEmail(),
+                'name' => $user->getName(),
+                'surname' => $user->getSurname(),
             ];
         }
 
