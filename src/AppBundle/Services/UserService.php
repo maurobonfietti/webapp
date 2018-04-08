@@ -85,6 +85,15 @@ class UserService
 
     public function getAll()
     {
-        return $this->em->getRepository('AppBundle:Users')->findAll();
+        $users = $this->em->getRepository('AppBundle:Users')->findAll();
+        $response = [];
+        foreach ($users as $user) {
+            $response[] = [
+                'id' => $user->id,
+                'email' => $user->email,
+            ];
+        }
+
+        return $response;
     }
 }
