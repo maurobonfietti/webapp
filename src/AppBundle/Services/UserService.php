@@ -93,7 +93,7 @@ class UserService
         $users = $this->em->getRepository('AppBundle:Users')->findAll();
         $response = [];
         foreach ($users as $user) {
-            $tasks = $this->em->getRepository('AppBundle:Tasks')->findBy(['id' => $user->getId()]);
+            $tasks = $this->em->getRepository('AppBundle:Tasks')->findBy(['user' => $user->getId()]);
             var_dump($tasks); exit;
             $response[] = [
                 'id' => $user->getId(),
