@@ -1,8 +1,14 @@
 # Another ToDo List Web App:
 
-Online Demo: http://bit.ly/2ngN0rB
+This is another 'ToDo List' app, for do amazing stuff ;-)
 
-Help Commands:
+## Application:
+
+* Frontend: Angular 4 + Angular Material Design.
+* Backend: Symfony PHP Framework + MySQL DB.
+
+
+## Execute Commands:
 
 ``` bash
 composer install
@@ -11,8 +17,8 @@ php bin/console doctrine:schema:update --force
 php bin/console server:start
 ```
 
-(sudo)
 
+## Configure:
 
 Config file example: app/config/parameters.yml
 
@@ -24,3 +30,9 @@ parameters:
     database_user: root
     database_password: 
 ```
+
+
+## Enjoy Online Demo:
+
+Hosted using Heroku, online demo: http://bit.ly/2ngN0rB
+
