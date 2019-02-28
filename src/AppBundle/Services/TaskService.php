@@ -200,17 +200,18 @@ class TaskService
         $itemsPerPage = 100;
         $task = $this->paginator->paginate($query, $page, $itemsPerPage);
         $totalItemsCount = $task->getTotalItemCount();
-        $data = [
+        $stats = $this->getStats($token);
+
+        return [
             'status' => 'success',
             'code' => 200,
             'totalItemsCount' => $totalItemsCount,
             'actual_page' => $page,
             'itemsPerPage' => $itemsPerPage,
             'totalPages' => ceil($totalItemsCount / $itemsPerPage),
+            'stats' => $stats,
             'data' => $task,
         ];
-
-        return $data;
     }
 
     private function getFilter($filter)
@@ -247,5 +248,33 @@ class TaskService
         } else {
             throw new \Exception('error: Task not found.', 404);
         }
+    }
+
+    public function getStats($token)
+    {
+        $identity = $this->jwtAuth->checkToken($token);
+        $qb = $this->em->createQueryBuilder();
+        $qb->select('count(t.id)');
+        $qb->from('AppBundle:Tasks', 't');
+        $qb->where('t.user = :user');
+        $qb->andWhere('t.status = :status');
+        $qb->setParameter('user', $identity->sub);
+        $qb->setParameter('status', 'todo');
+        $todo = $qb->getQuery()->getSingleScalarResult();
+
+        $qb2 = $this->em->createQueryBuilder();
+        $qb2->select('count(t.id)');
+        $qb2->from('AppBundle:Tasks', 't');
+        $qb2->where('t.user = :user');
+        $qb2->andWhere('t.status = :status');
+        $qb2->setParameter('user', $identity->sub);
+        $qb2->setParameter('status', 'finished');
+        $done = $qb2->getQuery()->getSingleScalarResult();
+
+        return [
+            'todo' => (int) $todo,
+            'done' => (int) $done,
+            'total' => $todo + $done,
+        ];
     }
 }
