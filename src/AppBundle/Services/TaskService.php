@@ -200,7 +200,7 @@ class TaskService
         $itemsPerPage = 100;
         $task = $this->paginator->paginate($query, $page, $itemsPerPage);
         $totalItemsCount = $task->getTotalItemCount();
-        $stats = $this->getStats($token);
+        $stats = $this->getStats($identity->sub);
 
         return [
             'status' => 'success',
@@ -250,24 +250,23 @@ class TaskService
         }
     }
 
-    public function countTasksByStatus($token, $status)
+    public function countTasksByStatus($user, $status)
     {
-        $identity = $this->jwtAuth->checkToken($token);
         $qb = $this->em->createQueryBuilder();
         $qb->select('count(t.id)');
         $qb->from('AppBundle:Tasks', 't');
         $qb->where('t.user = :user');
         $qb->andWhere('t.status = :status');
-        $qb->setParameter('user', $identity->sub);
+        $qb->setParameter('user', $user);
         $qb->setParameter('status', $status);
 
         return $qb->getQuery()->getSingleScalarResult();
     }
 
-    public function getStats($token)
+    public function getStats($user)
     {
-        $todo = $this->getStats1($token, 'todo');
-        $done = $this->getStats1($token, 'finished');
+        $todo = $this->countTasksByStatus($user, 'todo');
+        $done = $this->countTasksByStatus($user, 'finished');
 
         return [
             'todo' => (int) $todo,
