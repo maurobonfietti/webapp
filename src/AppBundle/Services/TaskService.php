@@ -250,7 +250,7 @@ class TaskService
         }
     }
 
-    public function getStats($token)
+    public function countTasksByStatus($token, $status)
     {
         $identity = $this->jwtAuth->checkToken($token);
         $qb = $this->em->createQueryBuilder();
@@ -259,17 +259,15 @@ class TaskService
         $qb->where('t.user = :user');
         $qb->andWhere('t.status = :status');
         $qb->setParameter('user', $identity->sub);
-        $qb->setParameter('status', 'todo');
-        $todo = $qb->getQuery()->getSingleScalarResult();
+        $qb->setParameter('status', $status);
 
-        $qb2 = $this->em->createQueryBuilder();
-        $qb2->select('count(t.id)');
-        $qb2->from('AppBundle:Tasks', 't');
-        $qb2->where('t.user = :user');
-        $qb2->andWhere('t.status = :status');
-        $qb2->setParameter('user', $identity->sub);
-        $qb2->setParameter('status', 'finished');
-        $done = $qb2->getQuery()->getSingleScalarResult();
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    public function getStats($token)
+    {
+        $todo = $this->getStats1($token, 'todo');
+        $done = $this->getStats1($token, 'finished');
 
         return [
             'todo' => (int) $todo,
