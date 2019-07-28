@@ -34,4 +34,6 @@ parameters:
 
 ## Online Demo:
 
-[Try demo](http://bit.ly/2ngN0rB) *[Hosted using Heroku Free App]*.
+Using Heroku Free.
+
+[Try Demo](http://bit.ly/2ngN0rB).
