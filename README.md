@@ -35,4 +35,4 @@ parameters:
 ## Enjoy Online Demo:
 
 Hosted using Heroku, online demo: http://bit.ly/2ngN0rB
-
+[Try demo](http://bit.ly/2ngN0rB) *[Hosted using Heroku]*.
