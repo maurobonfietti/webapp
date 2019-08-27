@@ -8,7 +8,7 @@ class DefaultController extends BaseController
 {
     const API_NAME = 'todo-list-back';
 
-    const API_VERSION = '0.15.0';
+    const API_VERSION = '1.0.0';
 
     public function statusAction()
     {
